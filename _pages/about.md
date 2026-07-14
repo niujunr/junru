@@ -2,33 +2,32 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+nav: true
+nav_order: 1
+subtitle: "牛君儒 · Group President's Assistant & VP, Government Relations at Dreame Technology; Investor Relations at Dreame Ventures"
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: junru-niu.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Email: <a href="mailto:niujunr@gmail.com">niujunr@gmail.com</a></p>
+    <p><a href="https://www.linkedin.com/in/junru-niu-6a92491a7" rel="external nofollow noopener" target="_blank">LinkedIn</a></p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: false # hidden until there is confirmed content to show
+social: true # real public links are configured in _data/socials.yml
 
 announcements:
   enabled: true # includes a list of news items
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  limit: 3 # leave blank to include all the news in the `_news` folder
 
 latest_posts:
-  enabled: true
+  enabled: false
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Junru Niu（牛君儒）目前就职于追觅科技与追创创投，参与集团战略、重大产业项目及投资者关系工作。他的工作涵盖政府与国资合作、产业基金、生态投资和国际化渠道拓展，重点关注 AI 与机器人、智能家居、先进制造及相关供应链。
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+此前，他曾在红杉中国、真格基金、知春资本和叽里呱啦从事投资者关系、基金运营及行业研究工作。Junru 毕业于宾夕法尼亚大学社会政策与数据分析硕士项目，并拥有德克萨斯大学奥斯汀分校经济学与社会学双学士学位。

@@ -1,189 +1,98 @@
 cv:
-  name: Albert Einstein
-  label: Scientist
-  email: einstein@example.com
-  location: Princeton, NJ
+  name: Junru Niu
+  label: Group President's Assistant, VP Government Relations, and Investor Relations
+  email: niujunr@gmail.com
+  location: China
   image: ""
-  summary: A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time
+  summary: Works across group strategy, industrial projects, government and state-owned capital partnerships, industrial funds, ecosystem investment, and investor relations.
 
   social_networks:
-    - network: X
-      username: AlbertEinstein
-    - network: GitHub
-      username: example
     - network: LinkedIn
-      username: example
-
-  address:
-    street: 2712 Broadway St
-    city: San Francisco
-    region: California
-    postalCode: CA 94115
-    countryCode: US
+      username: junru-niu-6a92491a7
 
   sections:
-    Education:
-      - institution: University of Zurich
-        location: Zurich, Switzerland
-        url: https://www.uzh.ch/
-        area: Physics
-        studyType: PhD
-        start_date: 1900
-        end_date: 1905
-        score: ""
-        courses: "Theory of Relativity"
-        highlights:
-          - Description 1.
-          - Description 2.
-
-      - institution: Eidgenössische Technische Hochschule
-        location: Zurich, Switzerland
-        area: Physics
-        studyType: Federal teaching diploma
-        start_date: 1896
-        end_date: 1900
-        highlights:
-          - Description 1.
-          - Description 2.
+    Personal Information:
+      - name: Basic Information
+        summary: Male | 184 cm | Unaffiliated
 
     Experience:
-      - company: Institute for Advanced Study, Princeton University
-        position: Professor of Theoretical Physics
-        location: Princeton University, NJ
-        start_date: 1933
-        end_date: 1955
-        summary: Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.
+      - company: Dreame Technology | Dreame Ventures
+        position: Group President's Assistant; VP, Government Relations; Investor Relations
+        start_date: 2024-12
         highlights:
-          - Relativity
-          - Description 2.
+          - Supports group management on new businesses, major industrial projects, ecosystem investment, and external partnerships.
+          - Leads industrial landing and regional development work for the major home-appliance business, including government, state-owned capital, and industrial-park partnerships.
+          - Participates in project assessment, commercial negotiation, economic modeling, policy requests, and agreement coordination for projects in Chengdu Qingbaijiang, Deyang Guanghan, Chongqing Changshou, Lanzhou New Area, Zhangjiakou, Cangzhou, Fuzhou, and Changsha Kaifu.
+          - Participated in the Chengdu Qingbaijiang smart-display home-appliance and logistics-export project, with a total planned investment of approximately RMB 5 billion.
+          - Leads government and state-owned LP development, fund-structure analysis, cooperation design, reinvestment arrangements, and post-investment coordination for Dreame Ventures and Dreame ecosystem funds.
+          - Conducts sourcing, industry research, commercial diligence, and investment assessment in AI and robotics, smart home, high-end consumer electronics, advanced manufacturing, industrial software, and core supply chains.
+          - Supports pre-IPO financing and capital cooperation through fundraising materials, investor reports, due-diligence responses, data-room documents, and management communications.
 
-      - company: California Institute of Technology
-        position: Visiting Professor
-        location: Pasadena, California, US
-        start_date: 1933
-        end_date: 1933
+      - company: HongShan
+        position: Investor Relations
+        start_date: 2024-03
+        end_date: 2024-08
         highlights:
-          - Description 1.
-          - Description 2.
+          - Participated in FoFs fund operations, reviewing annual reports, operating data, and underlying portfolio information for USD and RMB GPs.
+          - Researched private-equity secondary funds, comparing market development, transaction structures, and exit conditions in China and the United States.
+          - Supported overseas ecosystem development with investment-promotion agencies and industrial platforms in the Middle East and Southeast Asia.
+          - Supported accelerator, ecosystem-event, written-content, video, and public-platform operations.
 
-      - company: Kaiser Wilhelm Institute for Physics
-        position: Director
-        location: Berlin, Germany
-        start_date: 1917
-        end_date: 1933
-
-      - company: Karl-Ferdinand University
-        position: Professor of Theoretical Physics
-        location: Prague, Czechoslovakia
-        start_date: 1911
-        end_date: 1917
-
-      - company: University of Zurich
-        position: Associate Professor of Theoretical Physics
-        location: Zurich, Switzerland
-        start_date: 1909
-        end_date: 1911
-
-    Volunteer:
-      - company: People's Climate March
-        position: Lead Organizer
-        location: Zurich, Switzerland
-        start_date: 2014-04-01
-        end_date: 2015-07-01
-        summary: Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.
+      - company: ZhenFund
+        position: Investor Relations
+        start_date: 2023-04
+        end_date: 2024-01
         highlights:
-          - "Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march."
-          - "Men of the year 2014 by Time magazine"
+          - Supported fundraising for ZhenFund Fund VII through prospective-investor research and preparation of investor materials.
+          - Engaged with more than 40 family offices, USD funds, private banks, listed companies, and other institutional investors.
+          - Maintained USD and RMB fund-product databases, investor databases, meeting records, and Q&A databases.
+          - Participated in semiannual and annual reporting, investor communications, and more than 20 government, media, and investor events.
 
-    Awards:
-      - title: Nobel Prize in Physics
-        authors:
-          - "Royal Swedish Academy of Sciences"
-        date: 1921-11-01
-        awarder: Royal Swedish Academy of Sciences
-        url: https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/
-        summary: The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'
-
-      - title: Max Planck Medal
-        authors:
-          - "German Physical Society"
-        date: 2029
-        awarder: German Physical Society
-        summary: Awarded for outstanding scientific achievement
-
-    Publications:
-      - title: Zur Elektrodynamik bewegter Körper
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-06-30
-        url: https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies
-        summary: It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source.
-
-      - title: Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-03-18
-        url: https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt
-        summary: In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921.
-
-      - title: Die Grundlage der allgemeinen Relativitätstheorie
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1916-03-20
-        url: https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativitätstheorie
-        summary: The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914).
-
-    Skills:
-      - name: Physics
-        level: Master
-        icon: fa-solid fa-hashtag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
-
-    Languages:
-      - name: German
-        summary: "Native speaker"
-
-      - name: English
-        summary: "Fluent"
-
-    Interests:
-      - name: Physics
-        icon: fa-solid fa-tag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
-
-    Certificates:
-      - name: Machine Learning
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-location-dot
-
-      - name: Quantum Computing
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-tag
-
-      - name: Quantum Information
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-envelope
-
-    Projects:
-      - name: Quantum Computing
-        summary: Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.
+      - company: ZhiChun Capital
+        position: Investment Intern
+        start_date: 2023-01
+        end_date: 2023-03
         highlights:
-          - Quantum Teleportation
-          - Quantum Cryptography
-        start_date: 2018-01-01
-        end_date: 2018-01-01
+          - Researched AIGC, cloud computing, and related industry dynamics, value chains, and competitive landscapes.
+          - Participated in financing-project interviews, investment meetings, and pre-investment reviews.
 
-    References:
-      - name: Professor John Doe
-        icon: fa-solid fa-laptop
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+      - company: Giliguala
+        position: Investor Relations Intern
+        start_date: 2020-06
+        end_date: 2020-09
+        highlights:
+          - Engaged prospective Series C investors and provided existing investors with company operating and product updates.
+          - Researched AI education, user needs, and competing products, and worked with technical teams on product development.
 
-      - name: Professor Jane Smith
-        icon: fa-solid fa-thumbtack
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+    Education:
+      - institution: University of Pennsylvania
+        location: Philadelphia, Pennsylvania, United States
+        area: Social Policy and Data Analytics
+        studyType: Master of Social Sciences and Data Analytics (MSSP+DA)
+        end_date: 2024-12
+        courses: Fund Management; Business Law; Venture Capital and Entrepreneurial Management; Corporate Finance
+
+      - institution: The University of Texas at Austin
+        location: Austin, Texas, United States
+        area: Economics and Sociology
+        studyType: Dual Bachelor of Arts, Honors Graduate
+        end_date: 2022-05
+        score: 3.71/4.0
+
+      - institution: London School of Economics and Political Science
+        location: London, United Kingdom
+        studyType: Summer Exchange
+        end_date: 2022-08
+        courses: Accounting and Auditing (A+)
+
+      - institution: Fudan University
+        location: Shanghai, China
+        studyType: Academic-Year Exchange
+        end_date: 2021-01
+        courses: Economics and Finance
+
+      - institution: The University of Hong Kong
+        location: Hong Kong, China
+        studyType: Summer Exchange
+        end_date: 2019-08
+        courses: English Literature (A)
