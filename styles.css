@@ -245,6 +245,11 @@ p { margin: 0 0 1.1rem; }
   object-position: center;
 }
 
+.project-photo--screenshot {
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
 .project-video {
   display: block;
   width: min(100%, 42rem);
