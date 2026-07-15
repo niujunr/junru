@@ -149,6 +149,65 @@ p { margin: 0 0 1.1rem; }
 .entry .role { margin: 0.25rem 0 0.7rem; color: var(--muted); }
 .entry .date { color: var(--muted); font-size: 0.92rem; white-space: nowrap; }
 
+.timeline { margin-top: 3.25rem; }
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 7rem 1.5rem minmax(0, 1fr);
+  column-gap: 1.6rem;
+  position: relative;
+  padding: 0 0 4rem;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-date {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  padding-top: 0.25rem;
+}
+
+.timeline-marker { position: relative; }
+
+.timeline-marker::before {
+  position: absolute;
+  top: 0.45rem;
+  left: 50%;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.timeline-item:not(:last-child) .timeline-marker::after {
+  position: absolute;
+  top: 1.35rem;
+  bottom: -4rem;
+  left: 50%;
+  width: 1px;
+  background: var(--rule);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.timeline-content h2 { margin: 0 0 0.65rem; font-size: 1.35rem; }
+.timeline-content p { max-width: 42rem; color: var(--muted); }
+
+.project-image-placeholder {
+  display: grid;
+  width: min(100%, 42rem);
+  aspect-ratio: 16 / 9;
+  margin-top: 1.3rem;
+  place-items: center;
+  color: #d7d7d7;
+  background: #242424;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
 ul { margin: 0.65rem 0 0; padding-left: 1.25rem; }
 li { margin: 0.28rem 0; }
 
@@ -185,4 +244,14 @@ li { margin: 0.28rem 0; }
   .profile-photo { max-width: 360px; max-height: 470px; }
   .entry-header { display: block; }
   .entry .date { display: block; margin-top: 0.35rem; }
+  .timeline-item {
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    column-gap: 1.05rem;
+    padding-bottom: 3rem;
+  }
+  .timeline-date { grid-column: 2; grid-row: 1; padding-top: 0; }
+  .timeline-marker { grid-column: 1; grid-row: 1 / span 2; }
+  .timeline-content { grid-column: 2; grid-row: 2; margin-top: 0.35rem; }
+  .timeline-item:not(:last-child) .timeline-marker::after { bottom: -3rem; }
+  .project-image-placeholder { width: 100%; }
 }
