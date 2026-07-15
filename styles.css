@@ -190,6 +190,12 @@ p { margin: 0 0 1.1rem; }
   overflow-wrap: anywhere;
 }
 
+.timeline-location--short {
+  width: max-content;
+  margin-left: -1rem;
+  white-space: nowrap;
+}
+
 .timeline-marker { position: relative; }
 
 .timeline-marker::before {
