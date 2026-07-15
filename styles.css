@@ -130,6 +130,19 @@ p { margin: 0 0 1.1rem; }
 .contact h2 { margin: 0 0 0.55rem; font-size: 1.18rem; }
 .contact p { margin-bottom: 0.38rem; word-break: break-word; }
 
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.contact-icon {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
 .page-title { margin-bottom: 0.7rem; }
 .page-lead { max-width: 42rem; color: var(--muted); margin-bottom: 2.8rem; }
 
@@ -173,7 +186,8 @@ p { margin: 0 0 1.1rem; }
   margin-top: 0.3rem;
   font-size: 0.82rem;
   line-height: 1.45;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .timeline-marker { position: relative; }
