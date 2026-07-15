@@ -217,6 +217,47 @@ p { margin: 0 0 1.1rem; }
 
 .project-figure figcaption { margin-top: 0.45rem; color: var(--muted); font-size: 0.86rem; }
 
+.project-video-card {
+  display: grid;
+  width: min(100%, 42rem);
+  min-height: 17rem;
+  margin-top: 1.3rem;
+  padding: 2rem;
+  place-content: center;
+  gap: 0.45rem;
+  color: #f4f4f4;
+  background: #242424;
+  text-align: center;
+}
+
+.project-video-card:hover,
+.project-video-card:focus-visible { color: #fff; text-decoration: none; }
+
+.video-play-icon {
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 0 auto 0.5rem;
+  border: 1px solid #f4f4f4;
+  border-radius: 50%;
+  position: relative;
+}
+
+.video-play-icon::after {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 0;
+  height: 0;
+  border-top: 0.48rem solid transparent;
+  border-bottom: 0.48rem solid transparent;
+  border-left: 0.72rem solid #f4f4f4;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.video-card-title { font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; font-weight: 700; }
+.video-card-note { color: #c7c7c7; font-size: 0.86rem; }
+
 .project-image-placeholder {
   display: grid;
   width: min(100%, 42rem);
@@ -276,4 +317,5 @@ li { margin: 0.28rem 0; }
   .timeline-item:not(:last-child) .timeline-marker::after { bottom: -3rem; }
   .project-image-placeholder { width: 100%; }
   .project-figure { width: 100%; }
+  .project-video-card { width: 100%; min-height: 15rem; }
 }
