@@ -168,6 +168,14 @@ p { margin: 0 0 1.1rem; }
   padding-top: 0.25rem;
 }
 
+.timeline-location {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
 .timeline-marker { position: relative; }
 
 .timeline-marker::before {
