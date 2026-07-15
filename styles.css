@@ -146,6 +146,54 @@ p { margin: 0 0 1.1rem; }
 .page-title { margin-bottom: 0.7rem; }
 .page-lead { max-width: 42rem; color: var(--muted); margin-bottom: 2.8rem; }
 
+.insider-project {
+  max-width: 48rem;
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.insider-project h2 { margin: 0; font-size: 1.6rem; }
+.insider-project h3 { margin: 2.25rem 0 0.75rem; font-size: 1.1rem; }
+.insider-project p { max-width: 46rem; }
+.project-kicker { margin-top: 0.45rem; color: var(--muted); }
+
+.project-scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.project-scope h3 { margin-top: 0; }
+
+.architecture-flow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.architecture-flow li {
+  position: relative;
+  padding: 0.7rem 0.15rem 0.7rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.architecture-flow li:not(:last-child)::after {
+  position: absolute;
+  top: 0.9rem;
+  right: -0.48rem;
+  color: var(--accent);
+  content: "→";
+}
+
+.process-flow { max-width: 45rem; }
+.insider-project pre { max-width: 100%; overflow-x: auto; padding: 1rem; background: #f5f5f3; font-size: 0.82rem; }
+
 .entry {
   padding: 1.8rem 0;
   border-top: 1px solid var(--rule);
@@ -394,4 +442,8 @@ li { margin: 0.28rem 0; }
   .project-video { width: 100%; }
   .project-video--portrait { width: auto; }
   .project-video-card { width: 100%; min-height: 15rem; }
+  .project-scope { grid-template-columns: 1fr; gap: 1.4rem; }
+  .architecture-flow { grid-template-columns: 1fr; gap: 0; }
+  .architecture-flow li { padding-right: 1.5rem; }
+  .architecture-flow li:not(:last-child)::after { top: auto; right: 0.1rem; bottom: -0.05rem; content: "↓"; }
 }

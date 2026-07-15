@@ -23,6 +23,92 @@
       <h1 class="page-title">项目</h1>
       <p class="page-lead">在用 AI 之前，本人唯一会写的一行代码就是 print "Hello World"</p>
 
+      <article class="insider-project">
+        <h2>美股 Insider</h2>
+        <p class="project-kicker"><code>insider-buys-sec</code> · 本地运行、面向研究复盘的美股内部人买入追踪工具。</p>
+
+        <section>
+          <h3>为什么做这个项目？</h3>
+          <p>项目灵感来自 <a href="https://unusualwhales.com/" target="_blank" rel="noopener noreferrer">Unusual Whales</a>。我平时会关注公司管理层、董事和大股东的 insider 买入行为，并把 Form 4 买入记录视为需要人工复核的研究线索。</p>
+          <p>一开始使用 Unusual Whales 查看信息，但订阅成本较高。于是决定做一个更轻量、更可审计的版本：直接从 SEC EDGAR 读取 Form 4 / 4-A，不依赖第三方交易数据源，将每天披露的内部人买入整理成一个本地 HTML 研究看板。</p>
+          <p>它不是投资建议工具，也不试图替代人工研究；它把原始披露、筛选规则、排除原因和报告结果放在同一条可追溯的数据链路里。</p>
+        </section>
+
+        <section class="project-scope">
+          <div>
+            <h3>项目范围</h3>
+            <ul>
+              <li>SEC EDGAR Form 4 / 4-A</li>
+              <li>公司管理层、董事、10% beneficial owner 等 Form 4 报告主体</li>
+              <li>非衍生品证券中的 <code>P + A</code> 买入记录</li>
+              <li>SEC 申报日（filing date）对应的日报</li>
+            </ul>
+          </div>
+          <div>
+            <h3>明确不处理</h3>
+            <ul>
+              <li>不追踪政治人物或国会议员交易</li>
+              <li>不使用 Unusual Whales 或其他第三方数据源</li>
+              <li>不提供自动下单、投资建议、服务器或推送服务</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>技术栈</h3>
+          <p>Python 3.11+ · <code>requests</code> · <code>xml.etree.ElementTree</code> · <code>pandas</code> · <code>Jinja2</code> · Vanilla JavaScript · <code>pandas-market-calendars</code> · <code>pytest</code> · <code>ruff</code></p>
+        </section>
+
+        <section>
+          <h3>数据流与架构</h3>
+          <ol class="architecture-flow" aria-label="美股 Insider 数据流架构图">
+            <li>SEC EDGAR<br>Daily Master Index</li>
+            <li>筛选<br>Form 4 / 4-A</li>
+            <li>下载 TXT<br>提取 ownership XML</li>
+            <li>解析交易、申报人<br>与公司字段</li>
+            <li>质量检查、去重<br>10b5-1 检测</li>
+            <li>买入筛选、公司聚合<br>与研究标记</li>
+            <li>HTML Dashboard · Qualified CSV<br>Excluded CSV · Summary JSON</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>核心处理流程</h3>
+          <ol class="process-flow">
+            <li>根据目标 SEC filing date 下载 daily master index，找到当日 Form 4 / 4-A。</li>
+            <li>读取完整 submission TXT，从中提取 ownership XML，并解析 issuer、ticker、insider、职位、交易日、申报日、股数、价格、金额与直接／间接持有方式。</li>
+            <li>保留可计算的 <code>transactionCode = P</code> 且 <code>acquiredDisposedCode = A</code> 的买入记录。</li>
+            <li>默认排除检测到的 10b5-1 计划交易，并将所有排除记录保留在审计 CSV。</li>
+            <li>按 accession 和 transaction ID 去重；为 CEO/CFO、多人集群买入、大额买入、修正申报和异常数据增加研究标记。</li>
+            <li>输出本地静态 HTML、qualified CSV、excluded CSV 和 summary JSON。</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>看板与审计</h3>
+          <p>每日报告优先展示大额买入、CEO / CFO 买入、多人或集群买入；随后提供公司汇总、全量买入明细、质量审计与排除原因，以及 SEC 原始申报链接。报告同时展示交易发生日和 SEC 申报日，避免混淆“何时交易”与“何时披露”。</p>
+          <p>每次运行都会生成 <code>insider_buys_YYYY-MM-DD.html</code>、<code>.csv</code>、<code>.excluded.csv</code> 和 <code>.summary.json</code>，用来保留过滤逻辑、解析告警、失败 filing、去重数量和运行统计。</p>
+        </section>
+
+        <section>
+          <h3>使用方式</h3>
+          <pre><code>export SEC_USER_AGENT="Your Name your.email@example.com"
+insider-buys-sec --open-report --verbose
+
+insider-buys-sec --date 2026-07-08 --open-report --verbose</code></pre>
+        </section>
+
+        <section>
+          <h3>当前限制</h3>
+          <ul>
+            <li>只解析 Form 4 / 4-A 的 <code>nonDerivativeTransaction</code>。</li>
+            <li>10b5-1 检测基于 XML、footnotes 和 remarks 的保守规则，仍可能存在误判。</li>
+            <li>Form 4/A 不会自动与原始 Form 4 做完整抵消或合并。</li>
+            <li>所有排序和标记均只是研究入口，不构成买卖建议。</li>
+          </ul>
+        </section>
+      </article>
+
       <section class="timeline" aria-label="项目时间线">
         <article class="timeline-item">
           <time class="timeline-date" datetime="2026-07-04">2026.07.04</time>
