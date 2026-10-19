@@ -167,13 +167,13 @@ launchctl print gui/$(id -u)/com.niujunr.ai-usage | grep -E 'state =|last exit c
 
 - **日志里没有新的记录：** 说明定时任务没有跑。可能是 Mac 一直关机或没登录；也可能是定时任务没装上，在网站仓库根目录重新运行 `zsh ai-usage/install.sh`。
 - **日志里有推送失败、"Authentication failed" 之类的字样：** 一般是 GitHub 登录过期了。运行 `gh auth status` 看看，必要时 `gh auth login` 重新登录，然后手动更新一次。
-- **日志写着"已推送"，网页却没变：** GitHub Pages 还在生成，或者网页有大约 10 分钟的缓存。查看生成状态：
+- **日志写着"已推送"，网页却没变：** GitHub Pages 还在部署，或者网页有大约 10 分钟的缓存。查看最近几次部署：
 
   ```bash
-  gh api repos/niujunr/junru/pages/builds/latest --jq '.status + " " + .commit[0:7]'
+  gh run list -R niujunr/junru -L 3
   ```
 
-  显示 `errored` 时，如果紧接着的下一次是 `built`，就没问题：两次推送挨得太近，前一次生成被后一次顶掉了。
+  最新一条显示 `completed success` 就是部署好了。`cancelled` 不用管：两次推送挨得太近，前一次部署被后一次顶掉了。另外，`gh api …/pages/builds` 这个旧接口有时会把成功的部署也显示成 `errored`，以上面的部署记录为准。
 
 ### ChatGPT 的数字不动了，其他正常
 
