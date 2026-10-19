@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="https://niujunr.github.io/junru/">
+    <meta name="description" content="Junru Niu’s daily token usage across Claude, ChatGPT and Grok, updated automatically every day.">
+    <title>AI Usage — Junru Niu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html">
+    <link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-name" href="en/index.html">Junru Niu</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="en/index.html">Home</a>
+        <a href="en/experience.html">Experience</a>
+        <a href="en/projects.html">Moments</a>
+        <a href="en/notes.html">Projects</a>
+        <a class="active" aria-current="page" href="en/usage.html">AI Usage</a>
+        <a class="lang-switch" href="usage.html" lang="zh-CN" hreflang="zh-CN">中文</a>
+      </nav>
+    </header>
+
+    <main class="page usage-page">
+      <h1 class="page-title">AI Usage</h1>
+      <p class="page-lead">I use Claude, ChatGPT and Grok every day to write code and build projects. ChatGPT figures are official data from my OpenAI account, Grok comes from the xAI usage export, and Claude comes from local records on my computer. Updated automatically once a day.</p>
+
+      <dl class="usage-figures" id="figures" aria-live="polite">
+        <div><dt>ChatGPT total</dt><dd>—</dd></div>
+        <div><dt>Claude total</dt><dd>—</dd></div>
+        <div><dt>Days using AI</dt><dd>—</dd></div>
+        <div><dt>Current streak</dt><dd>—</dd></div>
+      </dl>
+
+      <section class="usage-section" aria-labelledby="cal-title">
+        <div class="usage-section-head">
+          <h2 id="cal-title">Activity</h2>
+          <div class="usage-chips" id="tool-chips" role="group" aria-label="Filter by tool">
+            <button type="button" id="chip-all" data-tool="all" aria-pressed="true">All</button>
+            <button type="button" id="chip-claude" data-tool="claude" aria-pressed="false">Claude</button>
+            <button type="button" id="chip-chatgpt" data-tool="chatgpt" aria-pressed="false">ChatGPT</button>
+            <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
+          </div>
+        </div>
+        <p class="usage-sub">Claude comes from local records, ChatGPT from official data, and Grok from the imported export. Darker squares mean more tokens that day.</p>
+        <div class="usage-cal-scroll" id="calendar"></div>
+        <div class="usage-legend">
+          <span class="usage-ramp">Less <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> More</span>
+          <span><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>Used Claude, but no token record for the day</span>
+          <span><i class="usage-swatch usage-q0"></i>No use</span>
+        </div>
+      </section>
+
+      <section class="usage-section" aria-labelledby="bars-title">
+        <div class="usage-section-head">
+          <h2 id="bars-title">Daily usage</h2>
+          <div class="usage-legend usage-legend--keys" id="bars-legend"></div>
+        </div>
+        <p class="usage-sub" id="bars-sub"></p>
+        <div id="bars"></div>
+        <details class="usage-details">
+          <summary>Daily breakdown</summary>
+          <div class="usage-table-scroll"><table class="usage-table usage-table--daily" id="daily"></table></div>
+        </details>
+      </section>
+
+      <section class="usage-section" aria-labelledby="models-title">
+        <h2 id="models-title">By model</h2>
+        <p class="usage-sub">Claude and ChatGPT models come from local records; Grok from the imported usage export.</p>
+        <table class="usage-table" id="models"></table>
+      </section>
+
+      <section class="usage-section usage-notes" aria-labelledby="notes-title">
+        <h2 id="notes-title">About the data</h2>
+        <ul>
+          <li>ChatGPT: official lifetime and daily token counts, read from my OpenAI account every day. This includes tasks run in the cloud and on other devices.<span id="official-asof"></span></li>
+          <li>Claude: read from the conversation records the Claude app keeps on this computer. Every reply records its token count; this sums input, output, and cache reads and writes. Chats in the web and mobile apps aren’t stored locally, so they’re not included.</li>
+          <li>Most tokens are context that gets resent with every turn of a conversation, so they don’t equal how much was written.</li>
+          <li id="grok-note" hidden>Grok: Grok keeps no local records. These numbers come from the usage export in the xAI console (covering Grok Bot, Grok chat and Grok Tasks) and are counted by day in the calendar and charts. I import the export by hand.<span id="grok-asof"></span></li>
+          <li>Numbers already recorded never go down when old conversations are deleted.<span id="updated"></span></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">© 2026 Junru Niu</footer>
+
+    <div class="usage-tip" id="tip" role="tooltip" hidden></div>
+
+    <script src="usage.js"></script>
+  </body>
+</html>
