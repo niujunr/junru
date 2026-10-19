@@ -27,12 +27,27 @@
       <h1 class="page-title">AI 用量</h1>
       <p class="page-lead">我每天用 Claude、ChatGPT 和 Grok 写代码、做项目。ChatGPT 是 OpenAI 账号的官方数据，Grok 来自 xAI 导出的用量明细，Claude 来自我电脑上的本地记录，每天自动更新一次。</p>
 
-      <dl class="usage-figures" id="figures" aria-live="polite">
-        <div><dt>ChatGPT 累计</dt><dd>—</dd></div>
-        <div><dt>Claude 累计</dt><dd>—</dd></div>
-        <div><dt>用过 AI 的天数</dt><dd>—</dd></div>
-        <div><dt>连续使用</dt><dd>—</dd></div>
-      </dl>
+      <section class="usage-hero" aria-label="总览">
+        <div class="usage-hero-main">
+          <p class="usage-hero-label" id="hero-label">一共用了</p>
+          <p class="usage-hero-number" id="hero-number">—</p>
+          <p class="usage-hero-sub"><span id="hero-days"></span><span class="usage-chip" id="hero-month" hidden></span></p>
+        </div>
+        <div class="usage-hero-side">
+          <div class="usage-vendors" id="hero-vendors"></div>
+          <p class="usage-vendor-note">ChatGPT 是官方数据，Claude 是本机记录，Grok 是 xAI 导出的用量明细。</p>
+          <dl class="usage-mini" id="hero-mini"></dl>
+        </div>
+      </section>
+
+      <section class="usage-section" aria-labelledby="curve-title">
+        <div class="usage-section-head">
+          <h2 id="curve-title">一路累计下来</h2>
+          <div class="usage-legend usage-legend--keys" id="curve-legend"></div>
+        </div>
+        <p class="usage-sub" id="curve-sub"></p>
+        <div class="usage-curve" id="curve"></div>
+      </section>
 
       <section class="usage-section" aria-labelledby="cal-title">
         <div class="usage-section-head">
@@ -53,17 +68,13 @@
         </div>
       </section>
 
-      <section class="usage-section" aria-labelledby="bars-title">
+      <section class="usage-section" aria-labelledby="daily-title">
         <div class="usage-section-head">
-          <h2 id="bars-title">每天用了多少</h2>
-          <div class="usage-legend usage-legend--keys" id="bars-legend"></div>
+          <h2 id="daily-title">每日明细</h2>
+          <span class="usage-sub-inline">按月分组，最新的在最上面</span>
         </div>
-        <p class="usage-sub" id="bars-sub"></p>
-        <div id="bars"></div>
-        <details class="usage-details">
-          <summary>每日明细表</summary>
-          <div class="usage-table-scroll"><table class="usage-table usage-table--daily" id="daily"></table></div>
-        </details>
+        <div class="usage-table-scroll"><div class="usage-daily" id="daily" role="table" aria-labelledby="daily-title"></div></div>
+        <button type="button" class="usage-more" id="daily-more" aria-controls="daily" aria-expanded="false" hidden></button>
       </section>
 
       <section class="usage-section" aria-labelledby="models-title">

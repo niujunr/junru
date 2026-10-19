@@ -27,12 +27,27 @@
       <h1 class="page-title">AI Usage</h1>
       <p class="page-lead">I use Claude, ChatGPT and Grok every day to write code and build projects. ChatGPT figures are official data from my OpenAI account, Grok comes from the xAI usage export, and Claude comes from local records on my computer. Updated automatically once a day.</p>
 
-      <dl class="usage-figures" id="figures" aria-live="polite">
-        <div><dt>ChatGPT total</dt><dd>—</dd></div>
-        <div><dt>Claude total</dt><dd>—</dd></div>
-        <div><dt>Days using AI</dt><dd>—</dd></div>
-        <div><dt>Current streak</dt><dd>—</dd></div>
-      </dl>
+      <section class="usage-hero" aria-label="Overview">
+        <div class="usage-hero-main">
+          <p class="usage-hero-label" id="hero-label">Total</p>
+          <p class="usage-hero-number" id="hero-number">—</p>
+          <p class="usage-hero-sub"><span id="hero-days"></span><span class="usage-chip" id="hero-month" hidden></span></p>
+        </div>
+        <div class="usage-hero-side">
+          <div class="usage-vendors" id="hero-vendors"></div>
+          <p class="usage-vendor-note">ChatGPT is official data, Claude comes from local records, and Grok from the xAI usage export.</p>
+          <dl class="usage-mini" id="hero-mini"></dl>
+        </div>
+      </section>
+
+      <section class="usage-section" aria-labelledby="curve-title">
+        <div class="usage-section-head">
+          <h2 id="curve-title">Growing total</h2>
+          <div class="usage-legend usage-legend--keys" id="curve-legend"></div>
+        </div>
+        <p class="usage-sub" id="curve-sub"></p>
+        <div class="usage-curve" id="curve"></div>
+      </section>
 
       <section class="usage-section" aria-labelledby="cal-title">
         <div class="usage-section-head">
@@ -53,17 +68,13 @@
         </div>
       </section>
 
-      <section class="usage-section" aria-labelledby="bars-title">
+      <section class="usage-section" aria-labelledby="daily-title">
         <div class="usage-section-head">
-          <h2 id="bars-title">Daily usage</h2>
-          <div class="usage-legend usage-legend--keys" id="bars-legend"></div>
+          <h2 id="daily-title">Daily breakdown</h2>
+          <span class="usage-sub-inline">Grouped by month, newest first</span>
         </div>
-        <p class="usage-sub" id="bars-sub"></p>
-        <div id="bars"></div>
-        <details class="usage-details">
-          <summary>Daily breakdown</summary>
-          <div class="usage-table-scroll"><table class="usage-table usage-table--daily" id="daily"></table></div>
-        </details>
+        <div class="usage-table-scroll"><div class="usage-daily" id="daily" role="table" aria-labelledby="daily-title"></div></div>
+        <button type="button" class="usage-more" id="daily-more" aria-controls="daily" aria-expanded="false" hidden></button>
       </section>
 
       <section class="usage-section" aria-labelledby="models-title">
