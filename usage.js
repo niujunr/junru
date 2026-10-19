@@ -525,12 +525,9 @@
       return r.json();
     });
   }
-  // 官方累计数是另一个手动维护的文件，读不到时退回本机记录
-  Promise.all([
-    getJSON('ai-usage/data/ai-usage.json'),
-    getJSON('ai-usage/data/ai-usage-official.json').catch(function () { return null; }),
-  ]).then(function (res) {
-    var data = res[0]; OFFICIAL = res[1];
+  // 数据文件由每晚的自动更新生成；official 是手动维护的备用官方累计数，也一起写在里面
+  getJSON('data/ai-usage.json').then(function (data) {
+    OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
     renderHero(); renderNotes(); renderModels(); renderDaily(); renderCharts();
     var lastW = document.body.clientWidth, raf = 0;

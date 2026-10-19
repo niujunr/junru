@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20 02:19 +0800",
+ "updated": "2026-10-20 02:37 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -28,10 +28,17 @@
   "to": "2026-10-18"
  },
  "chatgpt": {
-  "lifetime": 7948440024,
-  "asOf": "2026-10-20 02:19 +0800",
+  "lifetime": 8021120417,
+  "asOf": "2026-10-20 02:37 +0800",
   "currentStreakDays": 28,
   "peakDailyTokens": 499893251
+ },
+ "official": {
+  "codex": {
+   "tokens": 8000000000,
+   "asOf": "2026-10-20",
+   "source": "Codex 应用"
+  }
  },
  "days": {
   "2026-04-26": {
@@ -380,10 +387,10 @@
   },
   "2026-10-19": {
    "claude_code": 9834938,
-   "chatgpt": 18720869
+   "chatgpt": 91401262
   },
   "2026-10-20": {
-   "claude_code": 136457278,
+   "claude_code": 187967054,
    "codex": 3589473
   }
  },
@@ -452,7 +459,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 1622940819
+   "tokens": 1674450595
   },
   {
    "tool": "codex",
