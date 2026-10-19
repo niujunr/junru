@@ -22,10 +22,10 @@
 
     <main class="page usage-page">
       <h1 class="page-title">AI 用量</h1>
-      <p class="page-lead">我每天用 Claude、Codex 和 Grok 写代码、做项目。Codex 的累计数来自 Codex 应用，Grok 来自 xAI 导出的用量明细，其余来自我电脑上的本地记录，每天自动更新一次。</p>
+      <p class="page-lead">我每天用 Claude、ChatGPT 和 Grok 写代码、做项目。ChatGPT 是 OpenAI 账号的官方数据，Grok 来自 xAI 导出的用量明细，Claude 来自我电脑上的本地记录，每天自动更新一次。</p>
 
       <dl class="usage-figures" id="figures" aria-live="polite">
-        <div><dt>Codex 累计</dt><dd>—</dd></div>
+        <div><dt>ChatGPT 累计</dt><dd>—</dd></div>
         <div><dt>Claude 累计</dt><dd>—</dd></div>
         <div><dt>用过 AI 的天数</dt><dd>—</dd></div>
         <div><dt>连续使用</dt><dd>—</dd></div>
@@ -36,13 +36,12 @@
           <h2 id="cal-title">哪天在用</h2>
           <div class="usage-chips" id="tool-chips" role="group" aria-label="按工具筛选">
             <button type="button" id="chip-all" data-tool="all" aria-pressed="true">全部</button>
-            <button type="button" id="chip-claude_code" data-tool="claude_code" aria-pressed="false">Claude Code</button>
-            <button type="button" id="chip-cowork" data-tool="cowork" aria-pressed="false">Cowork</button>
-            <button type="button" id="chip-codex" data-tool="codex" aria-pressed="false">Codex</button>
+            <button type="button" id="chip-claude" data-tool="claude" aria-pressed="false">Claude</button>
+            <button type="button" id="chip-chatgpt" data-tool="chatgpt" aria-pressed="false">ChatGPT</button>
             <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
           </div>
         </div>
-        <p class="usage-sub">本机记录，加上导入的 Grok 用量明细。颜色越深，那天用的 token 越多。</p>
+        <p class="usage-sub">颜色越深，那天用的 token 越多。</p>
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">少 <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> 多</span>
@@ -65,21 +64,18 @@
       </section>
 
       <section class="usage-section" aria-labelledby="models-title">
-        <h2 id="models-title">按工具和模型</h2>
-        <p class="usage-sub">本机记录，加上导入的 Grok 用量明细</p>
+        <h2 id="models-title">按模型</h2>
+        <p class="usage-sub">Claude 和 ChatGPT 的模型来自本机记录，Grok 来自导入的用量明细</p>
         <table class="usage-table" id="models"></table>
       </section>
 
       <section class="usage-section usage-notes" aria-labelledby="notes-title">
         <h2 id="notes-title">数据怎么来的</h2>
         <ul>
-          <li>Codex 累计：来自 Codex 应用，按整个账号统计，包括在云端运行的任务和其他设备上的使用。这个数字是我手动更新的。<span id="official-asof"></span></li>
-          <li>图表里的 Codex 只算这台电脑上的对话，而且较早对话的记录不完整，所以比上面的累计数少。</li>
-          <li>Claude Code 和 Cowork：读取 Claude 应用在这台电脑上保存的会话记录。每条回复都记了 token 数，这里算的是输入、输出和缓存读写的总和。</li>
-          <li>Codex：读取 Codex 在本地保存的逐次记录，算的是输入（含缓存）和输出的总和。较早的对话没有逐次记录，只有每个对话的总数，按它在各天的使用时长分摊到每天，这些日子标为估算。</li>
+          <li>ChatGPT：每天自动从 OpenAI 账号读取官方的累计和每日 token 数，包括云端运行的任务和其他设备上的使用。<span id="official-asof"></span></li>
+          <li>Claude：读取 Claude 应用在这台电脑上保存的会话记录。每条回复都记了 token 数，这里算的是输入、输出和缓存读写的总和。网页版和手机 App 里的聊天没有留在本地，不包括在内。</li>
           <li>token 里大部分是每轮对话都要重新带上的上下文，所以不等于写出了多少字。</li>
           <li id="grok-note" hidden>Grok：Grok 没有本地记录，数字来自 xAI 控制台导出的用量明细（包括 Grok Bot、Grok 对话和 Grok Tasks），按天计入日历和图表。导出文件是我手动导入的。<span id="grok-asof"></span></li>
-          <li>不包括网页版和手机 App 里的聊天：这些用量没有留在本地。</li>
           <li>已经记下的数字不会因为删掉旧会话而减少。<span id="updated"></span></li>
         </ul>
       </section>
@@ -93,9 +89,15 @@
     (function () {
       var NS = 'http://www.w3.org/2000/svg';
       var WD = '日一二三四五六';
-      var COLORS = { claude_code: 'var(--usage-s1)', codex: 'var(--usage-s2)', cowork: 'var(--usage-s3)', grok: 'var(--usage-s4)' };
-      // 堆叠顺序按配色顺序排，相邻两段的颜色在色盲模拟下也能分清
-      var STACK = ['claude_code', 'codex', 'cowork', 'grok'];
+      // 按厂商分三栏，数据文件里的各个工具归到对应的厂商下。
+      // 颜色写在 styles.css 的 .usage-fill-*（图表）和 .usage-key-*（图例、圆点）里
+      var GROUPS = [
+        { id: 'claude', name: 'Claude', tools: ['claude_code', 'cowork'] },
+        // ChatGPT 有官方每日数据就只用官方数据（已经包含本机的 Codex），没有时退回本机记录
+        { id: 'chatgpt', name: 'ChatGPT', tools: ['chatgpt', 'codex'], prefer: true },
+        { id: 'grok', name: 'Grok', tools: ['grok'] },
+      ];
+      var STACK = GROUPS.map(function (g) { return g.id; });
       var D = null, OFFICIAL = null;
       var state = { tool: 'all' };
       var $ = function (s) { return document.querySelector(s); };
@@ -118,11 +120,18 @@
       function dayLabel(s) { return parseDay(s).getFullYear() + '年' + md(s) + ' 周' + WD[parseDay(s).getDay()]; }
 
       // ---------- 派生数据 ----------
-      function toolName(id) { var t = D.tools.filter(function (x) { return x.id === id; })[0]; return t ? t.name : id; }
-      function dayTotal(k, tool) {
+      function group(id) { return GROUPS.filter(function (g) { return g.id === id; })[0]; }
+      function groupOfTool(tool) { return GROUPS.filter(function (g) { return g.tools.indexOf(tool) >= 0; })[0]; }
+      function groupTotal(r, id) {
+        var g = group(id); if (!r) return 0;
+        if (g.prefer) { for (var i = 0; i < g.tools.length; i++) if (r[g.tools[i]] != null) return r[g.tools[i]]; return 0; }
+        return g.tools.reduce(function (s, t) { return s + (r[t] || 0); }, 0);
+      }
+      function localEstimate(k) { var r = D.days[k]; return r && r.chatgpt == null && r.codex && D.estimated.indexOf(k) >= 0; }
+      function dayTotal(k, id) {
         var r = D.days[k]; if (!r) return 0;
-        if (tool && tool !== 'all') return r[tool] || 0;
-        return Object.keys(r).reduce(function (s, t) { return s + r[t]; }, 0);
+        if (id && id !== 'all') return groupTotal(r, id);
+        return STACK.reduce(function (s, g) { return s + groupTotal(r, g); }, 0);
       }
       function today() { return key(new Date()); }
       function usedDays() {
@@ -146,9 +155,9 @@
       function dayTip(k) {
         var r = D.days[k], html = '<b>' + dayLabel(k) + '</b>';
         if (r) {
-          STACK.forEach(function (t) { if (r[t]) html += row('<i class="usage-dot" style="background:' + COLORS[t] + '"></i>' + toolName(t), cn(r[t])); });
+          STACK.forEach(function (id) { var v = groupTotal(r, id); if (v) html += row('<i class="usage-dot usage-key-' + id + '"></i>' + group(id).name, cn(v)); });
           html += row('合计', cn(dayTotal(k)));
-          if (D.estimated.indexOf(k) >= 0 && r.codex) html += '<div class="usage-tip-note">Codex 的数字是估算</div>';
+          if (localEstimate(k)) html += '<div class="usage-tip-note">ChatGPT 的数字是估算</div>';
           return html;
         }
         if (D.seen.indexOf(k) >= 0) return html + '<div>用过 Claude，但没有当天的 token 记录</div>';
@@ -191,7 +200,7 @@
           var r = D.days[k];
           claude += (r.claude_code || 0) + (r.cowork || 0); codex += r.codex || 0;
         });
-        // 官方累计数：有就用；没有时 Codex 退回本机记录，Grok 用导入的明细
+        // ChatGPT 优先用每天自动读取的官方累计，其次是手动填的官方数，最后退回本机记录；Grok 用导入的明细
         var pick = function (id) { var o = OFFICIAL && OFFICIAL[id]; return o && o.tokens ? o : null; };
         var asOf = function (o) { return o.asOf ? parseDay(o.asOf).getFullYear() + '年' + md(o.asOf) : ''; };
         var officialNote = function (o, source) { return '官方数，截至 ' + asOf(o) + '，来自 ' + esc(o.source || source); };
@@ -203,18 +212,20 @@
         var set = {}; used.forEach(function (k) { set[k] = 1; });
         if (!set[key(d)]) d = addDays(d, -1);
         while (set[key(d)]) { cur++; d = addDays(d, -1); }
-        var items = [cx ? ['Codex 累计', cn(cx.tokens), officialNote(cx, 'Codex 应用')] : ['Codex 累计', cn(codex), '本机记录']];
+        var auto = D.chatgpt && D.chatgpt.lifetime ? { tokens: D.chatgpt.lifetime, asOf: D.chatgpt.asOf.slice(0, 10) } : null;
+        var gpt = auto || cx;
+        var items = [gpt ? ['ChatGPT 累计', cn(gpt.tokens), '官方数，截至 ' + asOf(gpt)] : ['ChatGPT 累计', cn(codex), '本机记录']];
         var grok = 0;
         Object.keys(D.days).forEach(function (k) { grok += D.days[k].grok || 0; });
         var gr = D.grok_range, grokSpan = gr && gr.from ? md(gr.from) + '至' + md(gr.to) : '';
         if (gk) items.push(['Grok 累计', cn(gk.tokens), officialNote(gk, 'xAI 控制台')]);
         else if (grok) items.push(['Grok 累计', cn(grok), 'xAI 用量明细，' + grokSpan]);
         items.push(
-          ['Claude 累计', cn(claude), '本机记录，含 Claude Code 和 Cowork'],
+          ['Claude 累计', cn(claude), '本机记录'],
           ['用过 AI 的天数', used.length + ' 天', D.first ? '从 ' + parseDay(D.first).getFullYear() + '年' + md(D.first) + '起，共 ' + span + ' 天' : ''],
           ['连续使用', cur + ' 天', '最长连续 ' + best + ' 天']
         );
-        $('#official-asof').textContent = cx ? '目前是 ' + cn(cx.tokens) + '，截至 ' + asOf(cx) + '；本机记录的 Codex 是 ' + cn(codex) + '。' : '';
+        $('#official-asof').textContent = gpt ? '目前累计 ' + cn(gpt.tokens) + '，截至 ' + asOf(gpt) + '。' : '';
         $('#grok-note').hidden = !(gk || grok);
         $('#grok-asof').textContent = grok ? '目前导入的明细覆盖 ' + grokSpan + '，共 ' + cn(grok) + '。' : '';
         $('#figures').innerHTML = items.map(function (x) {
@@ -257,7 +268,7 @@
               el(s, 'text', { x: lw + w * (cell + gap), y: 12, class: 'usage-ax' }, (d.getMonth() + 1) + '月');
               lastLabel = w;
             }
-            var cls = v > 0 ? 'usage-q' + level(v) : (D.seen.indexOf(k) >= 0 && (state.tool === 'all' || state.tool === 'claude_code') ? 'usage-hatch' : 'usage-q0');
+            var cls = v > 0 ? 'usage-q' + level(v) : (D.seen.indexOf(k) >= 0 && (state.tool === 'all' || state.tool === 'claude') ? 'usage-hatch' : 'usage-q0');
             el(s, 'rect', { x: lw + w * (cell + gap), y: th + dow * (cell + gap), width: cell, height: cell, rx: 2, class: cls + (k === today() ? ' usage-today' : ''), 'data-day': k });
           }
         }
@@ -274,11 +285,15 @@
         var n = Math.max(7, Math.min(all, Math.floor((W - ml - mr) / 7)));
         var days = [];
         for (var i = n - 1; i >= 0; i--) days.push(key(addDays(end, -i)));
-        $('#bars-sub').textContent = '本机记录和导入的 Grok 明细，' + (n >= all ? '从第一天到今天' : '最近 ' + n + ' 天') + '，每根柱子是一天，没有柱子的日子是没用。Codex 的数字比官方累计少，原因见页面底部。';
+        $('#bars-sub').textContent = (n >= all ? '从第一天到今天' : '最近 ' + n + ' 天') + '，每根柱子是一天，没有柱子的日子是没用。';
         var max = Math.max.apply(null, days.map(function (k) { return dayTotal(k); }).concat([0]));
         var nt = niceTicks(max, 4), top = nt.top;
         var y = function (v) { return mt + (H - mt - mb) * (1 - v / top); }, y0 = y(0);
         var s = svg(W, H, '每天的 token 用量，按工具堆叠');
+        // ChatGPT 用白灰相间的斜纹，跟 Codex 的标志一样
+        var stripes = el(el(s, 'defs', {}), 'pattern', { id: 'usage-chatgpt-stripes', width: 3, height: 3, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
+        el(stripes, 'rect', { width: 3, height: 3, class: 'usage-chatgpt-bg' });
+        el(stripes, 'line', { x1: 0, y1: 0, x2: 0, y2: 3, class: 'usage-chatgpt-line' });
         nt.ticks.forEach(function (v) {
           el(s, 'line', { x1: ml, x2: W - mr, y1: y(v), y2: y(v), class: v ? 'usage-grid' : 'usage-base' });
           el(s, 'text', { x: ml - 8, y: y(v) + 4, 'text-anchor': 'end', class: 'usage-ax' }, v ? cn(v).replace(' ', '') : '0');
@@ -287,15 +302,15 @@
         var lastLabelX = -99;
         days.forEach(function (k, i) {
           var x = ml + i * step, bx = x + (step - bw) / 2, r = D.days[k] || {}, acc = 0;
-          var segs = STACK.filter(function (t) { return r[t] > 0; });
+          var segs = STACK.filter(function (id) { return groupTotal(r, id) > 0; });
           segs.forEach(function (t, j) {
-            var v = r[t], ya = y(acc + v), yb = y(acc);
+            var v = groupTotal(r, t), ya = y(acc + v), yb = y(acc);
             // 段与段之间留 2px 白缝：上面的段让出底部 1px，下面的段让出顶部 1px
             if (j > 0) yb -= 1;
             if (j < segs.length - 1) ya += 1;
             if (yb - ya > 0.5) {
               var rad = j === segs.length - 1 ? Math.min(3, bw / 2, yb - ya) : 0;
-              el(s, 'path', { d: 'M' + bx + ',' + yb + 'V' + (ya + rad) + 'Q' + bx + ',' + ya + ' ' + (bx + rad) + ',' + ya + 'H' + (bx + bw - rad) + 'Q' + (bx + bw) + ',' + ya + ' ' + (bx + bw) + ',' + (ya + rad) + 'V' + yb + 'Z', style: 'fill:' + COLORS[t], class: 'usage-seg' });
+              el(s, 'path', { d: 'M' + bx + ',' + yb + 'V' + (ya + rad) + 'Q' + bx + ',' + ya + ' ' + (bx + rad) + ',' + ya + 'H' + (bx + bw - rad) + 'Q' + (bx + bw) + ',' + ya + ' ' + (bx + bw) + ',' + (ya + rad) + 'V' + yb + 'Z', class: 'usage-seg usage-fill-' + t });
             }
             acc += v;
           });
@@ -307,7 +322,7 @@
           }
         });
         box.replaceChildren(s);
-        $('#bars-legend').innerHTML = STACK.map(function (t) { return '<span><i class="usage-swatch" style="background:' + COLORS[t] + '"></i>' + toolName(t) + '</span>'; }).join('');
+        $('#bars-legend').innerHTML = STACK.map(function (t) { return '<span><i class="usage-swatch usage-key-' + t + '"></i>' + group(t).name + '</span>'; }).join('');
       }
 
       // ---------- 模型表 ----------
@@ -318,7 +333,7 @@
         var max = rows.length ? rows[0].tokens : 1;
         $('#models').innerHTML = '<thead><tr><th>工具</th><th>模型</th><th class="usage-num">token</th></tr></thead><tbody>' +
           rows.map(function (m) {
-            return '<tr><td>' + (m.tool ? '<i class="usage-dot" style="background:' + COLORS[m.tool] + '"></i>' + esc(toolName(m.tool)) : '—') + '</td>' +
+            return '<tr><td>' + (m.tool ? '<i class="usage-dot usage-key-' + groupOfTool(m.tool).id + '"></i>' + esc(groupOfTool(m.tool).name) : '—') + '</td>' +
               '<td>' + esc(m.name) + '<span class="usage-meter"><i style="width:' + (m.tokens / max * 100).toFixed(1) + '%"></i></span></td>' +
               '<td class="usage-num">' + cn(m.tokens) + '</td></tr>';
           }).join('') + '</tbody>';
@@ -327,11 +342,11 @@
       // ---------- 每日明细表 ----------
       function renderDaily() {
         var days = Object.keys(D.days).sort().reverse();
-        $('#daily').innerHTML = '<thead><tr><th>日期</th>' + STACK.map(function (t) { return '<th class="usage-num">' + esc(toolName(t)) + '</th>'; }).join('') + '<th class="usage-num">合计</th></tr></thead><tbody>' +
+        $('#daily').innerHTML = '<thead><tr><th>日期</th>' + STACK.map(function (id) { return '<th class="usage-num">' + esc(group(id).name) + '</th>'; }).join('') + '<th class="usage-num">合计</th></tr></thead><tbody>' +
           days.map(function (k) {
             var r = D.days[k];
-            return '<tr><td>' + md(k) + (D.estimated.indexOf(k) >= 0 && r.codex ? ' <span class="usage-est">估算</span>' : '') + '</td>' +
-              STACK.map(function (t) { return '<td class="usage-num">' + (r[t] ? cn(r[t]) : '—') + '</td>'; }).join('') +
+            return '<tr><td>' + md(k) + (localEstimate(k) ? ' <span class="usage-est">估算</span>' : '') + '</td>' +
+              STACK.map(function (id) { var v = groupTotal(r, id); return '<td class="usage-num">' + (v ? cn(v) : '—') + '</td>'; }).join('') +
               '<td class="usage-num">' + cn(dayTotal(k)) + '</td></tr>';
           }).join('') + '</tbody>';
       }

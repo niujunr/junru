@@ -2,9 +2,10 @@
 """统计 Claude、Codex 和 Grok 每天用了多少 token，写入 data/ai-usage.json。
 
 数据来源（除 Grok 外都在这台 Mac 上）：
+  ChatGPT       通过本机 codex 命令调用 account/usage/read，拿 OpenAI 账号的累计和每日 token 数（官方数据）
   Grok          data/grok-usage.json，由 tools/import_grok_usage.py 从 xAI 控制台导出的用量明细生成
   Claude Code   ~/.claude/projects 下的会话记录
-  Cowork        ~/Library/Application Support/Claude/local-agent-mode-sessions 下的会话记录
+  Claude Cowork ~/Library/Application Support/Claude/local-agent-mode-sessions 下的会话记录
   Claude 使用日  ~/Library/Application Support/Claude/plan-usage-history.json（只有额度百分比，没有 token 数）
   Codex         ~/.codex/sessions 下的逐次记录；没有逐次记录的旧对话，用 ~/.codex/state_*.sqlite
                 里每个对话的总数，按它在各天的使用时长分摊到每天（标为估算）
@@ -19,9 +20,12 @@ import glob
 import json
 import os
 import re
+import select
 import shutil
 import sqlite3
+import subprocess
 import tempfile
+import time
 from collections import defaultdict
 from datetime import datetime
 
@@ -33,9 +37,10 @@ OUT = os.path.join(REPO, "data", "ai-usage.json")
 
 TOOLS = [
     {"id": "claude_code", "name": "Claude Code"},
-    {"id": "cowork", "name": "Cowork"},
+    {"id": "cowork", "name": "Claude Cowork"},
     {"id": "codex", "name": "Codex"},
     {"id": "grok", "name": "Grok"},
+    {"id": "chatgpt", "name": "ChatGPT（官方每日数据）"},
 ]
 GROK = os.path.join(REPO, "data", "grok-usage.json")
 
@@ -188,6 +193,76 @@ def collect_codex(days, models, estimated):
         models[("codex", model or "unknown")] += tokens
 
 
+# ---------- ChatGPT 官方数据 ----------
+
+def read_chatgpt_official(timeout=120):
+    """通过本机 codex 命令的 app-server 调用 account/usage/read，拿账号的累计和每日 token 数。
+
+    登录由 codex 自己处理，这里不读取任何凭据。返回 None 表示这次没拿到（没装 codex、没登录或超时）。
+    """
+    exe = shutil.which("codex") or "/opt/homebrew/bin/codex"
+    if not os.path.exists(exe):
+        return None
+    try:
+        proc = subprocess.Popen([exe, "app-server"], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.DEVNULL, text=True)
+    except OSError:
+        return None
+
+    def send(msg):
+        proc.stdin.write(json.dumps(msg) + "\n")
+        proc.stdin.flush()
+
+    def wait_for(msg_id, deadline):
+        while time.time() < deadline:
+            ready, _, _ = select.select([proc.stdout], [], [], 1)
+            if not ready:
+                continue
+            line = proc.stdout.readline()
+            if not line:
+                return None
+            try:
+                msg = json.loads(line)
+            except ValueError:
+                continue
+            if msg.get("id") == msg_id:
+                return msg
+        return None
+
+    try:
+        deadline = time.time() + timeout
+        send({"id": 0, "method": "initialize",
+              "params": {"clientInfo": {"name": "junru_ai_usage", "title": "AI usage page", "version": "1.0.0"}}})
+        if not wait_for(0, deadline):
+            return None
+        send({"method": "initialized"})
+        send({"id": 1, "method": "account/usage/read"})
+        res = wait_for(1, deadline)
+    except (OSError, ValueError):
+        res = None
+    finally:
+        proc.terminate()
+    if not res or "result" not in res:
+        return None
+    return res["result"]
+
+
+def collect_chatgpt(days):
+    usage = read_chatgpt_official()
+    if not usage:
+        return None
+    for b in usage.get("dailyUsageBuckets") or []:
+        if b.get("startDate") and b.get("tokens"):
+            days[b["startDate"][:10]]["chatgpt"] += b["tokens"]
+    s = usage.get("summary") or {}
+    return {
+        "lifetime": s.get("lifetimeTokens"),
+        "asOf": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M %z"),
+        "currentStreakDays": s.get("currentStreakDays"),
+        "peakDailyTokens": s.get("peakDailyTokens"),
+    }
+
+
 # ---------- Grok ----------
 
 def collect_grok(days, models):
@@ -212,6 +287,7 @@ def main():
     collect_claude(days, models)
     collect_codex(days, models, estimated)
     grok_range = collect_grok(days, models)
+    chatgpt = collect_chatgpt(days)
 
     try:
         old = json.load(open(OUT, encoding="utf-8"))
@@ -240,6 +316,8 @@ def main():
         "first": all_days[0] if all_days else None,
         "tools": TOOLS,
         "grok_range": grok_range or old.get("grok_range"),
+        # 这次没拿到官方数据时，沿用上一次的
+        "chatgpt": chatgpt or old.get("chatgpt"),
         "days": {d: merged[d] for d in sorted(merged)},
         "estimated": sorted(est),
         "seen": sorted(seen),
@@ -250,7 +328,8 @@ def main():
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
-    total = sum(sum(r.values()) for r in merged.values())
+    # ChatGPT 有官方每日数据的日子，本机的 Codex 记录已经包含在里面，不重复加
+    total = sum(sum(v for k, v in r.items() if not (k == "codex" and "chatgpt" in r)) for r in merged.values())
     print(f"已写入 {OUT}：{len(merged)} 天有 token 记录，累计 {total:,} token")
 
 
