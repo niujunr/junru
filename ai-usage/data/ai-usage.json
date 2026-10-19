@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20 01:48 +0800",
+ "updated": "2026-10-20 02:15 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -29,7 +29,7 @@
  },
  "chatgpt": {
   "lifetime": 7948440024,
-  "asOf": "2026-10-20 01:48 +0800",
+  "asOf": "2026-10-20 02:15 +0800",
   "currentStreakDays": 28,
   "peakDailyTokens": 499893251
  },
@@ -383,7 +383,7 @@
    "chatgpt": 18720869
   },
   "2026-10-20": {
-   "claude_code": 85178654,
+   "claude_code": 125222413,
    "codex": 3589473
   }
  },
@@ -452,7 +452,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 1579265491
+   "tokens": 1611705954
   },
   {
    "tool": "codex",

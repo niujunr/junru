@@ -1,5 +1,5 @@
 {
- "_说明": "由 tools/import_grok_usage.py 从 xAI 控制台导出的用量明细生成，只含每天的合计。",
+ "_说明": "由 ai-usage/import_grok_usage.py 从 xAI 控制台导出的用量明细生成，只含每天的合计。",
  "from": "2026-10-15",
  "to": "2026-10-18",
  "days": {

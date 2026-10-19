@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""把 xAI 控制台导出的用量明细（personal-unified-usage-*.csv）汇总成每天的 token 数，写入 data/grok-usage.json。
+"""把 xAI 控制台导出的用量明细（personal-unified-usage-*.csv）汇总成每天的 token 数，写入 ai-usage/data/grok-usage.json。
 
 只保存每天、每个产品的合计，不保存邮箱、用户 ID 或明细编号。
 可以重复导入：同一天同一产品取较大的值，所以新旧导出的时间段重叠也没关系。
 
-用法：python3 tools/import_grok_usage.py ~/Downloads/personal-unified-usage-2026-10-19.csv [更多文件...]
+用法：python3 ai-usage/import_grok_usage.py ~/Downloads/personal-unified-usage-2026-10-19.csv [更多文件...]
+平时不用手动跑：把 CSV 放进 ~/.ai-usage/inbox，当晚的自动更新会导入。说明见 README.md。
 """
 import csv
 import json
@@ -13,8 +14,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(REPO, "data", "grok-usage.json")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "grok-usage.json")
 
 PRODUCT_NAMES = {"grok-bot": "Grok Bot", "grok-chat": "Grok 对话", "grok-tasks": "Grok Tasks"}
 
@@ -56,7 +56,7 @@ def main(paths):
         sys.exit("没有读到任何用量记录")
     span = sorted(merged)
     data = {
-        "_说明": "由 tools/import_grok_usage.py 从 xAI 控制台导出的用量明细生成，只含每天的合计。",
+        "_说明": "由 ai-usage/import_grok_usage.py 从 xAI 控制台导出的用量明细生成，只含每天的合计。",
         "from": min([d for d in (old.get("from"), first, span[0]) if d]),
         "to": max([d for d in (old.get("to"), last, span[-1]) if d]),
         "days": {d: merged[d] for d in span},

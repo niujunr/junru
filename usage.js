@@ -351,8 +351,8 @@
   }
   // 官方累计数是另一个手动维护的文件，读不到时退回本机记录
   Promise.all([
-    getJSON('data/ai-usage.json'),
-    getJSON('data/ai-usage-official.json').catch(function () { return null; }),
+    getJSON('ai-usage/data/ai-usage.json'),
+    getJSON('ai-usage/data/ai-usage-official.json').catch(function () { return null; }),
   ]).then(function (res) {
     var data = res[0]; OFFICIAL = res[1];
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];

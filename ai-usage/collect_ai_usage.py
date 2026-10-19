@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""统计 Claude、Codex 和 Grok 每天用了多少 token，写入 data/ai-usage.json。
+"""统计 Claude、ChatGPT 和 Grok 每天用了多少 token，写入 ai-usage/data/ai-usage.json。
 
 数据来源（除 Grok 外都在这台 Mac 上）：
   ChatGPT       通过本机 codex 命令调用 account/usage/read，拿 OpenAI 账号的累计和每日 token 数（官方数据）
-  Grok          data/grok-usage.json，由 tools/import_grok_usage.py 从 xAI 控制台导出的用量明细生成
+  Grok          ai-usage/data/grok-usage.json，由 import_grok_usage.py 从 xAI 控制台导出的用量明细生成
   Claude Code   ~/.claude/projects 下的会话记录
   Claude Cowork ~/Library/Application Support/Claude/local-agent-mode-sessions 下的会话记录
   Claude 使用日  ~/Library/Application Support/Claude/plan-usage-history.json（只有额度百分比，没有 token 数）
@@ -13,7 +13,8 @@
 输出只有每天的汇总数字和各模型的总数，不含文件夹名、对话标题或对话内容。
 已经写进 JSON 的数字只会调高、不会调低，所以删掉会话后，那几天的数字仍然保留。
 
-用法：python3 tools/collect_ai_usage.py
+用法：python3 ai-usage/collect_ai_usage.py
+说明见同一文件夹里的 README.md。
 """
 import atexit
 import glob
@@ -32,8 +33,8 @@ from datetime import datetime
 HOME = os.path.expanduser("~")
 CLAUDE_APP = os.path.join(HOME, "Library/Application Support/Claude")
 CODEX = os.path.join(HOME, ".codex")
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(REPO, "data", "ai-usage.json")
+DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+OUT = os.path.join(DATA, "ai-usage.json")
 
 TOOLS = [
     {"id": "claude_code", "name": "Claude Code"},
@@ -42,7 +43,7 @@ TOOLS = [
     {"id": "grok", "name": "Grok"},
     {"id": "chatgpt", "name": "ChatGPT（官方每日数据）"},
 ]
-GROK = os.path.join(REPO, "data", "grok-usage.json")
+GROK = os.path.join(DATA, "grok-usage.json")
 
 
 def day_from_iso(ts):
@@ -266,7 +267,7 @@ def collect_chatgpt(days):
 # ---------- Grok ----------
 
 def collect_grok(days, models):
-    """Grok 没有本地记录，读 tools/import_grok_usage.py 从 xAI 导出明细生成的每日合计。"""
+    """Grok 没有本地记录，读 import_grok_usage.py 从 xAI 导出明细生成的每日合计。"""
     try:
         grok = json.load(open(GROK, encoding="utf-8"))
     except (OSError, ValueError):
