@@ -239,7 +239,7 @@
    "claude_code": 9834938
   },
   "2026-10-20": {
-   "claude_code": 44277112,
+   "claude_code": 46289430,
    "codex": 3589473
   }
  },
@@ -313,7 +313,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 1554011126
+   "tokens": 1556023444
   },
   {
    "tool": "codex",
