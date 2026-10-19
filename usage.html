@@ -22,7 +22,7 @@
 
     <main class="page usage-page">
       <h1 class="page-title">AI 用量</h1>
-      <p class="page-lead">我每天用 Claude 和 Codex 写代码、做项目。Codex 的累计数来自 Codex 应用；日历和每天的图表来自我电脑上的本地记录，每天自动更新一次。</p>
+      <p class="page-lead">我每天用 Claude、Codex 和 Grok 写代码、做项目。Codex 的累计数来自 Codex 应用，Grok 来自 xAI 导出的用量明细，其余来自我电脑上的本地记录，每天自动更新一次。</p>
 
       <dl class="usage-figures" id="figures" aria-live="polite">
         <div><dt>Codex 累计</dt><dd>—</dd></div>
@@ -39,9 +39,10 @@
             <button type="button" id="chip-claude_code" data-tool="claude_code" aria-pressed="false">Claude Code</button>
             <button type="button" id="chip-cowork" data-tool="cowork" aria-pressed="false">Cowork</button>
             <button type="button" id="chip-codex" data-tool="codex" aria-pressed="false">Codex</button>
+            <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
           </div>
         </div>
-        <p class="usage-sub">本机记录。颜色越深，那天用的 token 越多。</p>
+        <p class="usage-sub">本机记录，加上导入的 Grok 用量明细。颜色越深，那天用的 token 越多。</p>
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">少 <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> 多</span>
@@ -57,11 +58,15 @@
         </div>
         <p class="usage-sub" id="bars-sub"></p>
         <div id="bars"></div>
+        <details class="usage-details">
+          <summary>每日明细表</summary>
+          <div class="usage-table-scroll"><table class="usage-table usage-table--daily" id="daily"></table></div>
+        </details>
       </section>
 
       <section class="usage-section" aria-labelledby="models-title">
         <h2 id="models-title">按工具和模型</h2>
-        <p class="usage-sub">本机记录</p>
+        <p class="usage-sub">本机记录，加上导入的 Grok 用量明细</p>
         <table class="usage-table" id="models"></table>
       </section>
 
@@ -73,7 +78,8 @@
           <li>Claude Code 和 Cowork：读取 Claude 应用在这台电脑上保存的会话记录。每条回复都记了 token 数，这里算的是输入、输出和缓存读写的总和。</li>
           <li>Codex：读取 Codex 在本地保存的逐次记录，算的是输入（含缓存）和输出的总和。较早的对话没有逐次记录，只有每个对话的总数，按它在各天的使用时长分摊到每天，这些日子标为估算。</li>
           <li>token 里大部分是每轮对话都要重新带上的上下文，所以不等于写出了多少字。</li>
-          <li>不包括网页版和手机 App 里的聊天，也不包括 Grok：这些用量没有留在本地。</li>
+          <li id="grok-note" hidden>Grok：Grok 没有本地记录，数字来自 xAI 控制台导出的用量明细（包括 Grok Bot、Grok 对话和 Grok Tasks），按天计入日历和图表。导出文件是我手动导入的。<span id="grok-asof"></span></li>
+          <li>不包括网页版和手机 App 里的聊天：这些用量没有留在本地。</li>
           <li>已经记下的数字不会因为删掉旧会话而减少。<span id="updated"></span></li>
         </ul>
       </section>
@@ -87,8 +93,9 @@
     (function () {
       var NS = 'http://www.w3.org/2000/svg';
       var WD = '日一二三四五六';
-      var COLORS = { claude_code: 'var(--usage-s1)', cowork: 'var(--usage-s3)', codex: 'var(--usage-s2)' };
-      var STACK = ['claude_code', 'cowork', 'codex'];
+      var COLORS = { claude_code: 'var(--usage-s1)', codex: 'var(--usage-s2)', cowork: 'var(--usage-s3)', grok: 'var(--usage-s4)' };
+      // 堆叠顺序按配色顺序排，相邻两段的颜色在色盲模拟下也能分清
+      var STACK = ['claude_code', 'codex', 'cowork', 'grok'];
       var D = null, OFFICIAL = null;
       var state = { tool: 'all' };
       var $ = function (s) { return document.querySelector(s); };
@@ -184,8 +191,11 @@
           var r = D.days[k];
           claude += (r.claude_code || 0) + (r.cowork || 0); codex += r.codex || 0;
         });
-        var off = OFFICIAL && OFFICIAL.codex && OFFICIAL.codex.tokens ? OFFICIAL.codex : null;
-        var offDate = off && off.asOf ? parseDay(off.asOf).getFullYear() + '年' + md(off.asOf) : '';
+        // 官方累计数：有就用；没有时 Codex 退回本机记录，Grok 用导入的明细
+        var pick = function (id) { var o = OFFICIAL && OFFICIAL[id]; return o && o.tokens ? o : null; };
+        var asOf = function (o) { return o.asOf ? parseDay(o.asOf).getFullYear() + '年' + md(o.asOf) : ''; };
+        var officialNote = function (o, source) { return '官方数，截至 ' + asOf(o) + '，来自 ' + esc(o.source || source); };
+        var cx = pick('codex'), gk = pick('grok');
         var used = usedDays(), span = D.first ? diff(D.first, today()) + 1 : 0;
         var best = 0, run = 0, prev = null;
         used.forEach(function (k) { run = prev && diff(prev, k) === 1 ? run + 1 : 1; best = Math.max(best, run); prev = k; });
@@ -193,14 +203,20 @@
         var set = {}; used.forEach(function (k) { set[k] = 1; });
         if (!set[key(d)]) d = addDays(d, -1);
         while (set[key(d)]) { cur++; d = addDays(d, -1); }
-        var items = [
-          off ? ['Codex 累计', cn(off.tokens), '官方数，截至 ' + offDate + '，来自' + esc(off.source || 'Codex 应用')]
-              : ['Codex 累计', cn(codex), '本机记录'],
+        var items = [cx ? ['Codex 累计', cn(cx.tokens), officialNote(cx, 'Codex 应用')] : ['Codex 累计', cn(codex), '本机记录']];
+        var grok = 0;
+        Object.keys(D.days).forEach(function (k) { grok += D.days[k].grok || 0; });
+        var gr = D.grok_range, grokSpan = gr && gr.from ? md(gr.from) + '至' + md(gr.to) : '';
+        if (gk) items.push(['Grok 累计', cn(gk.tokens), officialNote(gk, 'xAI 控制台')]);
+        else if (grok) items.push(['Grok 累计', cn(grok), 'xAI 用量明细，' + grokSpan]);
+        items.push(
           ['Claude 累计', cn(claude), '本机记录，含 Claude Code 和 Cowork'],
           ['用过 AI 的天数', used.length + ' 天', D.first ? '从 ' + parseDay(D.first).getFullYear() + '年' + md(D.first) + '起，共 ' + span + ' 天' : ''],
-          ['连续使用', cur + ' 天', '最长连续 ' + best + ' 天'],
-        ];
-        $('#official-asof').textContent = off ? '目前是 ' + cn(off.tokens) + '，截至 ' + offDate + '；本机记录的 Codex 是 ' + cn(codex) + '。' : '';
+          ['连续使用', cur + ' 天', '最长连续 ' + best + ' 天']
+        );
+        $('#official-asof').textContent = cx ? '目前是 ' + cn(cx.tokens) + '，截至 ' + asOf(cx) + '；本机记录的 Codex 是 ' + cn(codex) + '。' : '';
+        $('#grok-note').hidden = !(gk || grok);
+        $('#grok-asof').textContent = grok ? '目前导入的明细覆盖 ' + grokSpan + '，共 ' + cn(grok) + '。' : '';
         $('#figures').innerHTML = items.map(function (x) {
           return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd><dd class="usage-figure-note">' + x[2] + '</dd></div>';
         }).join('');
@@ -241,7 +257,7 @@
               el(s, 'text', { x: lw + w * (cell + gap), y: 12, class: 'usage-ax' }, (d.getMonth() + 1) + '月');
               lastLabel = w;
             }
-            var cls = v > 0 ? 'usage-q' + level(v) : (D.seen.indexOf(k) >= 0 && state.tool !== 'codex' && state.tool !== 'cowork' ? 'usage-hatch' : 'usage-q0');
+            var cls = v > 0 ? 'usage-q' + level(v) : (D.seen.indexOf(k) >= 0 && (state.tool === 'all' || state.tool === 'claude_code') ? 'usage-hatch' : 'usage-q0');
             el(s, 'rect', { x: lw + w * (cell + gap), y: th + dow * (cell + gap), width: cell, height: cell, rx: 2, class: cls + (k === today() ? ' usage-today' : ''), 'data-day': k });
           }
         }
@@ -258,7 +274,7 @@
         var n = Math.max(7, Math.min(all, Math.floor((W - ml - mr) / 7)));
         var days = [];
         for (var i = n - 1; i >= 0; i--) days.push(key(addDays(end, -i)));
-        $('#bars-sub').textContent = '本机记录，' + (n >= all ? '从第一天到今天' : '最近 ' + n + ' 天') + '，每根柱子是一天，没有柱子的日子是没用。Codex 的数字比官方累计少，原因见页面底部。';
+        $('#bars-sub').textContent = '本机记录和导入的 Grok 明细，' + (n >= all ? '从第一天到今天' : '最近 ' + n + ' 天') + '，每根柱子是一天，没有柱子的日子是没用。Codex 的数字比官方累计少，原因见页面底部。';
         var max = Math.max.apply(null, days.map(function (k) { return dayTotal(k); }).concat([0]));
         var nt = niceTicks(max, 4), top = nt.top;
         var y = function (v) { return mt + (H - mt - mb) * (1 - v / top); }, y0 = y(0);
@@ -308,6 +324,18 @@
           }).join('') + '</tbody>';
       }
 
+      // ---------- 每日明细表 ----------
+      function renderDaily() {
+        var days = Object.keys(D.days).sort().reverse();
+        $('#daily').innerHTML = '<thead><tr><th>日期</th>' + STACK.map(function (t) { return '<th class="usage-num">' + esc(toolName(t)) + '</th>'; }).join('') + '<th class="usage-num">合计</th></tr></thead><tbody>' +
+          days.map(function (k) {
+            var r = D.days[k];
+            return '<tr><td>' + md(k) + (D.estimated.indexOf(k) >= 0 && r.codex ? ' <span class="usage-est">估算</span>' : '') + '</td>' +
+              STACK.map(function (t) { return '<td class="usage-num">' + (r[t] ? cn(r[t]) : '—') + '</td>'; }).join('') +
+              '<td class="usage-num">' + cn(dayTotal(k)) + '</td></tr>';
+          }).join('') + '</tbody>';
+      }
+
       // ---------- 启动 ----------
       function renderCharts() { renderCalendar(); renderBars(); }
       $('#tool-chips').addEventListener('click', function (e) {
@@ -331,7 +359,7 @@
       ]).then(function (res) {
         var data = res[0]; OFFICIAL = res[1];
         D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
-        renderFigures(); renderModels(); renderCharts();
+        renderFigures(); renderModels(); renderDaily(); renderCharts();
         var lastW = document.body.clientWidth, raf = 0;
         window.addEventListener('resize', function () {
           if (document.body.clientWidth === lastW) return; lastW = document.body.clientWidth;

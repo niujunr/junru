@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""统计本机 Claude 和 Codex 每天用了多少 token，写入 data/ai-usage.json。
+"""统计 Claude、Codex 和 Grok 每天用了多少 token，写入 data/ai-usage.json。
 
-数据来源（都在这台 Mac 上）：
+数据来源（除 Grok 外都在这台 Mac 上）：
+  Grok          data/grok-usage.json，由 tools/import_grok_usage.py 从 xAI 控制台导出的用量明细生成
   Claude Code   ~/.claude/projects 下的会话记录
   Cowork        ~/Library/Application Support/Claude/local-agent-mode-sessions 下的会话记录
   Claude 使用日  ~/Library/Application Support/Claude/plan-usage-history.json（只有额度百分比，没有 token 数）
@@ -34,7 +35,9 @@ TOOLS = [
     {"id": "claude_code", "name": "Claude Code"},
     {"id": "cowork", "name": "Cowork"},
     {"id": "codex", "name": "Codex"},
+    {"id": "grok", "name": "Grok"},
 ]
+GROK = os.path.join(REPO, "data", "grok-usage.json")
 
 
 def day_from_iso(ts):
@@ -185,6 +188,21 @@ def collect_codex(days, models, estimated):
         models[("codex", model or "unknown")] += tokens
 
 
+# ---------- Grok ----------
+
+def collect_grok(days, models):
+    """Grok 没有本地记录，读 tools/import_grok_usage.py 从 xAI 导出明细生成的每日合计。"""
+    try:
+        grok = json.load(open(GROK, encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    for day, row in (grok.get("days") or {}).items():
+        for name, tokens in row.items():
+            days[day]["grok"] += tokens
+            models[("grok", name)] += tokens
+    return {"from": grok.get("from"), "to": grok.get("to")}
+
+
 # ---------- 合并与输出 ----------
 
 def main():
@@ -193,6 +211,7 @@ def main():
     estimated = set()
     collect_claude(days, models)
     collect_codex(days, models, estimated)
+    grok_range = collect_grok(days, models)
 
     try:
         old = json.load(open(OUT, encoding="utf-8"))
@@ -220,6 +239,7 @@ def main():
         "updated": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M %z"),
         "first": all_days[0] if all_days else None,
         "tools": TOOLS,
+        "grok_range": grok_range or old.get("grok_range"),
         "days": {d: merged[d] for d in sorted(merged)},
         "estimated": sorted(est),
         "seen": sorted(seen),

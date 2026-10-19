@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20 01:09 +0800",
+ "updated": "2026-10-20 01:22 +0800",
  "first": "2026-06-16",
  "tools": [
   {
@@ -13,8 +13,16 @@
   {
    "id": "codex",
    "name": "Codex"
+  },
+  {
+   "id": "grok",
+   "name": "Grok"
   }
  ],
+ "grok_range": {
+  "from": "2026-10-15",
+  "to": "2026-10-18"
+ },
  "days": {
   "2026-06-16": {
    "codex": 925976
@@ -221,25 +229,29 @@
    "claude_code": 205455852
   },
   "2026-10-15": {
-   "claude_code": 283979286
+   "claude_code": 283979286,
+   "grok": 157023766
   },
   "2026-10-16": {
    "claude_code": 295973626,
-   "codex": 65154687
+   "codex": 65154687,
+   "grok": 53875283
   },
   "2026-10-17": {
    "claude_code": 183660298,
-   "codex": 2428866
+   "codex": 2428866,
+   "grok": 58559891
   },
   "2026-10-18": {
    "claude_code": 184718255,
-   "codex": 52092978
+   "codex": 52092978,
+   "grok": 1476054
   },
   "2026-10-19": {
    "claude_code": 9834938
   },
   "2026-10-20": {
-   "claude_code": 46289430,
+   "claude_code": 64065334,
    "codex": 3589473
   }
  },
@@ -313,7 +325,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 1556023444
+   "tokens": 1573799348
   },
   {
    "tool": "codex",
@@ -336,6 +348,11 @@
    "tokens": 520784508
   },
   {
+   "tool": "grok",
+   "name": "Grok Bot",
+   "tokens": 250351915
+  },
+  {
    "tool": "codex",
    "name": "codex-auto-review",
    "tokens": 239700980
@@ -346,9 +363,19 @@
    "tokens": 28620821
   },
   {
+   "tool": "grok",
+   "name": "grok-4.7",
+   "tokens": 17270630
+  },
+  {
    "tool": "cowork",
    "name": "Fable 5",
    "tokens": 13384089
+  },
+  {
+   "tool": "grok",
+   "name": "Grok Tasks",
+   "tokens": 3312449
   },
   {
    "tool": "cowork",
