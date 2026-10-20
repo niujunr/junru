@@ -15,7 +15,8 @@
     none: 'No use',
     calLabel: function (a, b) { return 'Usage calendar, ' + a + ' to ' + b; },
     heroLabel: function (y, m) { return 'Total since ' + MONTHS_LONG[m - 1] + ' ' + y; },
-    heroDays: function (n) { return 'Tokens across <strong>' + n + (n === 1 ? ' day' : ' days') + '</strong>'; },
+    heroWord: 'Tokens',
+    heroDays: function (n) { return 'across <strong>' + n + (n === 1 ? ' day' : ' days') + '</strong>'; },
     monthAdded: function (m, v) { return '+' + v + ' in ' + MONTHS_LONG[m - 1]; },
     streak: 'Current streak', peak: 'Busiest day', last30: 'Last 30 days',
     days: function (n) { return n + (n === 1 ? ' day' : ' days'); },
@@ -40,7 +41,8 @@
     none: '没用',
     calLabel: function (a, b) { return '使用日历，' + a + ' 到 ' + b; },
     heroLabel: function (y, m) { return '从 ' + y + ' 年 ' + m + ' 月到今天，一共用了'; },
-    heroDays: function (n) { return 'Token，分布在 <strong>' + n + ' 天</strong>里'; },
+    heroWord: 'Token',
+    heroDays: function (n) { return '分布在 <strong>' + n + ' 天</strong>里'; },
     monthAdded: function (m, v) { return m + ' 月新增 ' + v; },
     streak: '连续使用', peak: '单日最高', last30: '最近 30 天',
     days: function (n) { return n + ' 天'; },
@@ -204,7 +206,7 @@
     var used = usedDays();
     if (D.first) { var f = parseDay(D.first); $('#hero-label').textContent = TEXT.heroLabel(f.getFullYear(), f.getMonth() + 1); }
     var parts = splitNum(all);
-    $('#hero-number').innerHTML = esc(parts[0]) + (parts[1] ? '<span>' + esc(parts[1]) + '</span>' : '');
+    $('#hero-number').innerHTML = esc(parts[0]) + (parts[1] ? '<span>' + esc(parts[1]) + '</span>' : '') + '<span>' + TEXT.heroWord + '</span>';
     $('#hero-days').innerHTML = TEXT.heroDays(used.length);
 
     // 这个月新增多少
