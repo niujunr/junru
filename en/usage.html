@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="https://niujunr.github.io/junru/">
-    <meta name="description" content="Junru Niu’s daily token usage across Claude, ChatGPT and Grok, updated automatically every day.">
+    <meta name="description" content="Junru Niu’s daily Token usage across Claude, ChatGPT and Grok, updated automatically every day.">
     <title>AI Usage — Junru Niu</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html">
@@ -25,7 +25,6 @@
 
     <main class="page usage-page">
       <h1 class="page-title">AI Usage</h1>
-      <p class="page-lead">I use Claude, ChatGPT and Grok every day to write code and build projects. ChatGPT figures are official data from my OpenAI account, Grok comes from the xAI usage export, and Claude comes from local records on my computer. Updated automatically once a day.</p>
 
       <section class="usage-hero" aria-label="Overview">
         <div class="usage-hero-main">
@@ -45,7 +44,6 @@
           <h2 id="curve-title">Growing total</h2>
           <div class="usage-legend usage-legend--keys" id="curve-legend"></div>
         </div>
-        <p class="usage-sub" id="curve-sub"></p>
         <div class="usage-curve" id="curve"></div>
       </section>
 
@@ -59,13 +57,19 @@
             <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
           </div>
         </div>
-        <p class="usage-sub">Claude comes from local records, ChatGPT from official data, and Grok from the imported export. Darker squares mean more tokens that day.</p>
+        <p class="usage-sub">Claude comes from local records, ChatGPT from official data, and Grok from the imported export. Darker squares mean more Tokens that day.</p>
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">Less <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> More</span>
-          <span><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>Used Claude, but no token record for the day</span>
+          <span><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>Used Claude, but no Token record for the day</span>
           <span><i class="usage-swatch usage-q0"></i>No use</span>
         </div>
+      </section>
+
+      <section class="usage-section" aria-labelledby="models-title">
+        <h2 id="models-title">By model</h2>
+        <p class="usage-sub">Claude and ChatGPT models come from local records; Grok from the imported usage export.</p>
+        <table class="usage-table" id="models"></table>
       </section>
 
       <section class="usage-section" aria-labelledby="daily-title">
@@ -77,20 +81,13 @@
         <button type="button" class="usage-more" id="daily-more" aria-controls="daily" aria-expanded="false" hidden></button>
       </section>
 
-      <section class="usage-section" aria-labelledby="models-title">
-        <h2 id="models-title">By model</h2>
-        <p class="usage-sub">Claude and ChatGPT models come from local records; Grok from the imported usage export.</p>
-        <table class="usage-table" id="models"></table>
-      </section>
 
       <section class="usage-section usage-notes" aria-labelledby="notes-title">
         <h2 id="notes-title">About the data</h2>
         <ul>
-          <li>ChatGPT: official lifetime and daily token counts, read from my OpenAI account every day. This includes tasks run in the cloud and on other devices.<span id="official-asof"></span></li>
-          <li>Claude: read from the conversation records the Claude app keeps on this computer. Every reply records its token count; this sums input, output, and cache reads and writes. Chats in the web and mobile apps aren’t stored locally, so they’re not included.</li>
-          <li>Most tokens are context that gets resent with every turn of a conversation, so they don’t equal how much was written.</li>
-          <li id="grok-note" hidden>Grok: Grok keeps no local records. These numbers come from the usage export in the xAI console (covering Grok Bot, Grok chat and Grok Tasks) and are counted by day in the calendar and charts. I import the export by hand.<span id="grok-asof"></span></li>
-          <li>Numbers already recorded never go down when old conversations are deleted.<span id="updated"></span></li>
+          <li>ChatGPT: official lifetime and daily Token counts, read from my OpenAI account every day. This includes tasks run in ChatGPT Work mode and Codex (not Chat mode), and use on other devices.</li>
+          <li>Claude: read from Claude Code’s local session records. Every reply records its cloud Token count.</li>
+          <li>Grok: Grok keeps no local records. The numbers come from the usage export in the xAI console.</li>
         </ul>
       </section>
     </main>

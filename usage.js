@@ -11,20 +11,15 @@
   var TEXT = EN ? {
     total: 'Total',
     estimate: 'ChatGPT figure is an estimate',
-    seen: 'Used Claude, but no token record for this day',
+    seen: 'Used Claude, but no Token record for this day',
     none: 'No use',
     calLabel: function (a, b) { return 'Usage calendar, ' + a + ' to ' + b; },
     heroLabel: function (y, m) { return 'Total since ' + MONTHS_LONG[m - 1] + ' ' + y; },
-    heroDays: function (n) { return 'tokens across <strong>' + n + (n === 1 ? ' day' : ' days') + '</strong>'; },
+    heroDays: function (n) { return 'Tokens across <strong>' + n + (n === 1 ? ' day' : ' days') + '</strong>'; },
     monthAdded: function (m, v) { return '+' + v + ' in ' + MONTHS_LONG[m - 1]; },
     streak: 'Current streak', peak: 'Busiest day', last30: 'Last 30 days',
     days: function (n) { return n + (n === 1 ? ' day' : ' days'); },
-    curveLabel: 'Cumulative tokens over time, stacked by tool',
-    curveSub: function (quiet, base) {
-      return 'The steeper the curve, the heavier the use.' +
-        (quiet ? ' Light use during ' + quiet + ', so the curve is almost flat there.' : '') +
-        (base ? ' The ' + base + ' used earlier is counted in the starting point.' : '');
-    },
+    curveLabel: 'Cumulative Tokens over time, stacked by tool',
     quietLabel: function (s) { return 'Light use, ' + s; },
     milestone: function (d, v) { return v + ' on ' + d; },
     todayLabel: function (v) { return 'Today ' + v; },
@@ -34,9 +29,6 @@
     monthHead: function (y, m) { return MONTHS_LONG[m - 1] + ' ' + y; },
     showAll: function (n) { return 'Show all ' + n + ' days'; },
     showLess: function (n) { return 'Show the latest ' + n + ' days'; },
-    gptAsOf: function (t, d) { return ' Currently ' + t + ' in total, as of ' + d + '.'; },
-    grokAsOf: function (s, t) { return ' The imported export covers ' + s + ', ' + t + ' in total.'; },
-    updated: function (u) { return ' Last updated: ' + u + '.'; },
     otherModels: function (n) { return n + ' other models'; },
     thTool: 'Tool', thModel: 'Model', thTokens: 'Tokens',
     loadError: 'Usage data couldn’t be loaded. Please refresh later.',
@@ -44,20 +36,15 @@
   } : {
     total: '合计',
     estimate: 'ChatGPT 的数字是估算',
-    seen: '用过 Claude，但没有当天的 token 记录',
+    seen: '用过 Claude，但没有当天的 Token 记录',
     none: '没用',
     calLabel: function (a, b) { return '使用日历，' + a + ' 到 ' + b; },
     heroLabel: function (y, m) { return '从 ' + y + ' 年 ' + m + ' 月到今天，一共用了'; },
-    heroDays: function (n) { return 'token，分布在 <strong>' + n + ' 天</strong>里'; },
+    heroDays: function (n) { return 'Token，分布在 <strong>' + n + ' 天</strong>里'; },
     monthAdded: function (m, v) { return m + ' 月新增 ' + v; },
     streak: '连续使用', peak: '单日最高', last30: '最近 30 天',
     days: function (n) { return n + ' 天'; },
-    curveLabel: '累计 token 随时间的变化，按工具叠起来',
-    curveSub: function (quiet, base) {
-      return '曲线越陡，那几天用得越多。' +
-        (quiet ? quiet + '用得少，曲线几乎是平的。' : '') +
-        (base ? '更早用过的 ' + base + ' 算在起点里。' : '');
-    },
+    curveLabel: '累计 Token 随时间的变化，按工具叠起来',
     quietLabel: function (s) { return s + '，用得少'; },
     milestone: function (d, v) { return d + ' 破 ' + v; },
     todayLabel: function (v) { return '今天 ' + v; },
@@ -67,11 +54,8 @@
     monthHead: function (y, m) { return y + '年' + m + '月'; },
     showAll: function (n) { return '显示全部 ' + n + ' 天'; },
     showLess: function (n) { return '只显示最近 ' + n + ' 天'; },
-    gptAsOf: function (t, d) { return '目前累计 ' + t + '，截至 ' + d + '。'; },
-    grokAsOf: function (s, t) { return '目前导入的明细覆盖 ' + s + '，共 ' + t + '。'; },
-    updated: function (u) { return '最后更新：' + u + '。'; },
     otherModels: function (n) { return '其他 ' + n + ' 个模型'; },
-    thTool: '工具', thModel: '模型', thTokens: 'token',
+    thTool: '工具', thModel: '模型', thTokens: 'Token',
     loadError: '用量数据暂时加载不出来，请稍后刷新。',
     modelNames: {},
   };
@@ -256,18 +240,6 @@
     ].map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('');
   }
 
-  // ---------- 数据说明里的几个数字 ----------
-  function renderNotes() {
-    var v = vendorTotals(), grok = 0;
-    Object.keys(D.days).forEach(function (k) { grok += D.days[k].grok || 0; });
-    var gr = D.grok_range, grokSpan = gr && gr.from ? span(gr.from, gr.to) : '';
-    $('#official-asof').textContent = v.gpt ? TEXT.gptAsOf(num(v.gpt.tokens), v.gpt.asOf ? ymd(v.gpt.asOf.slice(0, 10)) : '') : '';
-    $('#grok-note').hidden = !(v.grokOfficial || grok);
-    $('#grok-asof').textContent = grok ? TEXT.grokAsOf(grokSpan, num(grok)) : '';
-    var u = D.updated ? D.updated.slice(0, 16) : '';
-    $('#updated').textContent = u ? TEXT.updated(u) : '';
-  }
-
   // ---------- 累计曲线 ----------
   // 从最后一段长时间没用（超过 30 天）之后开始画，更早的用量算进起点，图的左边就不会空一大截
   function curveSeries() {
@@ -311,7 +283,6 @@
     var x = function (i) { return ml + (n > 1 ? pw * i / (n - 1) : pw / 2); };
     var y = function (v) { return mt + ph * (1 - v / top); };
     var quiet = quietRun(pts);
-    $('#curve-sub').textContent = TEXT.curveSub(quiet ? span(pts[quiet.from].k, pts[quiet.to].k) : '', series.base > 0 ? num(series.base) : '');
 
     var s = svg(W, H, TEXT.curveLabel);
     var pat = el(el(s, 'defs', {}), 'pattern', { id: 'usage-curve-stripes', width: 4, height: 4, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
@@ -529,7 +500,7 @@
   getJSON('data/ai-usage.json').then(function (data) {
     OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
-    renderHero(); renderNotes(); renderModels(); renderDaily(); renderCharts();
+    renderHero(); renderModels(); renderDaily(); renderCharts();
     var lastW = document.body.clientWidth, raf = 0;
     window.addEventListener('resize', function () {
       if (document.body.clientWidth === lastW) return; lastW = document.body.clientWidth;
