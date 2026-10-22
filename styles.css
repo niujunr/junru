@@ -562,7 +562,25 @@ li { margin: 0.28rem 0; }
 .usage-mix i { display: block; height: 10px; border-radius: 2px; }
 .usage-strong { font-weight: 600; }
 .usage-est { color: var(--muted); font-size: 0.78rem; }
-.usage-today { display: block; color: var(--accent); font-size: 0.76rem; line-height: 1.3; }
+.usage-row-today { display: block; color: var(--accent); font-size: 0.76rem; line-height: 1.3; }
+
+/* 「AI 用量」页的动效：数字滚动、比例条伸展、曲线描出、里程碑出现、今天的点向外扩散、日历点亮。
+   只在第一次看到时播放，系统开了"减少动态效果"时 usage.js 不会加这些状态 */
+.usage-vendor-bar i { transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.usage-ms { transition: opacity 0.35s ease-out; }
+.usage-curve-label { transition: opacity 0.35s ease-out; }
+.usage-ms-hide { opacity: 0; }
+.usage-curve-pulse { fill: var(--accent); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.is-live .usage-curve-pulse { animation: usage-pulse 2.2s ease-out infinite; }
+@keyframes usage-pulse { from { transform: scale(1); opacity: 0.45; } to { transform: scale(3.4); opacity: 0; } }
+.usage-cal-anim .usage-cell { opacity: 0; transition: opacity 0.3s ease-out; }
+.usage-cal-anim.is-lit .usage-cell { opacity: 1; }
+.usage-cal-anim.is-lit .usage-today { animation: usage-blink 0.6s ease-in-out 1.25s 3; }
+@keyframes usage-blink { 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) {
+  .usage-vendor-bar i { transition: none; }
+  .is-live .usage-curve-pulse { animation: none; }
+}
 .usage-daily:not(.is-expanded) .is-extra { display: none; }
 .usage-more {
   min-height: 2.5rem;

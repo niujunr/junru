@@ -78,6 +78,29 @@
   var state = { tool: 'all', expanded: false };
   var $ = function (s) { return document.querySelector(s); };
 
+  // 动效：只在第一次滚到时播一次；浏览器不支持或系统开了"减少动态效果"就直接显示最终画面
+  var MOTION = 'IntersectionObserver' in window && 'requestAnimationFrame' in window &&
+    !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  // 图表要露出大半才开始，免得在屏幕底边刚冒头时就播完了
+  function whenSeen(node, fn, share) {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); fn(); }
+    }, { threshold: share || 0.3 });
+    io.observe(node);
+  }
+  function tween(ms, ease, onFrame, onDone) {
+    var t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / ms);
+      onFrame(ease(p));
+      if (p < 1) requestAnimationFrame(step); else if (onDone) onDone();
+    }
+    requestAnimationFrame(step);
+  }
+  function easeOut(p) { return 1 - Math.pow(1 - p, 3); }
+  function easeInOut(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+
   // ---------- 格式化 ----------
   function trim(s) { return s.replace(/\.0+$|(\.\d*?)0+$/, '$1'); }
   function num(n) {
@@ -201,12 +224,13 @@
   }
 
   // ---------- 总览 ----------
-  function renderHero() {
+  function renderHero(anim) {
     var v = vendorTotals(), t = v.totals, all = t.chatgpt + t.claude + t.grok;
     var used = usedDays();
     if (D.first) { var f = parseDay(D.first); $('#hero-label').textContent = TEXT.heroLabel(f.getFullYear(), f.getMonth() + 1); }
     var parts = splitNum(all);
-    $('#hero-number').innerHTML = esc(parts[0]) + (parts[1] ? '<span>' + esc(parts[1]) + '</span>' : '') + '<span>' + TEXT.heroWord + '</span>';
+    var heroNum = $('#hero-number');
+    heroNum.innerHTML = esc(parts[0]) + (parts[1] ? '<span>' + esc(parts[1]) + '</span>' : '') + '<span>' + TEXT.heroWord + '</span>';
     $('#hero-days').innerHTML = TEXT.heroDays(used.length);
 
     // 这个月新增多少
@@ -220,7 +244,7 @@
       var share = all ? t[id] / all * 100 : 0;
       return '<div class="usage-vendor">' +
         '<span class="usage-vendor-name"><i class="usage-swatch usage-key-' + id + '"></i>' + group(id).name + '</span>' +
-        '<span class="usage-vendor-bar"><i class="usage-key-' + id + '" style="width:' + share.toFixed(1) + '%"></i></span>' +
+        '<span class="usage-vendor-bar"><i class="usage-key-' + id + '" data-w="' + share.toFixed(1) + '%" style="width:' + (anim ? 0 : share.toFixed(1)) + '%"></i></span>' +
         '<span class="usage-vendor-total">' + num(t[id]) + '</span>' +
         '<span class="usage-vendor-share">' + (share >= 10 ? share.toFixed(0) : share.toFixed(1)) + '%</span>' +
         '</div>';
@@ -240,6 +264,19 @@
       [TEXT.peak, num(peak) + (peakDay ? '<small>' + md(peakDay) + '</small>' : '')],
       [TEXT.last30, num(last30)],
     ].map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('');
+
+    // 大数字从 0 滚到当前值（单位不变，只滚数字），三条比例条依次伸到各自的长度
+    if (!anim) return;
+    var target = parseFloat(parts[0]), decimals = (parts[0].split('.')[1] || '').length;
+    heroNum.firstChild.nodeValue = (0).toFixed(decimals);
+    whenSeen(heroNum, function () {
+      tween(1300, easeOut, function (e) { heroNum.firstChild.nodeValue = (target * e).toFixed(decimals); },
+        function () { heroNum.firstChild.nodeValue = parts[0]; });
+      Array.prototype.forEach.call(document.querySelectorAll('#hero-vendors .usage-vendor-bar i'), function (bar, i) {
+        bar.style.transitionDelay = (0.15 + i * 0.12) + 's';
+        bar.style.width = bar.getAttribute('data-w');
+      });
+    });
   }
 
   // ---------- 累计曲线 ----------
@@ -273,7 +310,7 @@
     }
     return best && best[1] - best[0] >= 21 ? { from: best[0], to: best[1] - 1 } : null;
   }
-  function renderCurve() {
+  function renderCurve(anim) {
     var box = $('#curve'), series = curveSeries();
     $('#curve-legend').innerHTML = legendHTML();
     if (!series) { box.replaceChildren(); return; }
@@ -312,10 +349,15 @@
       { id: 'claude', up: function (p) { return p.chatgpt + p.claude; }, low: function (p) { return p.chatgpt; } },
       { id: 'grok', up: function (p) { return p.all; }, low: function (p) { return p.chatgpt + p.claude; } },
     ];
+    var plot = el(s, 'g', {}), clip = null;
+    if (anim) {
+      clip = el(el(el(s, 'defs', {}), 'clipPath', { id: 'usage-curve-clip' }), 'rect', { x: ml - 2, y: 0, width: 0, height: H });
+      plot.setAttribute('clip-path', 'url(#usage-curve-clip)');
+    }
     layers.forEach(function (L) {
-      el(s, 'path', { d: 'M' + line(L.up).join('L') + 'L' + line(L.low).reverse().join('L') + 'Z', class: 'usage-area-' + L.id });
+      el(plot, 'path', { d: 'M' + line(L.up).join('L') + 'L' + line(L.low).reverse().join('L') + 'Z', class: 'usage-area-' + L.id });
     });
-    el(s, 'path', { d: 'M' + line(function (p) { return p.all; }).join('L'), class: 'usage-curve-line' });
+    el(plot, 'path', { d: 'M' + line(function (p) { return p.all; }).join('L'), class: 'usage-curve-line' });
 
     // 里程碑：累计第一次超过 1 亿、10 亿、50 亿、100 亿……的那天
     var labels = [], marks = [], thresholds = [1e8, 1e9, 5e9, 1e10, 2e10, 5e10, 1e11, 2e11, 5e11, 1e12];
@@ -323,21 +365,28 @@
       if (series.base >= th) return;
       for (var i = 0; i < n; i++) if (pts[i].all >= th) { marks.push({ i: i, v: th, text: TEXT.milestone(md(pts[i].k), num(th)) }); break; }
     });
-    var leader = '', dots = '';
+    // 每个里程碑一组（引线 + 圆点 + 标签），画到它的位置时再出现
+    var reveal = [];
     var dot = function (px, py) { return 'M' + (px - 4.5).toFixed(1) + ',' + py.toFixed(1) + 'a4.5,4.5 0 1,0 9,0a4.5,4.5 0 1,0 -9,0'; };
     marks.forEach(function (m, j) {
       var px = x(m.i), py = y(m.v), right = px > ml + pw * 0.6;
-      dots += dot(px, py);
-      if (narrow) return;
-      var dy = -(30 + (j % 2) * 34), dx = right ? -14 : 14;
-      leader += 'M' + px.toFixed(1) + ',' + py.toFixed(1) + 'L' + (px + dx * 0.7).toFixed(1) + ',' + (py + dy * 0.7).toFixed(1);
-      labels.push({ text: m.text, x: px + dx, y: py + dy, end: right });
+      var g = el(s, 'g', { class: 'usage-ms' });
+      var item = { x: px, nodes: [g] };
+      if (!narrow) {
+        var dy = -(30 + (j % 2) * 34), dx = right ? -14 : 14;
+        el(g, 'path', { d: 'M' + px.toFixed(1) + ',' + py.toFixed(1) + 'L' + (px + dx * 0.7).toFixed(1) + ',' + (py + dy * 0.7).toFixed(1), class: 'usage-curve-leader' });
+        labels.push({ text: m.text, x: px + dx, y: py + dy, end: right, item: item });
+      }
+      el(g, 'path', { d: dot(px, py), class: 'usage-curve-dot' });
+      reveal.push(item);
     });
-    var last = pts[n - 1];
-    dots += dot(x(n - 1), y(last.all));
-    labels.push({ text: TEXT.todayLabel(num(last.all)), x: x(n - 1) - 12, y: y(last.all) - 2, end: true });
-    if (leader) el(s, 'path', { d: leader, class: 'usage-curve-leader' });
-    el(s, 'path', { d: dots, class: 'usage-curve-dot' });
+    var last = pts[n - 1], lx = x(n - 1), ly = y(last.all);
+    var todayG = el(s, 'g', { class: 'usage-ms' });
+    el(todayG, 'circle', { cx: lx, cy: ly, r: 4.5, class: 'usage-curve-pulse' });
+    el(todayG, 'path', { d: dot(lx, ly), class: 'usage-curve-dot' });
+    var todayItem = { x: lx, nodes: [todayG] };
+    labels.push({ text: TEXT.todayLabel(num(last.all)), x: lx - 12, y: ly - 2, end: true, item: todayItem });
+    reveal.push(todayItem);
 
     // 悬停时显示竖线和那天的累计
     var cross = el(s, 'line', { x1: 0, x2: 0, y1: mt, y2: mt + ph, class: 'usage-curve-cross', visibility: 'hidden' });
@@ -374,13 +423,29 @@
       t.style.top = l.y + 'px';
       t.style.transform = l.end ? 'translate(-100%, -50%)' : 'translate(0, -50%)';
       t.textContent = l.text;
+      if (l.item) l.item.nodes.push(t);
       frag.appendChild(t);
     });
     box.replaceChildren(frag);
+
+    if (!anim) { if (MOTION) s.classList.add('is-live'); return; }
+    reveal.forEach(function (r) { r.nodes.forEach(function (node) { node.classList.add('usage-ms-hide'); }); });
+    whenSeen(box, function () {
+      tween(1800, easeInOut, function (e) {
+        clip.setAttribute('width', (pw * e + 4).toFixed(1));
+        var cx = ml + pw * e;
+        reveal.forEach(function (r) {
+          if (!r.on && r.x <= cx + 1) { r.on = true; r.nodes.forEach(function (node) { node.classList.remove('usage-ms-hide'); }); }
+        });
+      }, function () {
+        plot.removeAttribute('clip-path');
+        s.classList.add('is-live');
+      });
+    }, 0.6);
   }
 
   // ---------- 日历 ----------
-  function renderCalendar() {
+  function renderCalendar(anim) {
     var box = $('#calendar');
     var end = parseDay(today());
     var start = D.first ? parseDay(D.first) : end;
@@ -417,11 +482,15 @@
           lastLabel = w;
         }
         var cls = v > 0 ? 'usage-q' + level(v) : (D.seen.indexOf(k) >= 0 && (state.tool === 'all' || state.tool === 'claude') ? 'usage-hatch' : 'usage-q0');
-        el(s, 'rect', { x: lw + w * (cell + gap), y: th + dow * (cell + gap), width: cell, height: cell, rx: 2, class: cls + (k === today() ? ' usage-today' : ''), 'data-day': k });
+        var r = el(s, 'rect', { x: lw + w * (cell + gap), y: th + dow * (cell + gap), width: cell, height: cell, rx: 2, class: 'usage-cell ' + cls + (k === today() ? ' usage-today' : ''), 'data-day': k });
+        if (anim) r.style.transitionDelay = Math.round(w / Math.max(1, weeks - 1) * 900) + 'ms';
       }
     }
     box.replaceChildren(s);
     box.scrollLeft = box.scrollWidth;
+    if (!anim) return;
+    s.classList.add('usage-cal-anim');
+    whenSeen(box, function () { s.classList.add('is-lit'); }, 0.6);
   }
 
   // ---------- 每日明细：按月分组，每天一行，构成条按单日最高的那天算长度 ----------
@@ -453,7 +522,7 @@
         html += '<div class="usage-daily-row' + (shown >= SHOW_DAYS ? ' is-extra' : '') + '" role="row">' +
           '<span role="cell">' + rowDate(k) + (localEstimate(k) ? ' <span class="usage-est">' + TEXT.est + '</span>' : '') +
             // 今天的数字只算到最近一次更新，ChatGPT 的官方数据也要第二天才完整
-            (k === today() ? '<small class="usage-today">' + TEXT.todayRow + '</small>' : '') + '</span>' +
+            (k === today() ? '<small class="usage-row-today">' + TEXT.todayRow + '</small>' : '') + '</span>' +
           '<span role="cell" class="usage-mix">' + mix + '</span>' +
           ORDER.map(function (id) { var v = groupTotal(r, id); return '<span role="cell" class="usage-num">' + (v ? num(v) : '—') + '</span>'; }).join('') +
           '<span role="cell" class="usage-num usage-strong">' + num(dayTotal(k)) + '</span></div>';
@@ -484,12 +553,12 @@
   }
 
   // ---------- 启动 ----------
-  function renderCharts() { renderCurve(); renderCalendar(); }
+  function renderCharts() { renderCurve(false); renderCalendar(false); }
   $('#tool-chips').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     state.tool = b.getAttribute('data-tool');
     Array.prototype.forEach.call(document.querySelectorAll('#tool-chips button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-    renderCalendar();
+    renderCalendar(false);
   });
   $('#daily-more').addEventListener('click', function () { state.expanded = !state.expanded; renderDaily(); });
   bindTips($('#calendar'));
@@ -504,7 +573,7 @@
   getJSON('data/ai-usage.json').then(function (data) {
     OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
-    renderHero(); renderModels(); renderDaily(); renderCharts();
+    renderHero(MOTION); renderModels(); renderDaily(); renderCurve(MOTION); renderCalendar(MOTION);
     var lastW = document.body.clientWidth, raf = 0;
     window.addEventListener('resize', function () {
       if (document.body.clientWidth === lastW) return; lastW = document.body.clientWidth;
