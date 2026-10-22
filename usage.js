@@ -26,7 +26,7 @@
     todayLabel: function (v) { return 'Today ' + v; },
     cumTo: 'Total up to this day',
     thatDay: 'That day',
-    thDate: 'Date', thMix: 'Mix', est: 'est.',
+    thDate: 'Date', thMix: 'Mix', est: 'est.', todayRow: 'Today, still counting',
     monthHead: function (y, m) { return MONTHS_LONG[m - 1] + ' ' + y; },
     showAll: function (n) { return 'Show all ' + n + ' days'; },
     showLess: function (n) { return 'Show the latest ' + n + ' days'; },
@@ -52,7 +52,7 @@
     todayLabel: function (v) { return '今天 ' + v; },
     cumTo: '截至这天的累计',
     thatDay: '当天',
-    thDate: '日期', thMix: '构成', est: '估算',
+    thDate: '日期', thMix: '构成', est: '估算', todayRow: '今天，还没结束',
     monthHead: function (y, m) { return y + '年' + m + '月'; },
     showAll: function (n) { return '显示全部 ' + n + ' 天'; },
     showLess: function (n) { return '只显示最近 ' + n + ' 天'; },
@@ -451,7 +451,9 @@
           return v > 0 ? '<i class="usage-key-' + id + '" style="width:' + (v / maxDay * 100).toFixed(2) + '%"></i>' : '';
         }).join('');
         html += '<div class="usage-daily-row' + (shown >= SHOW_DAYS ? ' is-extra' : '') + '" role="row">' +
-          '<span role="cell">' + rowDate(k) + (localEstimate(k) ? ' <span class="usage-est">' + TEXT.est + '</span>' : '') + '</span>' +
+          '<span role="cell">' + rowDate(k) + (localEstimate(k) ? ' <span class="usage-est">' + TEXT.est + '</span>' : '') +
+            // 今天的数字只算到最近一次更新，ChatGPT 的官方数据也要第二天才完整
+            (k === today() ? '<small class="usage-today">' + TEXT.todayRow + '</small>' : '') + '</span>' +
           '<span role="cell" class="usage-mix">' + mix + '</span>' +
           ORDER.map(function (id) { var v = groupTotal(r, id); return '<span role="cell" class="usage-num">' + (v ? num(v) : '—') + '</span>'; }).join('') +
           '<span role="cell" class="usage-num usage-strong">' + num(dayTotal(k)) + '</span></div>';
