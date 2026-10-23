@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22 23:50 +0800",
+ "updated": "2026-10-23 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -400,7 +400,11 @@
   },
   "2026-10-22": {
    "claude_code": 148311759,
-   "codex": 10020117
+   "codex": 10155628
+  },
+  "2026-10-23": {
+   "claude_code": 326818273,
+   "codex": 13968075
   }
  },
  "estimated": [
@@ -469,7 +473,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 2052565225
+   "tokens": 2379287818
   },
   {
    "tool": "codex",
@@ -479,7 +483,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 639464289
+   "tokens": 652922686
   },
   {
    "tool": "codex",
@@ -499,7 +503,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 240083631
+   "tokens": 240728820
   },
   {
    "tool": "codex",
