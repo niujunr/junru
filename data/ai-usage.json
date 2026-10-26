@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25 23:50 +0800",
+ "updated": "2026-10-26 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -417,6 +417,10 @@
    "claude_code": 327772330,
    "codex": 17188267,
    "chatgpt": 2690386
+  },
+  "2026-10-26": {
+   "claude_code": 52446858,
+   "codex": 11903452
   }
  },
  "estimated": [
@@ -488,7 +492,7 @@
   {
    "tool": "claude_code",
    "name": "Opus 5.5",
-   "tokens": 2771929548
+   "tokens": 2824376406
   },
   {
    "tool": "codex",
@@ -498,7 +502,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 672147048
+   "tokens": 684050500
   },
   {
    "tool": "codex",
