@@ -6,7 +6,7 @@
     <base href="https://niujunr.github.io/junru/">
     <meta name="description" content="牛君儒的项目时间线。">
     <title>项目 — 牛君儒</title>
-    <link rel="stylesheet" href="styles.css?v=20261023b">
+    <link rel="stylesheet" href="styles.css?v=20261028">
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
@@ -40,6 +40,53 @@
       <p class="page-lead">在用 AI 之前，本人唯一会写的一行代码就是 print "Hello World"</p>
 
       <section class="timeline" aria-label="项目时间线">
+        <article class="timeline-item">
+          <time class="timeline-date" datetime="2026-07">2026.07 – 至今</time>
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <div class="timeline-content agent">
+            <h2>外联邮件 Agent</h2>
+            <p>在 Codex 里用一句话管理海外机构外联：收发飞书邮件、整理收件箱、记下谁回了谁没回，再去找新的联系人。</p>
+            <p>海外外联要同时照看几千个邮箱和机构：哪些发过、谁回了、谁让我转找同事、哪些邮件可以清掉，手工记很容易乱。现在我只说目标，Codex 按写好的流程调用本地脚本完成，所有记录留在本地台账里，下次对话接着做。</p>
+
+            <h3>一句话就能做</h3>
+            <ul class="agent-asks">
+              <li>现在什么情况，谁回了谁没回？</li>
+              <li>按这张发信单发信，先发一封给我自己看看</li>
+              <li>整理一下收件箱，看看哪些可以清理</li>
+              <li>找一批中东高端会员俱乐部的联系人</li>
+              <li>这家机构已经联系上了，以后不用再发</li>
+            </ul>
+
+            <h3>流程</h3>
+            <ol class="agent-flow">
+              <li><span>名单或搜索目标</span></li>
+              <li><span>提取与发现</span></li>
+              <li><span>质量筛选</span></li>
+              <li><span>查重预检</span></li>
+              <li><span>预览后确认发送</span></li>
+              <li><span>同步已发和收件箱</span></li>
+              <li><span>联系人、机构、跟进台账</span></li>
+            </ol>
+
+            <dl class="agent-stats">
+              <div><dt>联系人</dt><dd>2,360</dd></div>
+              <div><dt>机构</dt><dd>1,857</dd></div>
+              <div><dt>国家和地区</dt><dd>81</dd></div>
+              <div><dt>跟进线索</dt><dd>682</dd></div>
+            </dl>
+            <p class="agent-note">截至 2026 年 10 月。43 个脚本，26 组自动化测试；代码和数据只在本地，不公开。</p>
+
+            <h3>边界</h3>
+            <ul class="agent-rules">
+              <li>发信前一定先看完整的主题、收件人和正文，确认后才发出；每批最多 30 人密送。</li>
+              <li>清理邮件只动自动回复、退信、自己的副本这些安全类别，真实回复一律保留。</li>
+              <li>找联系人只看官网等公开来源，不做无限爬虫；新地址先进本地候选池，查重之后才可能发出。</li>
+            </ul>
+
+            <p class="agent-tools"><span>Codex</span><span>飞书邮箱</span><span>Gemini</span><span>AnySearch</span><span>Python</span></p>
+          </div>
+        </article>
+
         <article class="timeline-item">
           <time class="timeline-date" datetime="2026-07-04">2026.07.04</time>
           <div class="timeline-marker" aria-hidden="true"></div>

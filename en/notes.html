@@ -6,7 +6,7 @@
     <base href="https://niujunr.github.io/junru/">
     <meta name="description" content="A timeline of Junru Niu’s projects.">
     <title>Projects — Junru Niu</title>
-    <link rel="stylesheet" href="styles.css?v=20261023b">
+    <link rel="stylesheet" href="styles.css?v=20261028">
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
@@ -40,6 +40,53 @@
       <p class="page-lead">Before AI, the only line of code I could write was print "Hello World".</p>
 
       <section class="timeline" aria-label="Projects timeline">
+        <article class="timeline-item">
+          <time class="timeline-date" datetime="2026-07">Jul 2026 – now</time>
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <div class="timeline-content agent">
+            <h2>Outreach email agent</h2>
+            <p>Running international outreach from plain-language requests in Codex: sending and reading Feishu mail, tidying the inbox, tracking who replied, and finding new contacts.</p>
+            <p>International outreach means keeping track of thousands of addresses and institutions: who has been emailed, who replied, who pointed me to a colleague, and which mail can be cleared out. By hand, that gets messy fast. Now I state the goal, Codex runs local scripts in a fixed workflow, and everything is kept in local ledgers so the next session picks up where the last one stopped.</p>
+
+            <h3>Just ask</h3>
+            <ul class="agent-asks">
+              <li>Where do things stand — who replied and who didn’t?</li>
+              <li>Send this sheet, but send me a test copy first</li>
+              <li>Tidy up the inbox and show me what can go</li>
+              <li>Find contacts at premium members’ clubs in the Middle East</li>
+              <li>We’ve connected with this institution, so stop emailing them</li>
+            </ul>
+
+            <h3>Workflow</h3>
+            <ol class="agent-flow">
+              <li><span>List or search brief</span></li>
+              <li><span>Extraction and discovery</span></li>
+              <li><span>Quality filter</span></li>
+              <li><span>Duplicate check</span></li>
+              <li><span>Preview, then confirm and send</span></li>
+              <li><span>Sync sent mail and inbox</span></li>
+              <li><span>Contact, institution and follow-up ledgers</span></li>
+            </ol>
+
+            <dl class="agent-stats">
+              <div><dt>Contacts</dt><dd>2,360</dd></div>
+              <div><dt>Institutions</dt><dd>1,857</dd></div>
+              <div><dt>Countries and regions</dt><dd>81</dd></div>
+              <div><dt>Follow-up leads</dt><dd>682</dd></div>
+            </dl>
+            <p class="agent-note">As of October 2026. 43 scripts and 26 automated test suites; the code and data stay private on my computer.</p>
+
+            <h3>Guardrails</h3>
+            <ul class="agent-rules">
+              <li>Every send shows the full subject, recipients and body first and goes out only after I confirm, with at most 30 BCC recipients per batch.</li>
+              <li>Inbox cleanup only touches safe categories such as auto-replies, bounces and my own copies; real replies are always kept.</li>
+              <li>Contact discovery uses official, public sources only, with no open-ended crawling. New addresses go into a local candidate pool and are checked for duplicates before anything can be sent.</li>
+            </ul>
+
+            <p class="agent-tools"><span>Codex</span><span>Feishu Mail</span><span>Gemini</span><span>AnySearch</span><span>Python</span></p>
+          </div>
+        </article>
+
         <article class="timeline-item">
           <time class="timeline-date" datetime="2026-07-04">2026.07.04</time>
           <div class="timeline-marker" aria-hidden="true"></div>
