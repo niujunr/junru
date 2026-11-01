@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30 23:52 +0800",
+ "updated": "2026-11-01 23:25 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -24,14 +24,14 @@
   }
  ],
  "grok_range": {
-  "from": "2026-10-15",
-  "to": "2026-10-18"
+  "from": "2026-10-03",
+  "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 9241434903,
-  "asOf": "2026-10-25 23:50 +0800",
-  "currentStreakDays": 34,
-  "peakDailyTokens": 499893251
+  "lifetime": 6770459026,
+  "asOf": "2026-11-01 23:25 +0800",
+  "currentStreakDays": 40,
+  "peakDailyTokens": 375908382
  },
  "official": {
   "codex": {
@@ -317,54 +317,65 @@
   },
   "2026-10-03": {
    "codex": 4777026,
-   "chatgpt": 470629118
+   "chatgpt": 470629118,
+   "grok": 65622179
   },
   "2026-10-04": {
-   "chatgpt": 498055477
+   "chatgpt": 498055477,
+   "grok": 14254662
   },
   "2026-10-05": {
-   "chatgpt": 339397532
+   "chatgpt": 339397532,
+   "grok": 41355874
   },
   "2026-10-06": {
-   "chatgpt": 207023896
+   "chatgpt": 207023896,
+   "grok": 1318993
   },
   "2026-10-07": {
    "chatgpt": 258308322
   },
   "2026-10-08": {
    "claude_code": 73483937,
-   "chatgpt": 102968591
+   "chatgpt": 102968591,
+   "grok": 667467
   },
   "2026-10-09": {
    "claude_code": 44217302,
-   "chatgpt": 68494774
+   "chatgpt": 68494774,
+   "grok": 841370
   },
   "2026-10-10": {
    "claude_code": 44935033,
-   "chatgpt": 181750543
+   "chatgpt": 181750543,
+   "grok": 532065
   },
   "2026-10-11": {
    "claude_code": 58183844,
    "codex": 153074350,
-   "chatgpt": 299815913
+   "chatgpt": 299815913,
+   "grok": 14157953
   },
   "2026-10-12": {
    "claude_code": 3317972,
    "codex": 89642539,
-   "chatgpt": 223562396
+   "chatgpt": 223562396,
+   "grok": 48483466
   },
   "2026-10-13": {
    "claude_code": 121973671,
    "codex": 14342171,
-   "chatgpt": 153672922
+   "chatgpt": 153672922,
+   "grok": 54395488
   },
   "2026-10-14": {
    "claude_code": 205455852,
-   "chatgpt": 357821229
+   "chatgpt": 357821229,
+   "grok": 78464275
   },
   "2026-10-15": {
    "claude_code": 283979286,
-   "grok": 157023766,
+   "grok": 192364386,
    "chatgpt": 208166312
   },
   "2026-10-16": {
@@ -392,7 +403,8 @@
   "2026-10-20": {
    "claude_code": 305036099,
    "codex": 3589473,
-   "chatgpt": 331354162
+   "chatgpt": 331354162,
+   "grok": 883343
   },
   "2026-10-21": {
    "claude_code": 112733826,
@@ -401,39 +413,62 @@
   "2026-10-22": {
    "claude_code": 148311759,
    "codex": 10247690,
-   "chatgpt": 265994992
+   "chatgpt": 265994992,
+   "grok": 8895981
   },
   "2026-10-23": {
    "claude_code": 326818273,
    "codex": 13968075,
-   "chatgpt": 96750543
+   "chatgpt": 96750543,
+   "grok": 6558261
   },
   "2026-10-24": {
    "claude_code": 64869400,
    "codex": 5151076,
-   "chatgpt": 66154336
+   "chatgpt": 66154336,
+   "grok": 3515264
   },
   "2026-10-25": {
    "claude_code": 327772330,
    "codex": 17188267,
-   "chatgpt": 2690386
+   "chatgpt": 40205203,
+   "grok": 2336183
   },
   "2026-10-26": {
    "claude_code": 52446858,
-   "codex": 11903452
+   "codex": 11903452,
+   "grok": 2693865,
+   "chatgpt": 9827289
   },
   "2026-10-27": {
-   "codex": 20997752
+   "codex": 20997752,
+   "grok": 1903107,
+   "chatgpt": 64316211
   },
   "2026-10-28": {
    "claude_code": 42561942,
-   "codex": 26928818
+   "codex": 26928818,
+   "grok": 3548408,
+   "chatgpt": 104367933
   },
   "2026-10-29": {
-   "codex": 59819654
+   "codex": 59819654,
+   "grok": 2048819,
+   "chatgpt": 34358660
   },
   "2026-10-30": {
-   "codex": 35886948
+   "codex": 35886948,
+   "grok": 23962729,
+   "chatgpt": 46344063
+  },
+  "2026-10-31": {
+   "codex": 115600,
+   "grok": 3050338,
+   "chatgpt": 649705
+  },
+  "2026-11-01": {
+   "codex": 160734919,
+   "grok": 119108848
   }
  },
  "estimated": [
@@ -518,7 +553,12 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 795997695
+   "tokens": 948247109
+  },
+  {
+   "tool": "grok",
+   "name": "Grok Bot",
+   "tokens": 740906853
   },
   {
    "tool": "codex",
@@ -531,14 +571,19 @@
    "tokens": 522382664
   },
   {
-   "tool": "grok",
-   "name": "Grok Bot",
-   "tokens": 250351915
-  },
-  {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 248048128
+   "tokens": 256649233
+  },
+  {
+   "tool": "grok",
+   "name": "grok-4.7",
+   "tokens": 33283036
+  },
+  {
+   "tool": "grok",
+   "name": "Grok Tasks",
+   "tokens": 30684663
   },
   {
    "tool": "codex",
@@ -546,19 +591,9 @@
    "tokens": 28620821
   },
   {
-   "tool": "grok",
-   "name": "grok-4.7",
-   "tokens": 17270630
-  },
-  {
    "tool": "cowork",
    "name": "Fable 5",
    "tokens": 13384089
-  },
-  {
-   "tool": "grok",
-   "name": "Grok Tasks",
-   "tokens": 3312449
   },
   {
    "tool": "cowork",
