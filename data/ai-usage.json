@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01 23:25 +0800",
+ "updated": "2026-11-01 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -29,7 +29,7 @@
  },
  "chatgpt": {
   "lifetime": 6770459026,
-  "asOf": "2026-11-01 23:25 +0800",
+  "asOf": "2026-11-01 23:50 +0800",
   "currentStreakDays": 40,
   "peakDailyTokens": 375908382
  },
@@ -467,7 +467,7 @@
    "chatgpt": 649705
   },
   "2026-11-01": {
-   "codex": 160734919,
+   "codex": 258665784,
    "grok": 119108848
   }
  },
@@ -553,7 +553,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 948247109
+   "tokens": 1045063958
   },
   {
    "tool": "grok",
@@ -573,7 +573,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 256649233
+   "tokens": 257763249
   },
   {
    "tool": "grok",
