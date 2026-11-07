@@ -462,6 +462,7 @@ li { margin: 0.28rem 0; }
   --usage-chatgpt-a: #b5b5b2; /* ChatGPT：灰白斜纹里的灰 */
   --usage-chatgpt-b: #f7f7f5; /* ChatGPT：灰白斜纹里的白 */
   --usage-grok: #111111;      /* Grok：黑色 */
+  --usage-antigravity: #4285f4; /* Antigravity：Google 蓝 */
   --usage-q0: #efefec;
   --usage-q1: #cde2fb;
   --usage-q2: #86b6ef;
@@ -498,7 +499,7 @@ li { margin: 0.28rem 0; }
 .usage-hero-sub { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.2rem; }
 .usage-chip { display: inline-block; padding: 0.1rem 0.65rem; border-radius: 999px; background: #eef3f9; color: var(--accent); font-size: 0.82rem; font-weight: 600; }
 .usage-vendors { display: flex; flex-direction: column; gap: 0.8rem; }
-.usage-vendor { display: grid; grid-template-columns: 6rem minmax(0, 1fr) 5rem 3rem; gap: 0.75rem; align-items: center; }
+.usage-vendor { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr) 5rem 3rem; gap: 0.75rem; align-items: center; }
 .usage-vendor-name { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
 .usage-vendor-bar { display: block; height: 10px; border-radius: 2px; overflow: hidden; background: var(--usage-q0); }
 .usage-vendor-bar i { display: block; height: 100%; }
@@ -561,6 +562,7 @@ li { margin: 0.28rem 0; }
 .usage-key-claude { background: var(--usage-claude); }
 .usage-key-chatgpt { background: repeating-linear-gradient(135deg, var(--usage-chatgpt-a) 0 1.5px, var(--usage-chatgpt-b) 1.5px 4px); box-shadow: inset 0 0 0 1px var(--usage-chatgpt-a); }
 .usage-key-grok { background: var(--usage-grok); }
+.usage-key-antigravity { background: var(--usage-antigravity); }
 
 /* 累计曲线 */
 .usage-curve { position: relative; }
@@ -568,6 +570,7 @@ li { margin: 0.28rem 0; }
 .usage-area-chatgpt { fill: url(#usage-curve-stripes); }
 .usage-area-claude { fill: var(--usage-claude); }
 .usage-area-grok { fill: var(--usage-grok); }
+.usage-area-antigravity { fill: var(--usage-antigravity); }
 .usage-curve-line { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .usage-curve-quiet { fill: var(--usage-quiet); }
 .usage-curve-leader { fill: none; stroke: var(--ink); stroke-width: 1; }
@@ -591,9 +594,9 @@ li { margin: 0.28rem 0; }
 
 /* 每日明细：按月分组，每天一行带构成条 */
 .usage-table-scroll { overflow-x: auto; }
-.usage-daily { min-width: 40rem; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.usage-daily { min-width: 46rem; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
 .usage-daily-head,
-.usage-daily-row { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 5.6rem 5.6rem 5.6rem 6.2rem; gap: 1rem; align-items: center; }
+.usage-daily-row { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 5.6rem 5.6rem 5.6rem 5.6rem 6.2rem; gap: 1rem; align-items: center; }
 .usage-daily-head { padding-bottom: 0.5rem; color: var(--muted); font-size: 0.78rem; }
 .usage-daily-month { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0 0.6rem; border-top: 2px solid var(--ink); }
 .usage-daily-month strong { font-family: var(--usage-serif); font-size: 1.05rem; }
@@ -671,7 +674,7 @@ li { margin: 0.28rem 0; }
 
 @media (max-width: 720px) {
   .usage-hero { gap: 1.6rem; }
-  .usage-vendor { grid-template-columns: 5.4rem minmax(0, 1fr) 4.6rem 2.8rem; gap: 0.6rem; }
+  .usage-vendor { grid-template-columns: 6.6rem minmax(0, 1fr) 4.6rem 2.8rem; gap: 0.6rem; }
   .usage-mini dd { font-size: 1rem; }
   .usage-mini dd small { display: block; margin-left: 0; }
 }

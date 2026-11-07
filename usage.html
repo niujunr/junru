@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="https://niujunr.github.io/junru/">
-    <meta name="description" content="牛君儒每天使用 Claude、ChatGPT 和 Grok 的 Token 用量，每天自动更新。">
+    <meta name="description" content="牛君儒每天使用 Claude、ChatGPT、Grok 和 Antigravity 的 Token 用量，每天自动更新。">
     <title>AI 用量 — 牛君儒</title>
-    <link rel="stylesheet" href="styles.css?v=20261028">
+    <link rel="stylesheet" href="styles.css?v=20261107">
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="牛君儒">
     <meta property="og:title" content="AI 用量 — 牛君儒">
-    <meta property="og:description" content="牛君儒每天使用 Claude、ChatGPT 和 Grok 的 Token 用量，每天自动更新。">
+    <meta property="og:description" content="牛君儒每天使用 Claude、ChatGPT、Grok 和 Antigravity 的 Token 用量，每天自动更新。">
     <meta property="og:url" content="https://niujunr.github.io/junru/usage.html">
     <meta property="og:image" content="https://niujunr.github.io/junru/assets/share.jpg">
     <meta property="og:image:width" content="1200">
@@ -46,7 +46,7 @@
         </div>
         <div class="usage-hero-side">
           <div class="usage-vendors" id="hero-vendors"></div>
-          <p class="usage-vendor-note">ChatGPT 是官方数据，Claude 是本机记录，Grok 是 xAI 导出的用量明细。</p>
+          <p class="usage-vendor-note">ChatGPT 是官方数据，Claude 和 Antigravity 是本机记录，Grok 是 xAI 导出的用量明细。</p>
           <dl class="usage-mini" id="hero-mini"></dl>
         </div>
       </section>
@@ -67,9 +67,10 @@
             <button type="button" id="chip-claude" data-tool="claude" aria-pressed="false">Claude</button>
             <button type="button" id="chip-chatgpt" data-tool="chatgpt" aria-pressed="false">ChatGPT</button>
             <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
+            <button type="button" id="chip-antigravity" data-tool="antigravity" aria-pressed="false">Antigravity</button>
           </div>
         </div>
-        <p class="usage-sub">Claude 是本机记录，ChatGPT 是官方数据，Grok 是导入的明细。颜色越深，那天用的 Token 越多。</p>
+        <p class="usage-sub">Claude 和 Antigravity 是本机记录，ChatGPT 是官方数据，Grok 是导入的明细。颜色越深，那天用的 Token 越多。</p>
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">少 <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> 多</span>
@@ -80,7 +81,7 @@
 
       <section class="usage-section" aria-labelledby="models-title">
         <h2 id="models-title">按模型</h2>
-        <p class="usage-sub">Claude 和 ChatGPT 的模型来自本机记录，Grok 来自导入的用量明细</p>
+        <p class="usage-sub">Claude 和 ChatGPT 的模型来自本机记录，Grok 来自导入的用量明细；Antigravity 不区分模型，合计成一行</p>
         <table class="usage-table" id="models"></table>
       </section>
 
@@ -100,6 +101,7 @@
           <li>ChatGPT：每天自动从 OpenAI 账号读取官方的累计和每日 Token 数，包括 ChatGPT Work 模式与 Codex（不包括 Chat 模式）运行的任务和其他设备上的使用。</li>
           <li>Claude：读取 Claude Code 本地会话记录。每条回复都记了云端 Token 数。</li>
           <li>Grok：Grok 没有本地记录，数字来自 xAI 控制台导出的用量明细。</li>
+          <li>Antigravity：读取 Antigravity 本地对话记录，每条回复都记了云端 Token 数（输入、缓存读取和输出）。不区分具体用了哪个模型。</li>
         </ul>
       </section>
     </main>
@@ -108,6 +110,6 @@
 
     <div class="usage-tip" id="tip" role="tooltip" hidden></div>
 
-    <script src="usage.js?v=20261023"></script>
+    <script src="usage.js?v=20261107"></script>
   </body>
 </html>

@@ -62,17 +62,21 @@
     modelNames: {},
   };
 
-  // 按厂商分三栏，数据文件里的各个工具归到对应的厂商下。
+  // 分四栏：三家厂商加 Antigravity，数据文件里的各个工具归到对应的栏下。
+  // Antigravity 可以用多家的模型，记录里不分模型，所以单独一栏。
   // 颜色写在 styles.css 的 .usage-key-*（图例、圆点、构成条）和 .usage-area-*（累计曲线）里
   var GROUPS = [
     { id: 'claude', name: 'Claude', tools: ['claude_code', 'cowork'] },
     // ChatGPT 有官方每日数据就只用官方数据（已经包含本机的 Codex），没有时退回本机记录
     { id: 'chatgpt', name: 'ChatGPT', tools: ['chatgpt', 'codex'], prefer: true },
     { id: 'grok', name: 'Grok', tools: ['grok'] },
+    { id: 'antigravity', name: 'Antigravity', tools: ['antigravity'] },
   ];
   var STACK = GROUPS.map(function (g) { return g.id; });
-  // 总览、累计曲线和每日明细按用量从大到小排：ChatGPT、Claude、Grok
-  var ORDER = ['chatgpt', 'claude', 'grok'];
+  // 总览、累计曲线和每日明细的顺序：ChatGPT、Claude、Grok、Antigravity（曲线里从下往上叠）
+  var ORDER = ['chatgpt', 'claude', 'grok', 'antigravity'];
+  function zeros() { var o = {}; ORDER.forEach(function (id) { o[id] = 0; }); return o; }
+  function sumOf(o) { return ORDER.reduce(function (s, id) { return s + (o[id] || 0); }, 0); }
   var SHOW_DAYS = 10;
   var D = null, OFFICIAL = null;
   var state = { tool: 'all', expanded: false };
@@ -156,7 +160,7 @@
   }
   // 每家的累计：ChatGPT 优先用官方累计，其次是手动填的官方数，最后是本机记录加起来；Grok 有手动官方数就用它
   function vendorTotals() {
-    var t = { claude: 0, chatgpt: 0, grok: 0 };
+    var t = zeros();
     Object.keys(D.days).forEach(function (k) { ORDER.forEach(function (id) { t[id] += groupTotal(D.days[k], id); }); });
     var pick = function (id) { var o = OFFICIAL && OFFICIAL[id]; return o && o.tokens ? o : null; };
     var gpt = D.chatgpt && D.chatgpt.lifetime ? { tokens: D.chatgpt.lifetime, asOf: D.chatgpt.asOf } : pick('codex');
@@ -225,7 +229,7 @@
 
   // ---------- 总览 ----------
   function renderHero(anim) {
-    var v = vendorTotals(), t = v.totals, all = t.chatgpt + t.claude + t.grok;
+    var v = vendorTotals(), t = v.totals, all = sumOf(t);
     var used = usedDays();
     if (D.first) { var f = parseDay(D.first); $('#hero-label').textContent = TEXT.heroLabel(f.getFullYear(), f.getMonth() + 1); }
     var parts = splitNum(all);
@@ -286,15 +290,15 @@
     if (!used.length) return null;
     var start = used[0];
     for (var i = 1; i < used.length; i++) if (diff(used[i - 1], used[i]) > 30) start = used[i];
-    var base = { claude: 0, chatgpt: 0, grok: 0 };
+    var base = zeros();
     used.forEach(function (k) { if (k < start) ORDER.forEach(function (id) { base[id] += groupTotal(D.days[k], id); }); });
-    var end = today(), n = diff(start, end) + 1, cum = { claude: base.claude, chatgpt: base.chatgpt, grok: base.grok }, out = [];
+    var end = today(), n = diff(start, end) + 1, cum = Object.assign({}, base), out = [];
     for (var j = 0; j < n; j++) {
       var k = key(addDays(parseDay(start), j)), r = D.days[k];
       ORDER.forEach(function (id) { cum[id] += groupTotal(r, id); });
-      out.push({ k: k, day: dayTotal(k), chatgpt: cum.chatgpt, claude: cum.claude, grok: cum.grok, all: cum.chatgpt + cum.claude + cum.grok });
+      out.push(Object.assign({ k: k, day: dayTotal(k), all: sumOf(cum) }, cum));
     }
-    return { start: start, pts: out, base: base.chatgpt + base.claude + base.grok };
+    return { start: start, pts: out, base: sumOf(base) };
   }
   // 最长的一段"用得少"：至少 21 天，每天都不到单日最高的 10%
   function quietRun(pts) {
@@ -342,13 +346,10 @@
         lastX = x(i);
       }
     });
-    // 三层面积，从下往上：ChatGPT、Claude、Grok
+    // 按 ORDER 一层层往上叠面积：ChatGPT、Claude、Grok、Antigravity
     var line = function (fn) { return pts.map(function (p, i) { return x(i).toFixed(1) + ',' + y(fn(p)).toFixed(1); }); };
-    var layers = [
-      { id: 'chatgpt', up: function (p) { return p.chatgpt; }, low: function () { return 0; } },
-      { id: 'claude', up: function (p) { return p.chatgpt + p.claude; }, low: function (p) { return p.chatgpt; } },
-      { id: 'grok', up: function (p) { return p.all; }, low: function (p) { return p.chatgpt + p.claude; } },
-    ];
+    var below = function (j) { return function (p) { var s = 0; for (var i = 0; i < j; i++) s += p[ORDER[i]]; return s; }; };
+    var layers = ORDER.map(function (id, j) { return { id: id, up: below(j + 1), low: below(j) }; });
     var plot = el(s, 'g', {}), clip = null;
     if (anim) {
       clip = el(el(el(s, 'defs', {}), 'clipPath', { id: 'usage-curve-clip' }), 'rect', { x: ml - 2, y: 0, width: 0, height: H });
