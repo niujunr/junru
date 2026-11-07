@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06 23:50 +0800",
+ "updated": "2026-11-07 20:01 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -21,6 +21,10 @@
   {
    "id": "chatgpt",
    "name": "ChatGPT（官方每日数据）"
+  },
+  {
+   "id": "antigravity",
+   "name": "Antigravity"
   }
  ],
  "grok_range": {
@@ -28,10 +32,10 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 7703941476,
-  "asOf": "2026-11-06 23:50 +0800",
+  "lifetime": 8083418020,
+  "asOf": "2026-11-07 20:01 +0800",
   "currentStreakDays": 46,
-  "peakDailyTokens": 375908382
+  "peakDailyTokens": 420489710
  },
  "official": {
   "codex": {
@@ -488,8 +492,12 @@
    "chatgpt": 164632274
   },
   "2026-11-06": {
-   "codex": 607462644,
-   "chatgpt": 41013166
+   "codex": 612453369,
+   "chatgpt": 420489710
+  },
+  "2026-11-07": {
+   "codex": 465878311,
+   "antigravity": 4251966
   }
  },
  "estimated": [
@@ -576,7 +584,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 2345640038
+   "tokens": 2793406223
   },
   {
    "tool": "codex",
@@ -601,7 +609,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 287319470
+   "tokens": 310422321
   },
   {
    "tool": "grok",
@@ -627,6 +635,11 @@
    "tool": "cowork",
    "name": "Fable 5",
    "tokens": 13384089
+  },
+  {
+   "tool": "antigravity",
+   "name": "Antigravity",
+   "tokens": 4251966
   },
   {
    "tool": "cowork",
