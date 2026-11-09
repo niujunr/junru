@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08 23:50 +0800",
+ "updated": "2026-11-09 23:59 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,8 +32,8 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 8598789872,
-  "asOf": "2026-11-08 23:50 +0800",
+  "lifetime": 8598956964,
+  "asOf": "2026-11-09 23:59 +0800",
   "currentStreakDays": 48,
   "peakDailyTokens": 496956705
  },
@@ -502,8 +502,12 @@
   },
   "2026-11-08": {
    "codex": 7396998,
-   "antigravity": 5211817,
-   "chatgpt": 18355655
+   "antigravity": 9213028,
+   "chatgpt": 18522747
+  },
+  "2026-11-09": {
+   "codex": 108097546,
+   "antigravity": 38890220
   }
  },
  "estimated": [
@@ -585,14 +589,14 @@
  "seen": [],
  "models": [
   {
+   "tool": "codex",
+   "name": "gpt-6-astra",
+   "tokens": 2934185089
+  },
+  {
    "tool": "claude_code",
    "name": "Opus 5.5",
    "tokens": 2866938348
-  },
-  {
-   "tool": "codex",
-   "name": "gpt-6-astra",
-   "tokens": 2826358086
   },
   {
    "tool": "codex",
@@ -617,7 +621,12 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 312624778
+   "tokens": 312895321
+  },
+  {
+   "tool": "antigravity",
+   "name": "Antigravity",
+   "tokens": 52688047
   },
   {
    "tool": "grok",
@@ -643,11 +652,6 @@
    "tool": "cowork",
    "name": "Fable 5",
    "tokens": 13384089
-  },
-  {
-   "tool": "antigravity",
-   "name": "Antigravity",
-   "tokens": 9796616
   },
   {
    "tool": "cowork",
