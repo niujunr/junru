@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10 23:51 +0800",
+ "updated": "2026-11-11 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 8598956964,
-  "asOf": "2026-11-09 23:59 +0800",
-  "currentStreakDays": 48,
+  "lifetime": 8719977496,
+  "asOf": "2026-11-11 23:50 +0800",
+  "currentStreakDays": 50,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -476,7 +476,7 @@
    "chatgpt": 125501288
   },
   "2026-11-02": {
-   "codex": 88892798,
+   "codex": 92771076,
    "chatgpt": 139822517
   },
   "2026-11-03": {
@@ -503,14 +503,20 @@
   "2026-11-08": {
    "codex": 7396998,
    "antigravity": 9213028,
-   "chatgpt": 18522747
+   "chatgpt": 23539053
   },
   "2026-11-09": {
    "codex": 108165477,
-   "antigravity": 38890220
+   "antigravity": 38890220,
+   "chatgpt": 112292302
   },
   "2026-11-10": {
-   "codex": 3161956
+   "codex": 3161956,
+   "chatgpt": 3711924
+  },
+  "2026-11-11": {
+   "codex": 210855571,
+   "antigravity": 87837393
   }
  },
  "estimated": [
@@ -587,14 +593,17 @@
   "2026-10-29",
   "2026-10-30",
   "2026-10-31",
-  "2026-11-01"
+  "2026-11-01",
+  "2026-11-02",
+  "2026-11-03",
+  "2026-11-04"
  ],
  "seen": [],
  "models": [
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 2937414976
+   "tokens": 3146606159
   },
   {
    "tool": "claude_code",
@@ -624,12 +633,12 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 312895321
+   "tokens": 314559709
   },
   {
    "tool": "antigravity",
    "name": "Antigravity",
-   "tokens": 52688047
+   "tokens": 140525440
   },
   {
    "tool": "grok",
