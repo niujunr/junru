@@ -62,19 +62,18 @@
     modelNames: {},
   };
 
-  // 分四栏：三家厂商加 Antigravity，数据文件里的各个工具归到对应的栏下。
-  // Antigravity 可以用多家的模型，记录里不分模型，所以单独一栏。
+  // 按厂商分四栏，数据文件里的各个工具归到对应的厂商下。
   // 颜色写在 styles.css 的 .usage-key-*（图例、圆点、构成条）和 .usage-area-*（累计曲线）里
   var GROUPS = [
     { id: 'claude', name: 'Claude', tools: ['claude_code', 'cowork'] },
     // ChatGPT 有官方每日数据就只用官方数据（已经包含本机的 Codex），没有时退回本机记录
     { id: 'chatgpt', name: 'ChatGPT', tools: ['chatgpt', 'codex'], prefer: true },
     { id: 'grok', name: 'Grok', tools: ['grok'] },
-    { id: 'antigravity', name: 'Antigravity', tools: ['antigravity'] },
+    { id: 'gemini', name: 'Gemini', tools: ['antigravity'] },
   ];
   var STACK = GROUPS.map(function (g) { return g.id; });
-  // 总览、累计曲线和每日明细的顺序：ChatGPT、Claude、Grok、Antigravity（曲线里从下往上叠）
-  var ORDER = ['chatgpt', 'claude', 'grok', 'antigravity'];
+  // 总览、累计曲线和每日明细的顺序：ChatGPT、Claude、Grok、Gemini（曲线里从下往上叠）
+  var ORDER = ['chatgpt', 'claude', 'grok', 'gemini'];
   function zeros() { var o = {}; ORDER.forEach(function (id) { o[id] = 0; }); return o; }
   function sumOf(o) { return ORDER.reduce(function (s, id) { return s + (o[id] || 0); }, 0); }
   var SHOW_DAYS = 10;
@@ -346,7 +345,7 @@
         lastX = x(i);
       }
     });
-    // 按 ORDER 一层层往上叠面积：ChatGPT、Claude、Grok、Antigravity
+    // 按 ORDER 一层层往上叠面积：ChatGPT、Claude、Grok、Gemini
     var line = function (fn) { return pts.map(function (p, i) { return x(i).toFixed(1) + ',' + y(fn(p)).toFixed(1); }); };
     var below = function (j) { return function (p) { var s = 0; for (var i = 0; i < j; i++) s += p[ORDER[i]]; return s; }; };
     var layers = ORDER.map(function (id, j) { return { id: id, up: below(j + 1), low: below(j) }; });

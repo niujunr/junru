@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="https://niujunr.github.io/junru/">
-    <meta name="description" content="Junru Niu’s daily Token usage across Claude, ChatGPT, Grok and Antigravity, updated automatically every day.">
+    <meta name="description" content="Junru Niu’s daily Token usage across Claude, ChatGPT, Grok and Gemini, updated automatically every day.">
     <title>AI Usage — Junru Niu</title>
-    <link rel="stylesheet" href="styles.css?v=20261107">
+    <link rel="stylesheet" href="styles.css?v=20261113">
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Junru Niu">
     <meta property="og:title" content="AI Usage — Junru Niu">
-    <meta property="og:description" content="Junru Niu’s daily Token usage across Claude, ChatGPT, Grok and Antigravity, updated automatically every day.">
+    <meta property="og:description" content="Junru Niu’s daily Token usage across Claude, ChatGPT, Grok and Gemini, updated automatically every day.">
     <meta property="og:url" content="https://niujunr.github.io/junru/en/usage.html">
     <meta property="og:image" content="https://niujunr.github.io/junru/assets/share.jpg">
     <meta property="og:image:width" content="1200">
@@ -46,7 +46,7 @@
         </div>
         <div class="usage-hero-side">
           <div class="usage-vendors" id="hero-vendors"></div>
-          <p class="usage-vendor-note">ChatGPT is official data, Claude and Antigravity come from local records, and Grok from the xAI usage export.</p>
+          <p class="usage-vendor-note">ChatGPT is official data, Claude and Gemini come from local records, and Grok from the xAI usage export.</p>
           <dl class="usage-mini" id="hero-mini"></dl>
         </div>
       </section>
@@ -67,10 +67,10 @@
             <button type="button" id="chip-claude" data-tool="claude" aria-pressed="false">Claude</button>
             <button type="button" id="chip-chatgpt" data-tool="chatgpt" aria-pressed="false">ChatGPT</button>
             <button type="button" id="chip-grok" data-tool="grok" aria-pressed="false">Grok</button>
-            <button type="button" id="chip-antigravity" data-tool="antigravity" aria-pressed="false">Antigravity</button>
+            <button type="button" id="chip-gemini" data-tool="gemini" aria-pressed="false">Gemini</button>
           </div>
         </div>
-        <p class="usage-sub">Claude and Antigravity come from local records, ChatGPT from official data, and Grok from the imported export. Darker squares mean more Tokens that day.</p>
+        <p class="usage-sub">Claude and Gemini come from local records, ChatGPT from official data, and Grok from the imported export. Darker squares mean more Tokens that day.</p>
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">Less <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> More</span>
@@ -81,7 +81,7 @@
 
       <section class="usage-section" aria-labelledby="models-title">
         <h2 id="models-title">By model</h2>
-        <p class="usage-sub">Claude and ChatGPT models come from local records; Grok from the imported usage export. Antigravity is not split by model and shows as one row.</p>
+        <p class="usage-sub">Claude, ChatGPT and Gemini models come from local records; Grok from the imported usage export.</p>
         <table class="usage-table" id="models"></table>
       </section>
 
@@ -101,7 +101,7 @@
           <li>ChatGPT: official lifetime and daily Token counts, read from my OpenAI account every day. This includes tasks run in ChatGPT Work mode and Codex (not Chat mode), and use on other devices.</li>
           <li>Claude: read from Claude Code’s local session records. Every reply records its cloud Token count.</li>
           <li>Grok: Grok keeps no local records. The numbers come from the usage export in the xAI console.</li>
-          <li>Antigravity: read from Antigravity’s local conversation logs. Every reply records its cloud Token count (input, cache reads and output). The model used is not broken out.</li>
+          <li>Gemini: read from Antigravity’s local conversation logs. Every reply records its model and cloud Token count (input, cache reads and output).</li>
         </ul>
       </section>
     </main>
@@ -110,6 +110,6 @@
 
     <div class="usage-tip" id="tip" role="tooltip" hidden></div>
 
-    <script src="usage.js?v=20261107"></script>
+    <script src="usage.js?v=20261113"></script>
   </body>
 </html>
