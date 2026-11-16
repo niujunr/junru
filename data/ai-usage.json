@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15 23:50 +0800",
+ "updated": "2026-11-16 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 9071237317,
-  "asOf": "2026-11-15 23:50 +0800",
-  "currentStreakDays": 54,
+  "lifetime": 9239132000,
+  "asOf": "2026-11-16 23:50 +0800",
+  "currentStreakDays": 55,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -537,7 +537,12 @@
   },
   "2026-11-15": {
    "codex": 165364177,
-   "antigravity": 54772208
+   "antigravity": 57710338,
+   "chatgpt": 167894683
+  },
+  "2026-11-16": {
+   "codex": 263828336,
+   "antigravity": 235753038
   }
  },
  "estimated": [
@@ -629,7 +634,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 3391790000
+   "tokens": 3644739107
   },
   {
    "tool": "claude_code",
@@ -659,12 +664,12 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Hydrogen",
-   "tokens": 383619619
+   "tokens": 464605695
   },
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 321094584
+   "tokens": 331973813
   },
   {
    "tool": "antigravity",
@@ -674,7 +679,12 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Carbon",
-   "tokens": 253840464
+   "tokens": 272512666
+  },
+  {
+   "tool": "antigravity",
+   "name": "Gemini 4 Hydrogen (XHigh)",
+   "tokens": 135121416
   },
   {
    "tool": "antigravity",
@@ -685,6 +695,11 @@
    "tool": "grok",
    "name": "grok-4.7",
    "tokens": 33283036
+  },
+  {
+   "tool": "antigravity",
+   "name": "Claude Opus 5.5",
+   "tokens": 31029313
   },
   {
    "tool": "grok",
@@ -702,11 +717,6 @@
    "tokens": 22893017
   },
   {
-   "tool": "antigravity",
-   "name": "Gemini 4 Hydrogen (XHigh)",
-   "tokens": 21831366
-  },
-  {
    "tool": "cowork",
    "name": "Fable 5",
    "tokens": 13384089
@@ -715,11 +725,6 @@
    "tool": "claude_code",
    "name": "Fable 5.1",
    "tokens": 10685255
-  },
-  {
-   "tool": "antigravity",
-   "name": "Claude Opus 5.5",
-   "tokens": 5286473
   },
   {
    "tool": "cowork",
