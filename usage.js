@@ -31,6 +31,9 @@
     showAll: function (n) { return 'Show all ' + n + ' days'; },
     showLess: function (n) { return 'Show the latest ' + n + ' days'; },
     otherModels: function (n) { return n + ' other models'; },
+    showAllModels: function (n) { return 'Show all ' + n + ' models'; },
+    showTopModels: function (n) { return 'Show the top ' + n + ' models'; },
+    updated: function (s) { return 'Updated automatically · ' + s; },
     thTool: 'Tool', thModel: 'Model', thTokens: 'Tokens',
     loadError: 'Usage data couldn’t be loaded. Please refresh later.',
     modelNames: { 'Grok 对话': 'Grok chat' },
@@ -57,6 +60,9 @@
     showAll: function (n) { return '显示全部 ' + n + ' 天'; },
     showLess: function (n) { return '只显示最近 ' + n + ' 天'; },
     otherModels: function (n) { return '其他 ' + n + ' 个模型'; },
+    showAllModels: function (n) { return '显示全部 ' + n + ' 个模型'; },
+    showTopModels: function (n) { return '只显示前 ' + n + ' 个模型'; },
+    updated: function (s) { return '最近自动更新：' + s; },
     thTool: '工具', thModel: '模型', thTokens: 'Token',
     loadError: '用量数据暂时加载不出来，请稍后刷新。',
     modelNames: {},
@@ -76,9 +82,9 @@
   var ORDER = ['chatgpt', 'claude', 'grok', 'gemini'];
   function zeros() { var o = {}; ORDER.forEach(function (id) { o[id] = 0; }); return o; }
   function sumOf(o) { return ORDER.reduce(function (s, id) { return s + (o[id] || 0); }, 0); }
-  var SHOW_DAYS = 10;
+  var SHOW_DAYS = 10, SHOW_MODELS = 10;
   var D = null, OFFICIAL = null;
-  var state = { tool: 'all', expanded: false };
+  var state = { tool: 'all', expanded: false, modelsExpanded: false };
   var $ = function (s) { return document.querySelector(s); };
 
   // 动效：只在第一次滚到时播一次；浏览器不支持或系统开了"减少动态效果"就直接显示最终画面
@@ -227,7 +233,16 @@
   }
 
   // ---------- 总览 ----------
+  function formatUpdated(s) {
+    var m = s && s.match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}:\d{2})(?:\s+([+-]\d{2})(\d{2}))?/);
+    if (!m) return s || '';
+    var day = m[1] + '-' + m[2] + '-' + m[3];
+    var tz = m[5] ? ' UTC' + (m[5] === '+00' ? '' : (+m[5] >= 0 ? '+' + +m[5] : +m[5])) + (m[6] && m[6] !== '00' ? ':' + m[6] : '') : '';
+    return EN ? (ymd(day) + ', ' + m[4] + tz) : (ymd(day) + ' ' + m[4]);
+  }
   function renderHero(anim) {
+    var upd = $('#usage-updated');
+    if (upd && D.updated) { upd.textContent = TEXT.updated(formatUpdated(D.updated)); upd.hidden = false; }
     var v = vendorTotals(), t = v.totals, all = sumOf(t);
     var used = usedDays();
     if (D.first) { var f = parseDay(D.first); $('#hero-label').textContent = TEXT.heroLabel(f.getFullYear(), f.getMonth() + 1); }
@@ -446,6 +461,9 @@
 
   // ---------- 日历 ----------
   function renderCalendar(anim) {
+    var calSec = $('#cal-section'), seenLeg = $('#cal-seen-legend');
+    if (calSec) calSec.setAttribute('data-palette', state.tool);
+    if (seenLeg) seenLeg.hidden = !(state.tool === 'all' || state.tool === 'claude');
     var box = $('#calendar');
     var end = parseDay(today());
     var start = D.first ? parseDay(D.first) : end;
@@ -539,17 +557,24 @@
 
   // ---------- 模型表 ----------
   function renderModels() {
-    var keep = D.models.length <= 12 ? D.models.length : 10;
+    var foldable = D.models.length > 12;
+    var keep = (!foldable || state.modelsExpanded) ? D.models.length : SHOW_MODELS;
     var rows = D.models.slice(0, keep), rest = D.models.slice(keep);
-    if (rest.length) rows.push({ tool: null, name: TEXT.otherModels(rest.length), tokens: rest.reduce(function (s, m) { return s + m.tokens; }, 0) });
+    if (rest.length) rows.push({ tool: null, fold: true, name: TEXT.otherModels(rest.length), tokens: rest.reduce(function (s, m) { return s + m.tokens; }, 0) });
     var max = rows.length ? rows[0].tokens : 1;
     $('#models').innerHTML = '<thead><tr><th>' + TEXT.thTool + '</th><th>' + TEXT.thModel + '</th><th class="usage-num">' + TEXT.thTokens + '</th></tr></thead><tbody>' +
       rows.map(function (m) {
         var g = m.tool ? groupOfTool(m.tool) : null;
-        return '<tr><td>' + (g ? keyDot(g.id) + esc(g.name) : '—') + '</td>' +
+        return '<tr' + (m.fold ? ' class="usage-model-fold" tabindex="0" role="button"' : '') + '><td>' + (g ? keyDot(g.id) + esc(g.name) : '—') + '</td>' +
           '<td>' + esc(TEXT.modelNames[m.name] || m.name) + '<span class="usage-meter"><i style="width:' + (m.tokens / max * 100).toFixed(1) + '%"></i></span></td>' +
           '<td class="usage-num">' + num(m.tokens) + '</td></tr>';
       }).join('') + '</tbody>';
+    var btn = $('#models-more');
+    if (btn) {
+      btn.hidden = !foldable;
+      btn.textContent = state.modelsExpanded ? TEXT.showTopModels(SHOW_MODELS) : TEXT.showAllModels(D.models.length);
+      btn.setAttribute('aria-expanded', String(state.modelsExpanded));
+    }
   }
 
   // ---------- 启动 ----------
@@ -561,6 +586,10 @@
     renderCalendar(false);
   });
   $('#daily-more').addEventListener('click', function () { state.expanded = !state.expanded; renderDaily(); });
+  var modelsMore = $('#models-more');
+  if (modelsMore) modelsMore.addEventListener('click', function () { state.modelsExpanded = !state.modelsExpanded; renderModels(); });
+  $('#models').addEventListener('click', function (e) { if (e.target.closest('.usage-model-fold')) { state.modelsExpanded = true; renderModels(); } });
+  $('#models').addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('.usage-model-fold')) { e.preventDefault(); state.modelsExpanded = true; renderModels(); } });
   bindTips($('#calendar'));
 
   function getJSON(url) {
@@ -570,7 +599,7 @@
     });
   }
   // 数据文件由每晚的自动更新生成；official 是手动维护的备用官方累计数，也一起写在里面
-  getJSON('data/ai-usage.json').then(function (data) {
+  getJSON((EN ? '../' : '') + 'data/ai-usage.json').then(function (data) {
     OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
     renderHero(MOTION); renderModels(); renderDaily(); renderCurve(MOTION); renderCalendar(MOTION);

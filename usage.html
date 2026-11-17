@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="https://niujunr.github.io/junru/">
     <meta name="description" content="牛君儒每天使用 Claude、ChatGPT、Grok 和 Gemini 的 Token 用量，每天自动更新。">
     <title>AI 用量 — 牛君儒</title>
-    <link rel="stylesheet" href="styles.css?v=20261113">
+    <link rel="stylesheet" href="styles.css?v=20261118">
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
@@ -19,6 +18,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="zh_CN">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://niujunr.github.io/junru/usage.html">
     <link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html">
     <link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html">
   </head>
@@ -37,6 +37,7 @@
 
     <main class="page usage-page">
       <h1 class="page-title">AI 用量</h1>
+      <p class="usage-updated" id="usage-updated" hidden></p>
 
       <section class="usage-hero" aria-label="总览">
         <div class="usage-hero-main">
@@ -59,7 +60,7 @@
         <div class="usage-curve" id="curve"></div>
       </section>
 
-      <section class="usage-section" aria-labelledby="cal-title">
+      <section class="usage-section" id="cal-section" data-palette="all" aria-labelledby="cal-title">
         <div class="usage-section-head">
           <h2 id="cal-title">哪天在用</h2>
           <div class="usage-chips" id="tool-chips" role="group" aria-label="按工具筛选">
@@ -74,7 +75,7 @@
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">少 <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> 多</span>
-          <span><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>用过 Claude，但没有当天的 Token 记录</span>
+          <span id="cal-seen-legend"><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>用过 Claude，但没有当天的 Token 记录</span>
           <span><i class="usage-swatch usage-q0"></i>没用</span>
         </div>
       </section>
@@ -83,6 +84,7 @@
         <h2 id="models-title">按模型</h2>
         <p class="usage-sub">Claude、ChatGPT 和 Gemini 的模型来自本机记录，Grok 来自导入的用量明细</p>
         <table class="usage-table" id="models"></table>
+        <button type="button" class="usage-more" id="models-more" aria-controls="models" aria-expanded="false" hidden></button>
       </section>
 
       <section class="usage-section" aria-labelledby="daily-title">
@@ -110,6 +112,6 @@
 
     <div class="usage-tip" id="tip" role="tooltip" hidden></div>
 
-    <script src="usage.js?v=20261113"></script>
+    <script src="usage.js?v=20261118"></script>
   </body>
 </html>

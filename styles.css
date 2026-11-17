@@ -473,7 +473,8 @@ li { margin: 0.28rem 0; }
   --usage-serif: Georgia, "Songti SC", "Noto Serif SC", "Times New Roman", serif;
 }
 
-/* 总览：左边一个大数字，右边三家的占比和三个小数字 */
+/* 总览：左边一个大数字，右边四家的占比和三个小数字 */
+.usage-updated { margin: -0.15rem 0 -1.35rem; color: var(--muted); font-size: 0.86rem; font-variant-numeric: tabular-nums; }
 .usage-hero {
   display: flex;
   flex-wrap: wrap;
@@ -534,7 +535,30 @@ li { margin: 0.28rem 0; }
 }
 .usage-chips button:hover { color: var(--ink); }
 .usage-chips button[aria-pressed="true"] { color: #fff; background: var(--accent); border-color: var(--accent); }
+.usage-chips button[data-tool="claude"][aria-pressed="true"] { background: var(--usage-claude); border-color: var(--usage-claude); }
+.usage-chips button[data-tool="chatgpt"][aria-pressed="true"] { background: #4a5562; border-color: #4a5562; }
+.usage-chips button[data-tool="grok"][aria-pressed="true"] { background: var(--usage-grok); border-color: var(--usage-grok); }
+.usage-chips button[data-tool="gemini"][aria-pressed="true"] { background: var(--usage-gemini); border-color: var(--usage-gemini); }
 .usage-chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 日历随筛选切换品牌色阶 */
+[data-palette="claude"] { --usage-hatch: #cfa090; }
+[data-palette="claude"] .usage-q1 { fill: #f7dcd2; background-color: #f7dcd2; }
+[data-palette="claude"] .usage-q2 { fill: #ecad96; background-color: #ecad96; }
+[data-palette="claude"] .usage-q3 { fill: #df7d5c; background-color: #df7d5c; }
+[data-palette="claude"] .usage-q4 { fill: #b54f2e; background-color: #b54f2e; }
+[data-palette="chatgpt"] .usage-q1 { fill: #dfe3e8; background-color: #dfe3e8; }
+[data-palette="chatgpt"] .usage-q2 { fill: #b2bcc7; background-color: #b2bcc7; }
+[data-palette="chatgpt"] .usage-q3 { fill: #798796; background-color: #798796; }
+[data-palette="chatgpt"] .usage-q4 { fill: #43505e; background-color: #43505e; }
+[data-palette="grok"] .usage-q1 { fill: #dcdcd9; background-color: #dcdcd9; }
+[data-palette="grok"] .usage-q2 { fill: #9e9e9a; background-color: #9e9e9a; }
+[data-palette="grok"] .usage-q3 { fill: #52524f; background-color: #52524f; }
+[data-palette="grok"] .usage-q4 { fill: #111111; background-color: #111111; }
+[data-palette="gemini"] .usage-q1 { fill: #d2e3fc; background-color: #d2e3fc; }
+[data-palette="gemini"] .usage-q2 { fill: #8ab4f8; background-color: #8ab4f8; }
+[data-palette="gemini"] .usage-q3 { fill: #4285f4; background-color: #4285f4; }
+[data-palette="gemini"] .usage-q4 { fill: #174ea6; background-color: #174ea6; }
 
 .usage-cal-scroll { overflow-x: auto; }
 .usage-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 1.2rem; margin-top: 0.8rem; color: var(--muted); font-size: 0.82rem; }
@@ -544,11 +568,12 @@ li { margin: 0.28rem 0; }
 .usage-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; }
 .usage-swatch-svg { display: block; }
 
-.usage-q0 { fill: var(--usage-q0); background: var(--usage-q0); }
-.usage-q1 { fill: var(--usage-q1); background: var(--usage-q1); }
-.usage-q2 { fill: var(--usage-q2); background: var(--usage-q2); }
-.usage-q3 { fill: var(--usage-q3); background: var(--usage-q3); }
-.usage-q4 { fill: var(--usage-q4); background: var(--usage-q4); }
+.usage-q0 { fill: var(--usage-q0); background-color: var(--usage-q0); }
+.usage-q1 { fill: var(--usage-q1); background-color: var(--usage-q1); }
+.usage-q2 { fill: var(--usage-q2); background-color: var(--usage-q2); }
+.usage-q3 { fill: var(--usage-q3); background-color: var(--usage-q3); }
+.usage-q4 { fill: var(--usage-q4); background-color: var(--usage-q4); }
+.usage-cell, .usage-legend .usage-swatch { transition: fill 0.2s ease, background-color 0.2s ease; }
 .usage-hatch { fill: url(#usage-hatch); }
 .usage-hatch-line { stroke: var(--usage-hatch); stroke-width: 1.3; }
 .usage-today { stroke: var(--ink); stroke-width: 1.5; }
@@ -622,7 +647,7 @@ li { margin: 0.28rem 0; }
 .usage-cal-anim.is-lit .usage-today { animation: usage-blink 0.6s ease-in-out 1.25s 3; }
 @keyframes usage-blink { 50% { opacity: 0.3; } }
 @media (prefers-reduced-motion: reduce) {
-  .usage-vendor-bar i { transition: none; }
+  .usage-vendor-bar i, .usage-cell, .usage-legend .usage-swatch { transition: none; }
   .is-live .usage-curve-pulse { animation: none; }
 }
 .usage-daily:not(.is-expanded) .is-extra { display: none; }
@@ -650,6 +675,8 @@ li { margin: 0.28rem 0; }
 .usage-meter { display: block; max-width: 18rem; height: 4px; margin-top: 0.4rem; border-radius: 2px; background: var(--usage-q0); }
 .usage-meter i { display: block; height: 100%; border-radius: 2px; background: var(--accent); }
 .usage-dot { display: inline-block; flex: 0 0 auto; width: 8px; height: 8px; margin-right: 0.45rem; border-radius: 50%; vertical-align: 1px; }
+.usage-model-fold { cursor: pointer; color: var(--muted); }
+.usage-model-fold:hover td { color: var(--accent); }
 
 .usage-notes ul { max-width: 42rem; color: var(--muted); }
 

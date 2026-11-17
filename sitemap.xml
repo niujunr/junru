@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://niujunr.github.io/junru/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/experience.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/experience.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/experience.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/projects.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/notes.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/notes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/notes.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/usage.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/en/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/en/experience.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/experience.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/experience.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/en/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/projects.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/en/notes.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/notes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/notes.html"/>
+  </url>
+  <url>
+    <loc>https://niujunr.github.io/junru/en/usage.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html"/>
+  </url>
+</urlset>

@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="https://niujunr.github.io/junru/">
     <meta name="description" content="Junru Niu’s daily Token usage across Claude, ChatGPT, Grok and Gemini, updated automatically every day.">
     <title>AI Usage — Junru Niu</title>
-    <link rel="stylesheet" href="styles.css?v=20261113">
-    <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
-    <link rel="apple-touch-icon" href="assets/icon-180.png">
+    <link rel="stylesheet" href="../styles.css?v=20261118">
+    <link rel="icon" href="../assets/icon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="../assets/icon-180.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Junru Niu">
     <meta property="og:title" content="AI Usage — Junru Niu">
@@ -19,24 +18,26 @@
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://niujunr.github.io/junru/en/usage.html">
     <link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html">
     <link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html">
   </head>
   <body>
     <header class="site-header">
-      <a class="site-name" href="en/index.html">Junru Niu</a>
+      <a class="site-name" href="index.html">Junru Niu</a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="en/index.html">Home</a>
-        <a href="en/experience.html">Experience</a>
-        <a href="en/projects.html">Moments</a>
-        <a href="en/notes.html">Projects</a>
-        <a class="active" aria-current="page" href="en/usage.html">AI Usage</a>
-        <a class="lang-switch" href="usage.html" lang="zh-CN" hreflang="zh-CN">中文</a>
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        <a href="projects.html">Moments</a>
+        <a href="notes.html">Projects</a>
+        <a class="active" aria-current="page" href="usage.html">AI Usage</a>
+        <a class="lang-switch" href="../usage.html" lang="zh-CN" hreflang="zh-CN">中文</a>
       </nav>
     </header>
 
     <main class="page usage-page">
       <h1 class="page-title">AI Usage</h1>
+      <p class="usage-updated" id="usage-updated" hidden></p>
 
       <section class="usage-hero" aria-label="Overview">
         <div class="usage-hero-main">
@@ -59,7 +60,7 @@
         <div class="usage-curve" id="curve"></div>
       </section>
 
-      <section class="usage-section" aria-labelledby="cal-title">
+      <section class="usage-section" id="cal-section" data-palette="all" aria-labelledby="cal-title">
         <div class="usage-section-head">
           <h2 id="cal-title">Activity</h2>
           <div class="usage-chips" id="tool-chips" role="group" aria-label="Filter by tool">
@@ -74,7 +75,7 @@
         <div class="usage-cal-scroll" id="calendar"></div>
         <div class="usage-legend">
           <span class="usage-ramp">Less <i class="usage-swatch usage-q1"></i><i class="usage-swatch usage-q2"></i><i class="usage-swatch usage-q3"></i><i class="usage-swatch usage-q4"></i> More</span>
-          <span><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>Used Claude, but no Token record for the day</span>
+          <span id="cal-seen-legend"><svg class="usage-swatch-svg" width="12" height="12" aria-hidden="true"><rect width="12" height="12" class="usage-hatch"></rect></svg>Used Claude, but no Token record for the day</span>
           <span><i class="usage-swatch usage-q0"></i>No use</span>
         </div>
       </section>
@@ -83,6 +84,7 @@
         <h2 id="models-title">By model</h2>
         <p class="usage-sub">Claude, ChatGPT and Gemini models come from local records; Grok from the imported usage export.</p>
         <table class="usage-table" id="models"></table>
+        <button type="button" class="usage-more" id="models-more" aria-controls="models" aria-expanded="false" hidden></button>
       </section>
 
       <section class="usage-section" aria-labelledby="daily-title">
@@ -110,6 +112,6 @@
 
     <div class="usage-tip" id="tip" role="tooltip" hidden></div>
 
-    <script src="usage.js?v=20261113"></script>
+    <script src="../usage.js?v=20261118"></script>
   </body>
 </html>
