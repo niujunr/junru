@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17 23:50 +0800",
+ "updated": "2026-11-18 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 9626416877,
-  "asOf": "2026-11-17 23:50 +0800",
-  "currentStreakDays": 56,
+  "lifetime": 10080358587,
+  "asOf": "2026-11-18 23:50 +0800",
+  "currentStreakDays": 58,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -543,11 +543,17 @@
   "2026-11-16": {
    "codex": 267044420,
    "antigravity": 235753038,
-   "chatgpt": 386715307
+   "chatgpt": 396406136
   },
   "2026-11-17": {
-   "codex": 505718762,
-   "antigravity": 171308028
+   "codex": 511900507,
+   "antigravity": 176173953,
+   "chatgpt": 442603136
+  },
+  "2026-11-18": {
+   "codex": 96240030,
+   "antigravity": 207075348,
+   "chatgpt": 1647745
   }
  },
  "estimated": [
@@ -639,7 +645,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 4126813727
+   "tokens": 4224477129
   },
   {
    "tool": "claude_code",
@@ -657,14 +663,14 @@
    "tokens": 740906853
   },
   {
+   "tool": "antigravity",
+   "name": "Gemini 4 Hydrogen",
+   "tokens": 655636468
+  },
+  {
    "tool": "codex",
    "name": "gpt-5.6-sol",
    "tokens": 646091621
-  },
-  {
-   "tool": "antigravity",
-   "name": "Gemini 4 Hydrogen",
-   "tokens": 580469468
   },
   {
    "tool": "codex",
@@ -672,14 +678,14 @@
    "tokens": 522382664
   },
   {
-   "tool": "codex",
-   "name": "codex-auto-review",
-   "tokens": 358834039
-  },
-  {
    "tool": "antigravity",
    "name": "Gemini 4 Carbon",
-   "tokens": 327956921
+   "tokens": 464731194
+  },
+  {
+   "tool": "codex",
+   "name": "codex-auto-review",
+   "tokens": 363592412
   },
   {
    "tool": "antigravity",
