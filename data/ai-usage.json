@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18 23:50 +0800",
+ "updated": "2026-11-19 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,8 +32,8 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10080358587,
-  "asOf": "2026-11-18 23:50 +0800",
+  "lifetime": 10085152499,
+  "asOf": "2026-11-19 23:50 +0800",
   "currentStreakDays": 58,
   "peakDailyTokens": 496956705
  },
@@ -492,11 +492,11 @@
    "chatgpt": 164632274
   },
   "2026-11-06": {
-   "codex": 612453369,
+   "codex": 674530089,
    "chatgpt": 420549202
   },
   "2026-11-07": {
-   "codex": 494834053,
+   "codex": 500697874,
    "antigravity": 4584799,
    "chatgpt": 496956705
   },
@@ -506,7 +506,7 @@
    "chatgpt": 23539053
   },
   "2026-11-09": {
-   "codex": 108165477,
+   "codex": 113642605,
    "antigravity": 38890220,
    "chatgpt": 112292302
   },
@@ -515,7 +515,7 @@
    "chatgpt": 3711924
   },
   "2026-11-11": {
-   "codex": 210855571,
+   "codex": 242157141,
    "antigravity": 87837393,
    "chatgpt": 246616042
   },
@@ -552,8 +552,12 @@
   },
   "2026-11-18": {
    "codex": 96240030,
-   "antigravity": 207075348,
-   "chatgpt": 1647745
+   "antigravity": 213744658,
+   "chatgpt": 6441657
+  },
+  "2026-11-19": {
+   "codex": 6830140,
+   "antigravity": 222313942
   }
  },
  "estimated": [
@@ -638,14 +642,18 @@
   "2026-11-05",
   "2026-11-06",
   "2026-11-07",
-  "2026-11-08"
+  "2026-11-08",
+  "2026-11-09",
+  "2026-11-10",
+  "2026-11-11",
+  "2026-11-12"
  ],
  "seen": [],
  "models": [
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 4224477129
+   "tokens": 4229227399
   },
   {
    "tool": "claude_code",
@@ -665,7 +673,7 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Hydrogen",
-   "tokens": 655636468
+   "tokens": 700813053
   },
   {
    "tool": "codex",
@@ -680,12 +688,12 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Carbon",
-   "tokens": 464731194
+   "tokens": 506919911
   },
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 363592412
+   "tokens": 364229345
   },
   {
    "tool": "antigravity",
@@ -699,6 +707,16 @@
   },
   {
    "tool": "antigravity",
+   "name": "Gemini 4 Neon",
+   "tokens": 103784737
+  },
+  {
+   "tool": "antigravity",
+   "name": "Claude Opus 5.5",
+   "tokens": 56904980
+  },
+  {
+   "tool": "antigravity",
    "name": "Gemini 4 Argon",
    "tokens": 51981407
   },
@@ -706,11 +724,6 @@
    "tool": "grok",
    "name": "grok-4.7",
    "tokens": 33283036
-  },
-  {
-   "tool": "antigravity",
-   "name": "Claude Opus 5.5",
-   "tokens": 31029313
   },
   {
    "tool": "grok",
@@ -738,9 +751,19 @@
    "tokens": 10685255
   },
   {
+   "tool": "antigravity",
+   "name": "Gemini 4 Neon (XHigh)",
+   "tokens": 10615379
+  },
+  {
    "tool": "cowork",
    "name": "Opus 4.8",
    "tokens": 3263868
+  },
+  {
+   "tool": "codex",
+   "name": "gpt-6.2-sol",
+   "tokens": 1442937
   },
   {
    "tool": "codex",
