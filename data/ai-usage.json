@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20 23:50 +0800",
+ "updated": "2026-11-21 13:48 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10091929048,
-  "asOf": "2026-11-20 23:50 +0800",
-  "currentStreakDays": 59,
+  "lifetime": 10097099684,
+  "asOf": "2026-11-21 13:48 +0800",
+  "currentStreakDays": 60,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -562,7 +562,12 @@
   },
   "2026-11-20": {
    "codex": 5741773,
-   "antigravity": 62177044
+   "antigravity": 71850281,
+   "chatgpt": 5170636
+  },
+  "2026-11-21": {
+   "codex": 2793841,
+   "antigravity": 69849525
   }
  },
  "estimated": [
@@ -658,7 +663,7 @@
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 4234499009
+   "tokens": 4237162868
   },
   {
    "tool": "claude_code",
@@ -671,14 +676,14 @@
    "tokens": 1606215535
   },
   {
+   "tool": "antigravity",
+   "name": "Gemini 4 Hydrogen",
+   "tokens": 845471662
+  },
+  {
    "tool": "grok",
    "name": "Grok Bot",
    "tokens": 740906853
-  },
-  {
-   "tool": "antigravity",
-   "name": "Gemini 4 Hydrogen",
-   "tokens": 708316967
   },
   {
    "tool": "codex",
@@ -686,19 +691,19 @@
    "tokens": 646091621
   },
   {
+   "tool": "antigravity",
+   "name": "Gemini 4 Carbon",
+   "tokens": 548631106
+  },
+  {
    "tool": "codex",
    "name": "gpt-5.6-terra",
    "tokens": 522382664
   },
   {
-   "tool": "antigravity",
-   "name": "Gemini 4 Carbon",
-   "tokens": 508680981
-  },
-  {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 364699508
+   "tokens": 364829490
   },
   {
    "tool": "antigravity",
@@ -708,12 +713,7 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Neon",
-   "tokens": 159898673
-  },
-  {
-   "tool": "antigravity",
-   "name": "Gemini 4 Hydrogen (XHigh)",
-   "tokens": 135121416
+   "tokens": 208053410
   },
   {
    "tool": "antigravity",
@@ -754,11 +754,6 @@
    "tool": "claude_code",
    "name": "Fable 5.1",
    "tokens": 10685255
-  },
-  {
-   "tool": "antigravity",
-   "name": "Gemini 4 Neon (XHigh)",
-   "tokens": 10615379
   },
   {
    "tool": "cowork",
