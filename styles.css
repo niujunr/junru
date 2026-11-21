@@ -600,6 +600,9 @@ li { margin: 0.28rem 0; }
 .usage-curve-quiet { fill: var(--usage-quiet); }
 .usage-curve-leader { fill: none; stroke: var(--ink); stroke-width: 1; }
 .usage-curve-dot { fill: var(--accent); stroke: #fff; stroke-width: 2; }
+.usage-curve-event-line { fill: none; stroke: var(--usage-claude); stroke-width: 1.25; stroke-dasharray: 3 3; opacity: 0.85; }
+.usage-curve-event-leader { fill: none; stroke: var(--usage-claude); stroke-width: 1; }
+.usage-curve-event-dot { fill: var(--usage-claude); stroke: #fff; stroke-width: 2; }
 .usage-curve-cross { stroke: #9a9a9a; stroke-width: 1; }
 .usage-curve-hit { fill: transparent; cursor: crosshair; }
 .usage-curve-label {
@@ -615,6 +618,7 @@ li { margin: 0.28rem 0; }
   font-variant-numeric: tabular-nums;
   pointer-events: none;
 }
+.usage-curve-label--event { color: #a94425; box-shadow: 0 0 0 1px rgba(217, 119, 87, 0.55); }
 .usage-curve-note { position: absolute; color: var(--muted); font-size: 0.75rem; white-space: nowrap; transform: translateX(-50%); pointer-events: none; }
 
 /* 每日明细：按月分组，每天一行带构成条 */

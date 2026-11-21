@@ -82,6 +82,12 @@
   var ORDER = ['chatgpt', 'claude', 'gemini', 'grok'];
   function zeros() { var o = {}; ORDER.forEach(function (id) { o[id] = 0; }); return o; }
   function sumOf(o) { return ORDER.reduce(function (s, id) { return s + (o[id] || 0); }, 0); }
+  // 累计曲线上的事件标注
+  var EVENTS = [
+    { day: '2026-10-28', zh: 'Claude 封号', en: 'Claude banned' },
+  ];
+  function eventOn(k) { return EVENTS.filter(function (e) { return e.day === k; })[0] || null; }
+  function eventText(ev) { return EN ? (md(ev.day) + ' · ' + ev.en) : (md(ev.day) + ' ' + ev.zh); }
   var SHOW_DAYS = 10, SHOW_MODELS = 10;
   var D = null, OFFICIAL = null;
   var state = { tool: 'all', expanded: false, modelsExpanded: false };
@@ -189,7 +195,8 @@
   function row(a, b) { return '<div class="usage-tip-row"><span>' + a + '</span><span>' + b + '</span></div>'; }
   function keyDot(id) { return '<i class="usage-dot usage-key-' + id + '"></i>'; }
   function dayTip(k) {
-    var r = D.days[k], html = '<b>' + dayLabel(k) + '</b>';
+    var r = D.days[k], ev = eventOn(k), html = '<b>' + dayLabel(k) + '</b>';
+    if (ev) html += '<div class="usage-tip-note">' + esc(EN ? ev.en : ev.zh) + '</div>';
     if (r) {
       ORDER.forEach(function (id) { var v = groupTotal(r, id); if (v) html += row(keyDot(id) + group(id).name, num(v)); });
       html += row(TEXT.total, num(dayTotal(k)));
@@ -395,6 +402,21 @@
       el(g, 'path', { d: dot(px, py), class: 'usage-curve-dot' });
       reveal.push(item);
     });
+    // 关键事件标注（如 Claude 封号）：竖虚线标出当天位置，引线指向上方空白处
+    EVENTS.forEach(function (ev) {
+      var ei = -1;
+      for (var i = 0; i < n; i++) if (pts[i].k === ev.day) { ei = i; break; }
+      if (ei < 0) return;
+      var px = x(ei), py = y(pts[ei].all);
+      var lyEv = Math.max(mt + 4, py - (narrow ? 34 : 52));
+      var g = el(s, 'g', { class: 'usage-ms' });
+      el(g, 'line', { x1: px, x2: px, y1: py, y2: mt + ph, class: 'usage-curve-event-line' });
+      el(g, 'path', { d: 'M' + px.toFixed(1) + ',' + py.toFixed(1) + 'L' + px.toFixed(1) + ',' + (lyEv + 10).toFixed(1), class: 'usage-curve-event-leader' });
+      el(g, 'path', { d: dot(px, py), class: 'usage-curve-event-dot' });
+      var item = { x: px, nodes: [g] };
+      labels.push({ text: eventText(ev), x: px, y: lyEv, center: !narrow, end: narrow, cls: 'usage-curve-label--event', item: item });
+      reveal.push(item);
+    });
     var last = pts[n - 1], lx = x(n - 1), ly = y(last.all);
     var todayG = el(s, 'g', { class: 'usage-ms' });
     el(todayG, 'circle', { cx: lx, cy: ly, r: 4.5, class: 'usage-curve-pulse' });
@@ -412,6 +434,8 @@
       var p = pts[i];
       cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.setAttribute('visibility', 'visible');
       var html = '<b>' + dayLabel(p.k) + '</b><div class="usage-tip-note">' + TEXT.cumTo + '</div>';
+      var ev = eventOn(p.k);
+      if (ev) html += '<div class="usage-tip-note">' + esc(EN ? ev.en : ev.zh) + '</div>';
       ORDER.forEach(function (id) { if (p[id]) html += row(keyDot(id) + group(id).name, num(p[id])); });
       html += row(TEXT.total, num(p.all)) + row(TEXT.thatDay, num(p.day));
       showTip(e, html);
@@ -433,10 +457,10 @@
     }
     labels.forEach(function (l) {
       var t = document.createElement('span');
-      t.className = 'usage-curve-label';
+      t.className = 'usage-curve-label' + (l.cls ? ' ' + l.cls : '');
       t.style.left = l.x + 'px';
       t.style.top = l.y + 'px';
-      t.style.transform = l.end ? 'translate(-100%, -50%)' : 'translate(0, -50%)';
+      t.style.transform = l.center ? 'translate(-50%, -50%)' : (l.end ? 'translate(-100%, -50%)' : 'translate(0, -50%)');
       t.textContent = l.text;
       if (l.item) l.item.nodes.push(t);
       frag.appendChild(t);
