@@ -78,8 +78,8 @@
     { id: 'gemini', name: 'Gemini', tools: ['antigravity'] },
   ];
   var STACK = GROUPS.map(function (g) { return g.id; });
-  // 总览、累计曲线和每日明细的顺序：ChatGPT、Claude、Grok、Gemini（曲线里从下往上叠）
-  var ORDER = ['chatgpt', 'claude', 'grok', 'gemini'];
+  // 总览、累计曲线、日历筛选和每日明细的顺序：加载数据后按累计用量从大到小自动排（曲线里从下往上叠）
+  var ORDER = ['chatgpt', 'claude', 'gemini', 'grok'];
   function zeros() { var o = {}; ORDER.forEach(function (id) { o[id] = 0; }); return o; }
   function sumOf(o) { return ORDER.reduce(function (s, id) { return s + (o[id] || 0); }, 0); }
   var SHOW_DAYS = 10, SHOW_MODELS = 10;
@@ -602,6 +602,10 @@
   getJSON((EN ? '../' : '') + 'data/ai-usage.json').then(function (data) {
     OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
+    var vt = vendorTotals().totals;
+    ORDER = ORDER.slice().sort(function (a, b) { return (vt[b] || 0) - (vt[a] || 0); });
+    var chips = $('#tool-chips');
+    if (chips) ORDER.forEach(function (id) { var btn = $('#chip-' + id); if (btn) chips.appendChild(btn); });
     renderHero(MOTION); renderModels(); renderDaily(); renderCurve(MOTION); renderCalendar(MOTION);
     var lastW = document.body.clientWidth, raf = 0;
     window.addEventListener('resize', function () {
