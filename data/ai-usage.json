@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21 13:48 +0800",
+ "updated": "2026-11-21 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,8 +32,8 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10097099684,
-  "asOf": "2026-11-21 13:48 +0800",
+  "lifetime": 10097748310,
+  "asOf": "2026-11-21 23:50 +0800",
   "currentStreakDays": 60,
   "peakDailyTokens": 496956705
  },
@@ -496,7 +496,7 @@
    "chatgpt": 420549202
   },
   "2026-11-07": {
-   "codex": 500697874,
+   "codex": 708915922,
    "antigravity": 4584799,
    "chatgpt": 496956705
   },
@@ -515,7 +515,7 @@
    "chatgpt": 3711924
   },
   "2026-11-11": {
-   "codex": 242157141,
+   "codex": 255126461,
    "antigravity": 87837393,
    "chatgpt": 246616042
   },
@@ -526,12 +526,12 @@
    "chatgpt": 42213028
   },
   "2026-11-13": {
-   "codex": 50457111,
+   "codex": 76299422,
    "antigravity": 341928371,
    "chatgpt": 54145117
   },
   "2026-11-14": {
-   "codex": 7396428,
+   "codex": 8771212,
    "antigravity": 306056752,
    "chatgpt": 8285634
   },
@@ -563,11 +563,11 @@
   "2026-11-20": {
    "codex": 5741773,
    "antigravity": 71850281,
-   "chatgpt": 5170636
+   "chatgpt": 5819262
   },
   "2026-11-21": {
-   "codex": 2793841,
-   "antigravity": 69849525
+   "codex": 96543518,
+   "antigravity": 118617243
   }
  },
  "estimated": [
@@ -656,14 +656,16 @@
   "2026-11-09",
   "2026-11-10",
   "2026-11-11",
-  "2026-11-12"
+  "2026-11-12",
+  "2026-11-13",
+  "2026-11-14"
  ],
  "seen": [],
  "models": [
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 4237162868
+   "tokens": 4265592681
   },
   {
    "tool": "claude_code",
@@ -703,7 +705,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 364829490
+   "tokens": 367420355
   },
   {
    "tool": "antigravity",
@@ -713,7 +715,12 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Neon",
-   "tokens": 208053410
+   "tokens": 256821128
+  },
+  {
+   "tool": "codex",
+   "name": "gpt-6.2-astra",
+   "tokens": 88276819
   },
   {
    "tool": "antigravity",
