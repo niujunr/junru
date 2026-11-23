@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22 23:50 +0800",
+ "updated": "2026-11-23 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10204535681,
-  "asOf": "2026-11-22 23:50 +0800",
-  "currentStreakDays": 61,
+  "lifetime": 10210522699,
+  "asOf": "2026-11-23 23:50 +0800",
+  "currentStreakDays": 62,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -572,7 +572,12 @@
   },
   "2026-11-22": {
    "codex": 168957199,
-   "antigravity": 67851230
+   "antigravity": 67851230,
+   "chatgpt": 5987018
+  },
+  "2026-11-23": {
+   "codex": 95063010,
+   "antigravity": 66287377
   }
  },
  "estimated": [
@@ -709,24 +714,24 @@
    "tokens": 522382664
   },
   {
-   "tool": "codex",
-   "name": "codex-auto-review",
-   "tokens": 379958008
-  },
-  {
    "tool": "antigravity",
    "name": "Gemini 4 Neon",
-   "tokens": 323871353
+   "tokens": 390158730
+  },
+  {
+   "tool": "codex",
+   "name": "codex-auto-review",
+   "tokens": 385038156
+  },
+  {
+   "tool": "codex",
+   "name": "gpt-6.2-astra",
+   "tokens": 322687900
   },
   {
    "tool": "antigravity",
    "name": "Gemini 3.8 Flash",
    "tokens": 308893626
-  },
-  {
-   "tool": "codex",
-   "name": "gpt-6.2-astra",
-   "tokens": 239057724
   },
   {
    "tool": "antigravity",
