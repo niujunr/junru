@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23 23:50 +0800",
+ "updated": "2026-11-24 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10210522699,
-  "asOf": "2026-11-23 23:50 +0800",
-  "currentStreakDays": 62,
+  "lifetime": 10455321499,
+  "asOf": "2026-11-24 23:50 +0800",
+  "currentStreakDays": 63,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -541,7 +541,7 @@
    "chatgpt": 168464253
   },
   "2026-11-16": {
-   "codex": 267044420,
+   "codex": 267373373,
    "antigravity": 235753038,
    "chatgpt": 396406136
   },
@@ -573,11 +573,16 @@
   "2026-11-22": {
    "codex": 168957199,
    "antigravity": 67851230,
-   "chatgpt": 5987018
+   "chatgpt": 157425881
   },
   "2026-11-23": {
-   "codex": 95063010,
-   "antigravity": 66287377
+   "codex": 96559364,
+   "antigravity": 66287377,
+   "chatgpt": 93359937
+  },
+  "2026-11-24": {
+   "codex": 307563833,
+   "antigravity": 165818239
   }
  },
  "estimated": [
@@ -669,7 +674,9 @@
   "2026-11-12",
   "2026-11-13",
   "2026-11-14",
-  "2026-11-15"
+  "2026-11-15",
+  "2026-11-16",
+  "2026-11-17"
  ],
  "seen": [],
  "models": [
@@ -691,7 +698,7 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Hydrogen",
-   "tokens": 846272667
+   "tokens": 849093780
   },
   {
    "tool": "grok",
@@ -704,9 +711,14 @@
    "tokens": 646091621
   },
   {
+   "tool": "codex",
+   "name": "gpt-6.2-astra",
+   "tokens": 592081289
+  },
+  {
    "tool": "antigravity",
    "name": "Gemini 4 Carbon",
-   "tokens": 548631106
+   "tokens": 584279848
   },
   {
    "tool": "codex",
@@ -716,17 +728,12 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Neon",
-   "tokens": 390158730
+   "tokens": 514765963
   },
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 385038156
-  },
-  {
-   "tool": "codex",
-   "name": "gpt-6.2-astra",
-   "tokens": 322687900
+   "tokens": 418706906
   },
   {
    "tool": "antigravity",
@@ -736,7 +743,7 @@
   {
    "tool": "antigravity",
    "name": "Claude Opus 5.5",
-   "tokens": 56904980
+   "tokens": 57216192
   },
   {
    "tool": "antigravity",
