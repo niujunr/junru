@@ -17,11 +17,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/projects.html"/>
   </url>
   <url>
-    <loc>https://niujunr.github.io/junru/notes.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/notes.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/notes.html"/>
-  </url>
-  <url>
     <loc>https://niujunr.github.io/junru/usage.html</loc>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/usage.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/usage.html"/>
@@ -40,11 +35,6 @@
     <loc>https://niujunr.github.io/junru/en/projects.html</loc>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/projects.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/projects.html"/>
-  </url>
-  <url>
-    <loc>https://niujunr.github.io/junru/en/notes.html</loc>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://niujunr.github.io/junru/notes.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://niujunr.github.io/junru/en/notes.html"/>
   </url>
   <url>
     <loc>https://niujunr.github.io/junru/en/usage.html</loc>

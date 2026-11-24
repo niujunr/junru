@@ -3,15 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="牛君儒的瞬间时间线。">
+    <meta name="description" content="牛君儒的瞬间，照片与视频。">
     <title>瞬间 — 牛君儒</title>
     <link rel="stylesheet" href="styles.css?v=20261118">
+    <link rel="stylesheet" href="moments.css?v=20261124">
+    <script src="moments.js?v=20261124" defer></script>
     <link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/icon-180.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="牛君儒">
     <meta property="og:title" content="瞬间 — 牛君儒">
-    <meta property="og:description" content="牛君儒的瞬间时间线。">
+    <meta property="og:description" content="牛君儒的瞬间，照片与视频。">
     <meta property="og:url" content="https://niujunr.github.io/junru/projects.html">
     <meta property="og:image" content="https://niujunr.github.io/junru/assets/share.jpg">
     <meta property="og:image:width" content="1200">
@@ -29,148 +31,100 @@
         <a href="index.html">首页</a>
         <a href="experience.html">经历</a>
         <a class="active" aria-current="page" href="projects.html">瞬间</a>
-        <a href="notes.html">项目</a>
         <a href="usage.html">AI 用量</a>
         <a class="lang-switch" href="en/projects.html" lang="en" hreflang="en">EN</a>
       </nav>
     </header>
 
-    <main class="page">
-      <h1 class="page-title">瞬间</h1>
-      <p class="page-lead">以下为公开记录的时间线。</p>
-
-      <section class="timeline" aria-label="瞬间时间线">
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2026-02">2026.02<span class="timeline-location">（南极洲，Middle of Nowhere❄️）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>踏上南极大陆</h2>
-            <p>作为公司奖励的 10 位员工之一，踏上南极大陆。</p>
-            <a class="project-video-card" href="https://weixin.qq.com/sph/AzVlYQCAIk" target="_blank" rel="noopener noreferrer" aria-label="在新标签页观看南极旅程视频">
-              <img loading="lazy" decoding="async" class="project-video-cover" src="assets/antarctica-landing-cover-2026.jpeg" alt="踏上南极大陆视频封面">
-              <span class="video-play-icon" aria-hidden="true"></span>
-              <span class="video-card-title">观看旅程视频</span>
-              <span class="video-card-note">视频号「追觅人：去最远的地方」合集</span>
+    <main class="page moments-page">
+      <h1 class="page-title moments-inner">瞬间</h1>
+      <section class="photo-reel" id="photo-reel" aria-label="瞬间照片">
+        <div class="reel-album" tabindex="0" aria-label="浏览照片">
+          <figure>
+            <a class="reel-media" data-play="wechat" href="https://weixin.qq.com/sph/AzVlYQCAIk" aria-label="在视频号观看《踏上南极大陆》" target="_blank" rel="noopener noreferrer">
+              <img src="assets/antarctica-landing-cover-2026.jpeg" alt="踏上南极大陆视频封面" data-reel-focus="0.87" loading="eager" decoding="async">
+              <span class="reel-play-mark" aria-hidden="true">视频号</span>
             </a>
-            <a class="project-article-link" href="https://weixin.qq.com/sph/AmMx4Envff" target="_blank" rel="noopener noreferrer">查看视频号报道 →</a>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2026-01">2026.01<span class="timeline-location timeline-location--short">（南极洲，南极点📍）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>抵达南极点</h2>
-            <p>抵达南极点，记录南极大陆旅程。</p>
-            <figure class="project-figure">
-              <img loading="lazy" decoding="async" class="project-photo" src="assets/antarctic-pole-2026.jpeg" alt="南极点旅程现场">
-              <figcaption>南极点旅程现场</figcaption>
-            </figure>
-            <video class="project-video project-video--portrait" controls playsinline preload="metadata" poster="assets/antarctic-pole-2026.jpeg">
-              <source src="assets/antarctic-pole-2026.mp4" type="video/mp4">
-              您的浏览器不支持 HTML5 视频播放。
-            </video>
-            <a class="project-article-link" href="https://weixin.qq.com/sph/AmMx4Envff" target="_blank" rel="noopener noreferrer">查看视频号报道 →</a>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2025-11">2025.11<span class="timeline-location">（中国，四川，成都）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>Dreame 公益基金会捐赠公益教室🧑‍🏫</h2>
-            <p>Dreame 公益基金会捐赠公益教室，支持未来教室公益计划。</p>
-            <figure class="project-figure">
-              <a class="project-image-link" href="https://mp.weixin.qq.com/s/G7eaU1hcOlmw9R1mMyhyVA" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看公众号报道">
-                <img loading="lazy" decoding="async" class="project-photo" src="assets/dreame-charity-classroom-2025.jpeg" alt="未来教室公益计划公益教室合影">
-              </a>
-              <figcaption>未来教室公益计划现场</figcaption>
-            </figure>
-            <a class="project-article-link" href="https://mp.weixin.qq.com/s/G7eaU1hcOlmw9R1mMyhyVA" target="_blank" rel="noopener noreferrer">查看公众号报道 →</a>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2025-10">2025.10<span class="timeline-location">（德国，柏林🇩🇪）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>代表 Dreame 在德国柏林与成都市政府签约</h2>
-            <p>作为特邀嘉宾，代表 Dreame 参加中国（成都）—柏林经贸合作对接会；与成都市委书记一对一会面，就合作举行座谈并签约。</p>
-            <figure class="project-figure">
-              <a class="project-image-link" href="https://mp.weixin.qq.com/s/_C-9UToLOH_Fz7w85oQF6w" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看公众号报道">
-                <img loading="lazy" decoding="async" class="project-photo project-photo--portrait" src="assets/chengdu-meeting-2025.jpeg" alt="中国（成都）—柏林经贸合作对接会签约现场">
-              </a>
-              <figcaption>签约现场</figcaption>
-            </figure>
-            <figure class="project-figure">
-              <a class="project-image-link" href="https://mp.weixin.qq.com/s/_C-9UToLOH_Fz7w85oQF6w" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看公众号报道">
-                <img loading="lazy" decoding="async" class="project-photo" src="assets/berlin-chengdu-2025.jpeg" alt="2025 中国（成都）—柏林经贸合作对接会现场">
-              </a>
-              <figcaption>中国（成都）—柏林经贸合作对接会现场（座谈沟通现场照片保密）</figcaption>
-            </figure>
-            <a class="project-article-link" href="https://mp.weixin.qq.com/s/_C-9UToLOH_Fz7w85oQF6w" target="_blank" rel="noopener noreferrer">查看公众号报道 →</a>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2025-05">2025.05<span class="timeline-location">（美国，奥马哈🇺🇸）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>宾夕法尼亚大学毕业，并参加巴菲特最后一期股东大会</h2>
-            <p>于宾夕法尼亚大学毕业；同周前往美国内布拉斯加州奥马哈，参加巴菲特最后一期股东大会。</p>
-            <figure class="project-figure">
-              <img loading="lazy" decoding="async" class="project-photo" src="assets/upenn-omaha-2025.jpeg" alt="2025 年 5 月奥马哈行程照片">
-              <figcaption>2025 年 5 月，奥马哈</figcaption>
-            </figure>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2025">2025<span class="timeline-location">（中国，四川，成都）</span></time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>成都基金签约仪式</h2>
-            <p>参加成都基金签约仪式。</p>
-            <figure class="project-figure">
-              <a class="project-image-link" href="https://mp.weixin.qq.com/s/lhRfp9eigfySDDHZOelJKw" target="_blank" rel="noopener noreferrer" aria-label="在新标签页查看公众号报道">
-                <img loading="lazy" decoding="async" class="project-photo" src="assets/chengdu-fund-signing-2025.jpeg" alt="2025 年成都基金签约仪式现场">
-              </a>
-              <figcaption>成都基金签约仪式现场</figcaption>
-            </figure>
-            <a class="project-article-link" href="https://mp.weixin.qq.com/s/lhRfp9eigfySDDHZOelJKw" target="_blank" rel="noopener noreferrer">查看公众号报道 →</a>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2024-12">2024.12</time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>[项目名称待补充]</h2>
-            <p>[待补充：项目公开介绍]</p>
-            <div class="project-image-placeholder" role="img" aria-label="项目图片待补充">项目图片待补充</div>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2024-03">2024.03</time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>[项目名称待补充]</h2>
-            <p>[待补充：项目公开介绍]</p>
-            <div class="project-image-placeholder" role="img" aria-label="项目图片待补充">项目图片待补充</div>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <time class="timeline-date" datetime="2023-04">2023.04</time>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-content">
-            <h2>[项目名称待补充]</h2>
-            <p>[待补充：项目公开介绍]</p>
-            <div class="project-image-placeholder" role="img" aria-label="项目图片待补充">项目图片待补充</div>
-          </div>
-        </article>
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2026-02">2026.02</time><span>南极洲，Middle of Nowhere❄️</span></p>
+              <h2 class="reel-title">踏上南极大陆</h2>
+              <p class="reel-description">作为公司奖励的 10 位员工之一，踏上南极大陆。</p>
+              <div class="reel-links"><a href="assets/antarctica-landing-cover-2026.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://weixin.qq.com/sph/AmMx4Envff" target="_blank" rel="noopener noreferrer">查看视频号报道</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <a class="reel-media" data-play="file" href="assets/antarctic-pole-2026.mp4" aria-label="播放《抵达南极点》">
+              <img src="assets/antarctic-pole-2026.jpeg" alt="南极点旅程现场" data-reel-focus="0.24" loading="lazy" decoding="async">
+              <span class="reel-play-mark" aria-hidden="true">播放</span>
+            </a>
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2026-01">2026.01</time><span>南极洲，南极点📍</span></p>
+              <h2 class="reel-title">抵达南极点</h2>
+              <p class="reel-description">抵达南极点，记录南极大陆旅程。</p>
+              <div class="reel-links"><a href="assets/antarctic-pole-2026.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://weixin.qq.com/sph/AmMx4Envff" target="_blank" rel="noopener noreferrer">查看视频号报道</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="assets/dreame-charity-classroom-2025.jpeg" alt="未来教室公益计划公益教室合影" loading="lazy" decoding="async">
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2025-11">2025.11</time><span>中国，四川，成都</span></p>
+              <h2 class="reel-title">Dreame 公益基金会捐赠公益教室🧑‍🏫</h2>
+              <p class="reel-description">Dreame 公益基金会捐赠公益教室，支持未来教室公益计划。</p>
+              <div class="reel-links"><a href="assets/dreame-charity-classroom-2025.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://mp.weixin.qq.com/s/G7eaU1hcOlmw9R1mMyhyVA" target="_blank" rel="noopener noreferrer">查看公众号报道</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="assets/chengdu-meeting-2025.jpeg" alt="中国（成都）—柏林经贸合作对接会签约现场" loading="lazy" decoding="async">
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2025-10">2025.10</time><span>德国，柏林🇩🇪</span></p>
+              <h2 class="reel-title">代表 Dreame 在德国柏林与成都市政府签约</h2>
+              <p class="reel-description">作为特邀嘉宾，代表 Dreame 参加中国（成都）—柏林经贸合作对接会；与成都市委书记一对一会面，就合作举行座谈并签约。</p>
+              <div class="reel-links"><a href="assets/chengdu-meeting-2025.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://mp.weixin.qq.com/s/_C-9UToLOH_Fz7w85oQF6w" target="_blank" rel="noopener noreferrer">查看公众号报道</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="assets/berlin-chengdu-2025.jpeg" alt="2025 中国（成都）—柏林经贸合作对接会现场" loading="lazy" decoding="async">
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2025-10">2025.10</time><span>德国，柏林🇩🇪</span></p>
+              <h2 class="reel-title">代表 Dreame 在德国柏林与成都市政府签约</h2>
+              <p class="reel-description">中国（成都）—柏林经贸合作对接会现场（座谈沟通现场照片保密）</p>
+              <div class="reel-links"><a href="assets/berlin-chengdu-2025.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://mp.weixin.qq.com/s/_C-9UToLOH_Fz7w85oQF6w" target="_blank" rel="noopener noreferrer">查看公众号报道</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="assets/upenn-omaha-2025.jpeg" alt="2025 年 5 月奥马哈行程照片" loading="lazy" decoding="async">
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2025-05">2025.05</time><span>美国，奥马哈🇺🇸</span></p>
+              <h2 class="reel-title">宾夕法尼亚大学毕业，并参加巴菲特最后一期股东大会</h2>
+              <p class="reel-description">于宾夕法尼亚大学毕业；同周前往美国内布拉斯加州奥马哈，参加巴菲特最后一期股东大会。</p>
+              <div class="reel-links"><a href="assets/upenn-omaha-2025.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a></div>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="assets/chengdu-fund-signing-2025.jpeg" alt="2025 年成都基金签约仪式现场" loading="lazy" decoding="async">
+            <figcaption class="reel-caption">
+              <p class="reel-meta"><time datetime="2025">2025</time><span>中国，四川，成都</span></p>
+              <h2 class="reel-title">成都基金签约仪式</h2>
+              <p class="reel-description">参加成都基金签约仪式。</p>
+              <div class="reel-links"><a href="assets/chengdu-fund-signing-2025.jpeg" target="_blank" rel="noopener noreferrer">查看原图</a> <a href="https://mp.weixin.qq.com/s/lhRfp9eigfySDDHZOelJKw" target="_blank" rel="noopener noreferrer">查看公众号报道</a></div>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="reel-stage" tabindex="0" role="group" aria-label="浏览照片" aria-keyshortcuts="ArrowLeft ArrowRight" hidden>
+          <div class="reel-strip"></div>
+          <canvas aria-hidden="true" hidden></canvas>
+        </div>
+        <div class="reel-info reel-caption moments-inner" hidden></div>
+        <span class="reel-status" role="status" aria-atomic="true"></span>
       </section>
+      <dialog class="reel-player" aria-labelledby="moment-player-title">
+        <div class="reel-player-heading">
+          <h2 id="moment-player-title"></h2>
+          <button type="button" autofocus>关闭</button>
+        </div>
+        <video controls playsinline preload="none"></video>
+        <a class="reel-player-fallback" hidden>打开视频文件</a>
+      </dialog>
     </main>
 
     <footer class="site-footer">© 2026 牛君儒</footer>

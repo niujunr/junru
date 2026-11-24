@@ -1,0 +1,149 @@
+.moments-page {
+  width: 100%;
+  padding-block: clamp(1.8rem, 4vh, 3rem) 3.2rem;
+}
+
+.moments-inner {
+  width: min(calc(100% - 3rem), var(--page-width));
+  margin-inline: auto;
+}
+
+.moments-page .page-title { margin-block: 0; }
+
+.moments-page :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.photo-reel {
+  --print-width: min(41vw, 60vh, 37rem);
+  --print-width: min(41vw, 60svh, 37rem);
+}
+
+.reel-album {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 2rem max(1.5rem, calc((100% - var(--print-width)) / 2));
+}
+.reel-album figure { flex: 0 0 var(--print-width); min-width: 0; margin: 0; scroll-snap-align: center; }
+.reel-album img { display: block; width: 100%; aspect-ratio: 5 / 3; object-fit: cover; }
+.reel-album figcaption.reel-caption { display: block; padding-top: 0.65rem; }
+.reel-media { display: block; position: relative; }
+.reel-play-mark {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.15rem 0.65rem;
+  background: rgba(18, 18, 18, 0.76);
+  color: white;
+  border-radius: 2rem;
+  font-size: 0.86rem;
+  pointer-events: none;
+}
+.reel-play-mark::before {
+  content: "";
+  border-style: solid;
+  border-width: 0.32em 0 0.32em 0.48em;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.reel-stage {
+  position: relative;
+  width: 100%;
+  height: calc(var(--print-width) * 1.01);
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: grab;
+}
+
+.reel-stage:focus-visible { outline-offset: -3px; }
+.reel-stage.is-dragging { cursor: grabbing; }
+
+.reel-strip,
+.reel-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.reel-print {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: var(--print-width);
+  aspect-ratio: 5 / 3;
+  background: #f2f2f2;
+}
+.reel-print img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.reel-print[data-play] { pointer-events: auto; cursor: pointer; }
+
+.reel-caption {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) minmax(0, 3fr);
+  gap: 0.5rem clamp(1.5rem, 4vw, 3.6rem);
+  padding-top: 1.3rem;
+}
+.reel-info { border-top: 1px solid var(--rule); }
+
+.reel-meta { grid-row: 1 / span 3; margin: 0; color: var(--muted); }
+.reel-meta time {
+  display: block;
+  color: var(--ink);
+  font: 1.3rem/1.5 Georgia, "Times New Roman", serif;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.reel-meta span { font-size: 0.88rem; }
+.reel-title { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.reel-description { margin: 0; color: var(--muted); }
+.reel-links { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.6rem 1.25rem; font-size: 0.92rem; }
+.reel-links a { text-underline-offset: 0.22em; }
+
+.reel-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.reel-player {
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  max-height: 92vh;
+  max-height: 92dvh;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: white;
+}
+.reel-player::backdrop { background: rgba(0, 0, 0, 0.65); }
+.reel-player-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-inline: 1rem; }
+.reel-player-heading h2 { margin: 0; font-size: 1.1rem; }
+.reel-player-heading button { min-height: 44px; padding: 0 0.25rem; border: 0; background: transparent; color: var(--accent); font: inherit; cursor: pointer; }
+.reel-player video { display: block; width: auto; max-width: 100%; max-height: 75vh; max-height: 75dvh; background: #171717; }
+.reel-player-fallback { display: inline-block; padding: 0.5rem 1rem; }
+
+@media (max-aspect-ratio: 11/10) {
+  .photo-reel {
+    --print-width: min(72vw, 60vh);
+    --print-width: min(72vw, 60svh);
+  }
+}
+
+@media (max-width: 640px) {
+  .reel-caption { display: block; padding-top: 1rem; }
+  .reel-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.25rem 0.75rem; }
+  .reel-meta time { font-size: 1.05rem; }
+  .reel-title { margin-top: 0.35rem; }
+  .reel-description, .reel-links { margin-top: 0.55rem; }
+}

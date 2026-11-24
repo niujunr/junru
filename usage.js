@@ -19,6 +19,7 @@
     heroDays: function (n) { return 'across <strong>' + n + (n === 1 ? ' day' : ' days') + '</strong>'; },
     monthAdded: function (m, v) { return '+' + v + ' in ' + MONTHS_LONG[m - 1]; },
     streak: 'Current streak', peak: 'Busiest day', last30: 'Last 30 days',
+    asOfDay: function (k) { return 'As of ' + md(k); },
     days: function (n) { return n + (n === 1 ? ' day' : ' days'); },
     curveLabel: 'Cumulative Tokens over time, stacked by tool',
     quietLabel: function (s) { return 'Light use, ' + s; },
@@ -43,11 +44,12 @@
     seen: '用过 Claude，但没有当天的 Token 记录',
     none: '没用',
     calLabel: function (a, b) { return '使用日历，' + a + ' 到 ' + b; },
-    heroLabel: function (y, m) { return '从 ' + y + ' 年 ' + m + ' 月到今天，一共用了'; },
+    heroLabel: function (y, m) { return '自 ' + y + ' 年 ' + m + ' 月起，累计用了'; },
     heroWord: 'Token',
     heroDays: function (n) { return '分布在 <strong>' + n + ' 天</strong>里'; },
     monthAdded: function (m, v) { return m + ' 月新增 ' + v; },
     streak: '连续使用', peak: '单日最高', last30: '最近 30 天',
+    asOfDay: function (k) { return '截至 ' + md(k); },
     days: function (n) { return n + ' 天'; },
     curveLabel: '累计 Token 随时间的变化，按工具叠起来',
     quietLabel: function (s) { return s + '，用得少'; },
@@ -162,7 +164,13 @@
     if (id && id !== 'all') return groupTotal(r, id);
     return STACK.reduce(function (s, g) { return s + groupTotal(r, g); }, 0);
   }
-  function today() { return key(new Date()); }
+  // Usage dates and the nightly collector are in Shanghai, regardless of visitor timezone.
+  function shanghaiClock() { return new Date(Date.now() + 8 * 3600000); }
+  function today() { return shanghaiClock().toISOString().slice(0, 10); }
+  function snapshotDay() {
+    var stamp = /^\d{4}-\d{2}-\d{2}/.exec(D.updated || '');
+    return stamp ? stamp[0] : usedDays().pop() || today();
+  }
   function usedDays() {
     var set = {};
     Object.keys(D.days).forEach(function (k) { if (dayTotal(k) > 0) set[k] = 1; });
@@ -259,7 +267,7 @@
     $('#hero-days').innerHTML = TEXT.heroDays(used.length);
 
     // 这个月新增多少
-    var now = new Date(), prefix = key(now).slice(0, 7), monthSum = 0;
+    var asOf = snapshotDay(), now = parseDay(asOf), prefix = asOf.slice(0, 7), monthSum = 0;
     Object.keys(D.days).forEach(function (k) { if (k.slice(0, 7) === prefix) monthSum += dayTotal(k); });
     var chip = $('#hero-month');
     chip.hidden = !(monthSum > 0);
@@ -277,15 +285,16 @@
 
     // 连续使用、单日最高、最近 30 天
     var set = {}; used.forEach(function (k) { set[k] = 1; });
-    var cur = 0, d = new Date(); d.setHours(0, 0, 0, 0);
+    var cur = 0, d = now;
     if (!set[key(d)]) d = addDays(d, -1);
+    var streakEnd = key(d);
     while (set[key(d)]) { cur++; d = addDays(d, -1); }
     var peakDay = null, peak = 0;
     Object.keys(D.days).forEach(function (k) { var x = dayTotal(k); if (x > peak) { peak = x; peakDay = k; } });
     var last30 = 0;
-    for (var i = 0; i < 30; i++) last30 += dayTotal(key(addDays(new Date(), -i)));
+    for (var i = 0; i < 30; i++) last30 += dayTotal(key(addDays(now, -i)));
     $('#hero-mini').innerHTML = [
-      [TEXT.streak, TEXT.days(cur)],
+      [TEXT.streak, TEXT.days(cur) + '<small>' + TEXT.asOfDay(cur ? streakEnd : asOf) + '</small>'],
       [TEXT.peak, num(peak) + (peakDay ? '<small>' + md(peakDay) + '</small>' : '')],
       [TEXT.last30, num(last30)],
     ].map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('');
@@ -313,7 +322,7 @@
     for (var i = 1; i < used.length; i++) if (diff(used[i - 1], used[i]) > 30) start = used[i];
     var base = zeros();
     used.forEach(function (k) { if (k < start) ORDER.forEach(function (id) { base[id] += groupTotal(D.days[k], id); }); });
-    var end = today(), n = diff(start, end) + 1, cum = Object.assign({}, base), out = [];
+    var end = snapshotDay(), n = diff(start, end) + 1, cum = Object.assign({}, base), out = [];
     for (var j = 0; j < n; j++) {
       var k = key(addDays(parseDay(start), j)), r = D.days[k];
       ORDER.forEach(function (id) { cum[id] += groupTotal(r, id); });
@@ -422,7 +431,8 @@
     el(todayG, 'circle', { cx: lx, cy: ly, r: 4.5, class: 'usage-curve-pulse' });
     el(todayG, 'path', { d: dot(lx, ly), class: 'usage-curve-dot' });
     var todayItem = { x: lx, nodes: [todayG] };
-    labels.push({ text: TEXT.todayLabel(num(last.all)), x: lx - 12, y: ly - 2, end: true, item: todayItem });
+    var endLabel = last.k === today() ? TEXT.todayLabel(num(last.all)) : TEXT.asOfDay(last.k) + ' · ' + num(last.all);
+    labels.push({ text: endLabel, x: lx - 12, y: ly - 2, end: true, item: todayItem });
     reveal.push(todayItem);
 
     // 悬停时显示竖线和那天的累计
@@ -489,7 +499,7 @@
     if (calSec) calSec.setAttribute('data-palette', state.tool);
     if (seenLeg) seenLeg.hidden = !(state.tool === 'all' || state.tool === 'claude');
     var box = $('#calendar');
-    var end = parseDay(today());
+    var end = parseDay(snapshotDay());
     var start = D.first ? parseDay(D.first) : end;
     var maxWeeks = 53;
     var gridStart = addDays(start, -((start.getDay() + 6) % 7));
@@ -616,14 +626,34 @@
   $('#models').addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('.usage-model-fold')) { e.preventDefault(); state.modelsExpanded = true; renderModels(); } });
   bindTips($('#calendar'));
 
-  function getJSON(url) {
-    return fetch(url + '?v=' + Date.now()).then(function (r) {
+  function getJSON(url, options) {
+    return fetch(url + '?v=' + Date.now(), options).then(function (r) {
       if (!r.ok) throw new Error(r.status);
       return r.json();
     });
   }
-  // 数据文件由每晚的自动更新生成；official 是手动维护的备用官方累计数，也一起写在里面
-  getJSON((EN ? '../' : '') + 'data/ai-usage.json').then(function (data) {
+  function publishedUsage() {
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 4000);
+    return getJSON('https://niujunr.github.io/junru/data/ai-usage.json', {
+      signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer'
+    }).finally(function () { clearTimeout(timeout); });
+  }
+  function loadUsage() {
+    var local = getJSON((EN ? '../' : '') + 'data/ai-usage.json');
+    if (['localhost', '127.0.0.1', '[::1]'].indexOf(location.hostname) < 0) return local;
+    // The 23:50 job pushes from a separate checkout. A local preview can lag behind it.
+    var run = shanghaiClock();
+    if (run.getUTCHours() * 60 + run.getUTCMinutes() < 23 * 60 + 50) run.setUTCDate(run.getUTCDate() - 1);
+    var expected = run.toISOString().slice(0, 10) + ' 23:50';
+    return local.then(function (saved) {
+      if ((saved.updated || '') >= expected) return saved;
+      return publishedUsage().then(function (live) {
+        return live.days && live.updated > (saved.updated || '') ? live : saved;
+      }).catch(function () { return saved; });
+    }, publishedUsage);
+  }
+  loadUsage().then(function (data) {
     OFFICIAL = data.official || null;
     D = data; D.days = D.days || {}; D.seen = D.seen || []; D.estimated = D.estimated || []; D.models = D.models || []; D.tools = D.tools || [];
     var vt = vendorTotals().totals;
