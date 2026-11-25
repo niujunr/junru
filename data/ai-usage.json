@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24 23:50 +0800",
+ "updated": "2026-11-25 23:50 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -32,9 +32,9 @@
   "to": "2026-11-01"
  },
  "chatgpt": {
-  "lifetime": 10455321499,
-  "asOf": "2026-11-24 23:50 +0800",
-  "currentStreakDays": 63,
+  "lifetime": 10727899063,
+  "asOf": "2026-11-25 23:50 +0800",
+  "currentStreakDays": 64,
   "peakDailyTokens": 496956705
  },
  "official": {
@@ -541,7 +541,7 @@
    "chatgpt": 168464253
   },
   "2026-11-16": {
-   "codex": 267373373,
+   "codex": 388990789,
    "antigravity": 235753038,
    "chatgpt": 396406136
   },
@@ -581,8 +581,13 @@
    "chatgpt": 93359937
   },
   "2026-11-24": {
-   "codex": 307563833,
-   "antigravity": 165818239
+   "codex": 309318473,
+   "antigravity": 166462800,
+   "chatgpt": 272577564
+  },
+  "2026-11-25": {
+   "codex": 110119482,
+   "antigravity": 154789969
   }
  },
  "estimated": [
@@ -676,14 +681,15 @@
   "2026-11-14",
   "2026-11-15",
   "2026-11-16",
-  "2026-11-17"
+  "2026-11-17",
+  "2026-11-18"
  ],
  "seen": [],
  "models": [
   {
    "tool": "codex",
    "name": "gpt-6-astra",
-   "tokens": 4265592681
+   "tokens": 4266933237
   },
   {
    "tool": "claude_code",
@@ -698,7 +704,7 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Hydrogen",
-   "tokens": 849093780
+   "tokens": 849970736
   },
   {
    "tool": "grok",
@@ -707,18 +713,23 @@
   },
   {
    "tool": "codex",
+   "name": "gpt-6.2-astra",
+   "tokens": 674672303
+  },
+  {
+   "tool": "codex",
    "name": "gpt-5.6-sol",
    "tokens": 646091621
   },
   {
-   "tool": "codex",
-   "name": "gpt-6.2-astra",
-   "tokens": 592081289
+   "tool": "antigravity",
+   "name": "Gemini 4 Neon",
+   "tokens": 628879125
   },
   {
    "tool": "antigravity",
    "name": "Gemini 4 Carbon",
-   "tokens": 584279848
+   "tokens": 624724260
   },
   {
    "tool": "codex",
@@ -726,14 +737,9 @@
    "tokens": 522382664
   },
   {
-   "tool": "antigravity",
-   "name": "Gemini 4 Neon",
-   "tokens": 514765963
-  },
-  {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 418706906
+   "tokens": 439091013
   },
   {
    "tool": "antigravity",
