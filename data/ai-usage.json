@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27 15:47 +0800",
+ "updated": "2026-11-27 16:23 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -33,7 +33,7 @@
  },
  "chatgpt": {
   "lifetime": 10984947534,
-  "asOf": "2026-11-27 15:47 +0800",
+  "asOf": "2026-11-27 16:23 +0800",
   "currentStreakDays": 66,
   "peakDailyTokens": 496956705
  },
@@ -596,8 +596,8 @@
    "antigravity": 201250547
   },
   "2026-11-27": {
-   "codex": 23729613,
-   "antigravity": 145117948
+   "codex": 35027910,
+   "antigravity": 157750771
   }
  },
  "estimated": [
@@ -714,17 +714,17 @@
   {
    "tool": "antigravity",
    "name": "Gemini 4 Neon",
-   "tokens": 1085706497
+   "tokens": 1096590197
   },
   {
    "tool": "antigravity",
    "name": "Gemini 4 Hydrogen",
-   "tokens": 952928325
+   "tokens": 954677448
   },
   {
    "tool": "codex",
    "name": "gpt-6.2-astra",
-   "tokens": 815202798
+   "tokens": 825132566
   },
   {
    "tool": "antigravity",
@@ -749,7 +749,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 459377612
+   "tokens": 460746141
   },
   {
    "tool": "antigravity",
