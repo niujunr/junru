@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27 15:43 +0800",
+ "updated": "2026-11-27 15:47 +0800",
  "first": "2026-04-26",
  "tools": [
   {
@@ -33,7 +33,7 @@
  },
  "chatgpt": {
   "lifetime": 10984947534,
-  "asOf": "2026-11-27 15:43 +0800",
+  "asOf": "2026-11-27 15:47 +0800",
   "currentStreakDays": 66,
   "peakDailyTokens": 496956705
  },
@@ -497,18 +497,18 @@
   },
   "2026-11-07": {
    "codex": 708915922,
-   "antigravity": 4584799,
-   "chatgpt": 496956705
+   "chatgpt": 496956705,
+   "antigravity": 4584799
   },
   "2026-11-08": {
    "codex": 7396998,
-   "antigravity": 9213028,
-   "chatgpt": 23539053
+   "chatgpt": 23539053,
+   "antigravity": 9213028
   },
   "2026-11-09": {
    "codex": 113642605,
-   "antigravity": 38890220,
-   "chatgpt": 112292302
+   "chatgpt": 112292302,
+   "antigravity": 38890220
   },
   "2026-11-10": {
    "codex": 3161956,
@@ -516,88 +516,88 @@
   },
   "2026-11-11": {
    "codex": 255126461,
-   "antigravity": 87837393,
-   "chatgpt": 246616042
+   "chatgpt": 246616042,
+   "antigravity": 87837393
   },
   "2026-11-12": {
    "claude_code": 22051656,
    "codex": 27693158,
-   "antigravity": 182170184,
-   "chatgpt": 42213028
+   "chatgpt": 42213028,
+   "antigravity": 182170184
   },
   "2026-11-13": {
    "codex": 76299422,
-   "antigravity": 341928371,
-   "chatgpt": 54145117
+   "chatgpt": 54145117,
+   "antigravity": 341928371
   },
   "2026-11-14": {
    "codex": 8771212,
-   "antigravity": 306056752,
-   "chatgpt": 8285634
+   "chatgpt": 8285634,
+   "antigravity": 306056752
   },
   "2026-11-15": {
    "codex": 165364177,
-   "antigravity": 57710338,
-   "chatgpt": 168464253
+   "chatgpt": 168464253,
+   "antigravity": 57710338
   },
   "2026-11-16": {
    "codex": 388990789,
-   "antigravity": 235753038,
-   "chatgpt": 396406136
+   "chatgpt": 396406136,
+   "antigravity": 248980261
   },
   "2026-11-17": {
    "codex": 511900507,
-   "antigravity": 176173953,
-   "chatgpt": 442603136
+   "chatgpt": 442603136,
+   "antigravity": 259326914
   },
   "2026-11-18": {
    "codex": 96240030,
-   "antigravity": 213744658,
-   "chatgpt": 6441657
+   "chatgpt": 6441657,
+   "antigravity": 273666659
   },
   "2026-11-19": {
    "codex": 6830140,
-   "antigravity": 225515818,
-   "chatgpt": 6776549
+   "chatgpt": 6776549,
+   "antigravity": 274977041
   },
   "2026-11-20": {
    "codex": 5741773,
-   "antigravity": 71850281,
-   "chatgpt": 5819262
+   "chatgpt": 5819262,
+   "antigravity": 179144756
   },
   "2026-11-21": {
    "codex": 96543518,
-   "antigravity": 118617243,
-   "chatgpt": 106787371
+   "chatgpt": 106787371,
+   "antigravity": 172817095
   },
   "2026-11-22": {
    "codex": 168957199,
-   "antigravity": 67851230,
-   "chatgpt": 157425881
+   "chatgpt": 157425881,
+   "antigravity": 109720496
   },
   "2026-11-23": {
    "codex": 96559364,
-   "antigravity": 66287377,
-   "chatgpt": 93359937
+   "chatgpt": 93359937,
+   "antigravity": 66287377
   },
   "2026-11-24": {
    "codex": 309318473,
-   "antigravity": 166462800,
-   "chatgpt": 272577564
+   "chatgpt": 272577564,
+   "antigravity": 182449182
   },
   "2026-11-25": {
    "codex": 110119482,
-   "antigravity": 157183977,
-   "chatgpt": 95565805
+   "chatgpt": 95565805,
+   "antigravity": 157183977
   },
   "2026-11-26": {
    "codex": 153727375,
-   "antigravity": 185928343,
-   "chatgpt": 161482666
+   "chatgpt": 161482666,
+   "antigravity": 201250547
   },
   "2026-11-27": {
-   "codex": 22803853,
-   "antigravity": 140015533
+   "codex": 23729613,
+   "antigravity": 145117948
   }
  },
  "estimated": [
@@ -713,18 +713,23 @@
   },
   {
    "tool": "antigravity",
-   "name": "Gemini 4 Hydrogen",
-   "tokens": 889315359
+   "name": "Gemini 4 Neon",
+   "tokens": 1085706497
   },
   {
    "tool": "antigravity",
-   "name": "Gemini 4 Neon",
-   "tokens": 876342269
+   "name": "Gemini 4 Hydrogen",
+   "tokens": 952928325
   },
   {
    "tool": "codex",
    "name": "gpt-6.2-astra",
-   "tokens": 814360787
+   "tokens": 815202798
+  },
+  {
+   "tool": "antigravity",
+   "name": "Gemini 4 Carbon",
+   "tokens": 758954867
   },
   {
    "tool": "grok",
@@ -737,11 +742,6 @@
    "tokens": 646091621
   },
   {
-   "tool": "antigravity",
-   "name": "Gemini 4 Carbon",
-   "tokens": 636876462
-  },
-  {
    "tool": "codex",
    "name": "gpt-5.6-terra",
    "tokens": 522382664
@@ -749,7 +749,7 @@
   {
    "tool": "codex",
    "name": "codex-auto-review",
-   "tokens": 459293863
+   "tokens": 459377612
   },
   {
    "tool": "antigravity",
@@ -759,7 +759,7 @@
   {
    "tool": "antigravity",
    "name": "Claude Opus 5.5",
-   "tokens": 86594107
+   "tokens": 137076510
   },
   {
    "tool": "antigravity",
@@ -816,5 +816,6 @@
    "name": "Opus 4.8",
    "tokens": 35815
   }
- ]
+ ],
+ "antigravityImports": 1
 }
